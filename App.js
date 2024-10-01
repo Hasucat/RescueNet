@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
-import { getFirestore, doc, setDoc } from '@firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDzLoF4Dgs0Nh7ye5IXpDjXLRLjA7cd0oA",
@@ -15,60 +14,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-const AuthScreen = ({
-  email, setEmail, password, setPassword, 
-  isLogin, setIsLogin, handleAuthentication,
-  firstName, setFirstName, lastName, setLastName,
-  dob, setDob, contact, setContact, address, setAddress
-}) => {
+const AuthScreen = ({ email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) => {
   return (
     <View style={styles.authContainer}>
-      <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
+       <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
 
-      {!isLogin && (
-        <>
-          <TextInput
-            style={styles.input}
-            value={firstName}
-            onChangeText={setFirstName}
-            placeholder="First Name"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={lastName}
-            onChangeText={setLastName}
-            placeholder="Last Name"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={dob}
-            onChangeText={setDob}
-            placeholder="Date of Birth (YYYY-MM-DD)"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={contact}
-            onChangeText={setContact}
-            placeholder="Contact Number"
-            keyboardType="phone-pad"
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            value={address}
-            onChangeText={setAddress}
-            placeholder="Address"
-            autoCapitalize="none"
-          />
-        </>
-      )}
-
-      <TextInput
+       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
@@ -93,7 +45,8 @@ const AuthScreen = ({
       </View>
     </View>
   );
-};
+}
+
 
 const AuthenticatedScreen = ({ user, handleAuthentication }) => {
   return (
@@ -104,21 +57,13 @@ const AuthenticatedScreen = ({ user, handleAuthentication }) => {
     </View>
   );
 };
-
 export default App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // Track user authentication state
   const [isLogin, setIsLogin] = useState(true);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dob, setDob] = useState('');
-  const [contact, setContact] = useState('');
-  const [address, setAddress] = useState('');
-
   const auth = getAuth(app);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -127,28 +72,23 @@ export default App = () => {
     return () => unsubscribe();
   }, [auth]);
 
+  
   const handleAuthentication = async () => {
     try {
       if (user) {
-        await signOut(auth);
+        // If user is already authenticated, log out
         console.log('User logged out successfully!');
+        await signOut(auth);
       } else {
+        // Sign in or sign up
         if (isLogin) {
+          // Sign in
           await signInWithEmailAndPassword(auth, email, password);
           console.log('User signed in successfully!');
         } else {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          // Sign up
+          await createUserWithEmailAndPassword(auth, email, password);
           console.log('User created successfully!');
-          
-          // Store additional user data in Firestore
-          await setDoc(doc(db, 'users', userCredential.user.uid), {
-            firstName,
-            lastName,
-            dob,
-            contact,
-            address,
-            email
-          });
         }
       }
     } catch (error) {
@@ -159,8 +99,10 @@ export default App = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {user ? (
+        // Show user's email if user is authenticated
         <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} />
       ) : (
+        // Show sign-in or sign-up form if user is not authenticated
         <AuthScreen
           email={email}
           setEmail={setEmail}
@@ -169,22 +111,11 @@ export default App = () => {
           isLogin={isLogin}
           setIsLogin={setIsLogin}
           handleAuthentication={handleAuthentication}
-          firstName={firstName}
-          setFirstName={setFirstName}
-          lastName={lastName}
-          setLastName={setLastName}
-          dob={dob}
-          setDob={setDob}
-          contact={contact}
-          setContact={setContact}
-          address={address}
-          setAddress={setAddress}
         />
       )}
     </ScrollView>
   );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
