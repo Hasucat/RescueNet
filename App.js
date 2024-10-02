@@ -16,7 +16,11 @@ export default function App() {
       <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{ headerShown: false }} />
+<<<<<<< HEAD
         <Stack.Screen name="UserDashboard" component={UserDashboard} options={{ title: 'User Dashboard' }} />
+=======
+        <Stack.Screen name="UserDashboard" component={UserDashboard} options={{ headerShown: false  }} />
+>>>>>>> 8a6c1e7 (Dashboard Created)
         
       </Stack.Navigator>
     </NavigationContainer>

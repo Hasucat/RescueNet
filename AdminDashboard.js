@@ -17,4 +17,8 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 export default AdminDashboard;
+=======
+export default AdminDashboard;
+>>>>>>> 8a6c1e7 (Dashboard Created)
