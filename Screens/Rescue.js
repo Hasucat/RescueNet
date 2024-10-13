@@ -23,6 +23,7 @@ const Rescue = () => {
 
   useEffect(() => {
     (async () => {
+      await checkGpsEnabled();
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert('Permission Denied', 'Location permission is needed to use this feature.');
@@ -30,20 +31,47 @@ const Rescue = () => {
       }
     })();
   }, []);
-
+  const checkGpsEnabled = async () => {
+    let providerStatus = await Location.hasServicesEnabledAsync();
+    if (!providerStatus) {
+      Alert.alert(
+        'GPS Disabled',
+        'Please enable your location services/GPS to use this feature.',
+        [{ text: 'OK' }]
+      );
+    }
+  };
   const handleUseCurrentLocation = async () => {
-    setLoadingLocation(true);
-    let location = await Location.getCurrentPositionAsync({});
-    setMarker({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    });
-    setRegion({
-      ...region,
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    });
-    setLoadingLocation(false);
+    try {
+      setLoadingLocation(true);
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Location permission is needed to use this feature.');
+        setLoadingLocation(false);
+        return;
+      }
+  
+      let location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.High,  // Try increasing the accuracy
+        timeout: 10000,  // Timeout for location fetching
+      });
+  
+      setMarker({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setRegion({
+        ...region,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    } catch (error) {
+      Alert.alert('Error', 'Unable to fetch current location. Please try again.');
+      console.error("Location fetch error:", error); // Log the error
+    } finally {
+      setLoadingLocation(false);
+    }
   };
 
   const handleSearch = async () => {
@@ -100,6 +128,12 @@ const Rescue = () => {
         }
       });
       Alert.alert("Success", "Rescue request submitted!");
+      setName('');
+      setPhone('');
+      setRiskType('');
+      setDescription('');
+      setMarker(null); // Reset the marker after submission
+
     } catch (error) {
       Alert.alert("Error", error.message);
     }
@@ -107,24 +141,30 @@ const Rescue = () => {
 
   return (
     <View style={styles.container}>
+
+      {/* Map */}
+      
+
       {/* Search Bar */}
       <View style={styles.searchContainer}>
+
+        {/* Search Bar*/}
         <TextInput
           style={styles.searchInput}
           placeholder="Search location"
           value={searchQuery}
           onChangeText={setSearchQuery}
+          onSubmitEditing={() => handleSearch(searchQuery)}
         />
         <TouchableOpacity onPress={handleSearch}>
           <Ionicons name="search" size={24} color="#007bff" />
         </TouchableOpacity>
       </View>
 
-           {/* Use Current Location Button */}
-      <TouchableOpacity style={styles.locationButton} onPress={handleUseCurrentLocation}>
-        <Ionicons name="locate" size={24} color="#007bff" />
-        {loadingLocation && <ActivityIndicator color="#007bff" style={styles.loadingIndicator} />}
-      </TouchableOpacity>
+          {/* Location Button as Overlay */}
+  <TouchableOpacity style={styles.locationButton} onPress={handleUseCurrentLocation}>
+    {loadingLocation ? <ActivityIndicator color="#007bff" /> : <Ionicons name="locate" size={24} color="#007bff" />}
+  </TouchableOpacity>
 
       <MapView
         style={styles.map}
@@ -136,7 +176,9 @@ const Rescue = () => {
           maximumZ={19}
         />
         {marker && <Marker coordinate={marker} />}
+        
       </MapView>
+      
 
       <View style={styles.form}>
         <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
@@ -163,10 +205,6 @@ const Rescue = () => {
           multiline
         />
 
-        {/* Use Current Location Button */}
-        <TouchableOpacity style={styles.locationButton} onPress={handleUseCurrentLocation}>
-          {loadingLocation ? <ActivityIndicator color="#fff" /> : <Text style={styles.locationButtonText}>Use Current Location</Text>}
-        </TouchableOpacity>
 
         {/* Submit Button */}
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -179,72 +217,78 @@ const Rescue = () => {
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    searchContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 3,
-      backgroundColor: '#fff',
-      borderRadius: 10,
-      elevation: 4, // Add shadow effect for Android
-      marginBottom: 3,
-      marginTop:36,
-      marginLeft:10,
-      marginRight:10
+  container: {
+    flex: 1,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 3,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    elevation: 2,
+    marginBottom: 3,
+    marginTop: 40,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginRight: 10,
+  },
+  map: {
+    height:445,
+    marginBottom:10 // Set a fixed height for the map to avoid layout issues
+  },
+  form: {
+    padding :7,
+    marginTop: 1
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  picker: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  locationButton: {
+    position: 'absolute',
+    top: 90, // You can adjust this value to position the button
+    right: 10, // Position to the right corner of the map
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 50, // Make it circular
+    elevation: 3, // Add shadow for Android
+    zIndex: 10, // Ensure it stays on top
+  },
+  loadingIndicator: {
+    marginLeft: 10,
+  },
+  submitButton: {
+    backgroundColor: '#28a745',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
-    },
-    searchInput: {
-      flex: 1,
-      height: 40,
-      borderColor: '#ccc',
-      borderWidth: 1,
-      borderRadius: 10,
-      paddingHorizontal: 10,
-      marginRight: 10,
-    },
-    map: {
-      flex: 1,
-    },
-    form: {
-      padding: 10,
-    },
-    input: {
-      height: 40,
-      borderColor: '#ccc',
-      borderWidth: 1,
-      marginBottom: 10,
-      paddingHorizontal: 10,
-    },
-    picker: {
-      height: 40,
-      marginBottom: 10,
-    },
-    locationButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: 10,
-        borderRadius: 10,
-        elevation: 3, // Add shadow effect for Android
-        marginBottom: 10,
-        marginLeft:340
-      },
-      loadingIndicator: {
-        marginLeft: 10,
-      },
-    submitButton: {
-      backgroundColor: '#28a745',
-      padding: 15,
-      borderRadius: 5,
-      alignItems: 'center',
-    },
-    submitButtonText: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-  });
   
   export default Rescue;
