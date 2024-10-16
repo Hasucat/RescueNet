@@ -9,6 +9,8 @@ import UserDashboard from './UserDashboard';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import ImportantContacts from './Screens/ImportantContacts';
+import VolunteerRegistration from './Screens/VolunteerRegistration';
+
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Rescue" component={Rescue} options={{ headerShown: false   }} />
         <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
         <Stack.Screen name="ImportantContacts" component={ImportantContacts} options={{ title: "Important Contacts" }} />
+        <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
         
       </Stack.Navigator>
     </NavigationContainer>

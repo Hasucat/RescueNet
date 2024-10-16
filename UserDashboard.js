@@ -40,6 +40,10 @@ const UserDashboard = () => {
           <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
           <Text style={styles.iconText}>Disaster Alerts</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerRegistration')}>
+          <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
+          <Text style={styles.iconText}>Volunteer Registration</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Sign out button */}
