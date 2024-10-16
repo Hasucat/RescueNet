@@ -1,245 +1,167 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Alert, ImageBackground, TouchableOpacity, Keyboard, TouchableWithoutFeedback, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import navigation
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+} from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native"; // Import useRoute
+import { Picker } from "@react-native-picker/picker";
+import { auth, db } from "./../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function VolunteerRegistration() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [NID, setNID] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [profession, setProfession] = useState('');
-  const [workArea, setWorkArea] = useState('');
-  const [experience, setExperience] = useState('');
+const VolunteerRegistration = () => {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState(null);
+  const navigation = useNavigation();
+  const route = useRoute(); // Use route to retrieve params
+  const currentUser = auth.currentUser;
 
-  const navigation = useNavigation(); // Use navigation hook
-
-  const handleSubmit = () => {
-    // Check if any field is empty
-    if (!name || !email || !phone || !address || !NID || !age || !gender || !profession || !workArea || !experience) {
-      Alert.alert('Error', 'Please fill out all the fields before submitting.');
-      return; // Stop further execution if validation fails
+  useEffect(() => {
+    // Check if location is returned from MapScreen and update state
+    if (route.params?.location) {
+      setLocation(route.params.location);
     }
-  
-    // Navigate to the user dashboard after successful registration
-    navigation.navigate('UserDashboard'); // Navigate to UserDashboard
-  
-    // Optionally, send a success notification or message
-    Alert.alert('Success', 'You have successfully registered as a volunteer!');
-  
-    // Resetting fields
-    setName('');
-    setEmail('');
-    setPhone('');
-    setAddress('');
-    setNID('');
-    setAge('');
-    setGender('');
-    setProfession('');
-    setWorkArea('');
-    setExperience('');
+  }, [route.params?.location]);
+
+  const handleLocationPick = () => {
+    navigation.navigate("MapScreen");
+  };
+
+  const handleRegister = async () => {
+    if (!name || !age || !phoneNumber || !gender || !location) {
+      Alert.alert("Error", "Please fill all the fields and select a location.");
+      return;
+    }
+
+    const volunteerData = {
+      userId: currentUser.uid,
+      name,
+      age,
+      phoneNumber,
+      gender,
+      location,
+      status: "available",
+    };
+
+    try {
+      await setDoc(doc(db, "volunteers", currentUser.uid), volunteerData);
+      Alert.alert("Success", "You are registered as a volunteer!");
+      navigation.replace("UserDashboard");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView>
-        <ImageBackground
-          source={require('../assets/background.png')} 
-          style={styles.backgroundImage}
-          resizeMode="cover"
+    <View style={styles.container}>
+      <Text style={styles.title}>Volunteer Registration</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Age"
+        value={age}
+        onChangeText={setAge}
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Phone Number"
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
+        keyboardType="phone-pad"
+      />
+
+      {/* Gender Picker */}
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={gender}
+          onValueChange={(itemValue) => setGender(itemValue)}
+          style={styles.picker}
         >
-          <View style={styles.container}>
-            <View style={styles.cardContainer}>
-              <ImageBackground
-                source={require('../assets/header2.jpg')}
-                style={styles.headerBackground}
-              >
-                <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Volunteer Registration</Text>
-                </View>
-              </ImageBackground>
+          <Picker.Item label="Select Gender" value="" />
+          <Picker.Item label="Male" value="male" />
+          <Picker.Item label="Female" value="female" />
+        </Picker>
+      </View>
 
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your name"
-                value={name}
-                onChangeText={setName}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-              />
-              <View style={styles.row}>
-                <View style={styles.smallContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Age"
-                    value={age}
-                    onChangeText={setAge} 
-                  />
-                </View>
-                <View style={styles.smallContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Gender"
-                    value={gender}
-                    onChangeText={setGender}
-                  />
-                </View>  
-                <View style={styles.smallContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Profession"
-                    value={profession}
-                    onChangeText={setProfession}
-                  />
-                </View>  
-              </View>
+      {/* Location Picker Button */}
+      <TouchableOpacity
+        style={styles.locationButton}
+        onPress={handleLocationPick}
+      >
+        <Ionicons name="location-outline" size={24} color="#007bff" />
+        <Text style={styles.locationText}>
+          {location
+            ? `Selected: ${location.latitude}, ${location.longitude}`
+            : "Select Working Location on Map"}
+        </Text>
+      </TouchableOpacity>
 
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your Emergency Contact"
-                value={phone}
-                onChangeText={setPhone}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your NID"
-                value={NID}
-                onChangeText={setNID}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your address"
-                value={address}
-                onChangeText={setAddress}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Working area choice"
-                value={workArea}
-                onChangeText={setWorkArea}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Previous experience as volunteer"
-                value={experience}
-                onChangeText={setExperience}
-              />
-
-              <ImageBackground
-                source={require('../assets/register2.gif')}
-                style={styles.registerBackground}
-              >
-                <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
-                  <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
-              </ImageBackground>
-            </View>
-          </View>
-        </ImageBackground>
-      </ScrollView>
-    </TouchableWithoutFeedback>
+      {/* Register Button */}
+      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+        <Text style={styles.registerButtonText}>Register as Volunteer</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    marginTop: 8,
-  },
-  cardContainer: {
-    width: '100%', 
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    padding: 20, 
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 5, 
-  },
-  headerBackground: {
-    width: '100%', 
-    height: 90,   
-    justifyContent: 'center', 
-    alignItems: 'center',  
-    marginBottom: 10,
-  },
-  header: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    padding: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 15,
-  },
-  headerTitle: {
-    color: '#ffffff',
-    fontSize: 22,
-    marginTop: 10,
-    fontWeight: '900',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 3, 
-    width: '100%',
-  },
-  smallContainer: {
-    flex: 1,
-    height: 50,
-    marginHorizontal: 1,
-    marginTop: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
+  container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
   },
   input: {
-    width: '100%',
     height: 50,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    borderRadius: 8,
+    paddingHorizontal: 15,
     marginBottom: 15,
-    marginTop: -8,
+    backgroundColor: "#fff",
+    fontSize: 16,
   },
-  registerButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
+  pickerContainer: {
+    borderColor: "#ccc",
     borderWidth: 1,
-    borderColor: '#fff', 
+    borderRadius: 8,
+    marginBottom: 15,
+    backgroundColor: "#fff",
   },
-  registerBackground: {
-    width: '100%', 
-    height: 100,   
-    justifyContent: 'center', 
-    alignItems: 'center',  
-    marginBottom: 10,
+  picker: { height: 50, fontSize: 16 },
+  locationButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#e6f2ff",
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
   },
-  buttonText: {
-    color: 'rgba(255, 255, 255, 0)',
-    fontSize: 20,
-    fontWeight: 'bold',
+  locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
+  registerButton: {
+    backgroundColor: "#28a745",
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
   },
+  registerButtonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });
+
+export default VolunteerRegistration;
