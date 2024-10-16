@@ -14,8 +14,15 @@ export default function VolunteerRegistration() {
   const [experience, setExperience] = useState('');
 
   const handleSubmit = () => {
-    Alert.alert(`Registration Successful`, `Name: ${name}\nEmail: ${email}`);
-    
+    // Check if any field is empty
+    if (!name || !email || !phone || !address || !NID || !age || !gender || !profession || !workArea || !experience) {
+      Alert.alert('Error', 'Please fill out all the fields before submitting.');
+      return; // Stop further execution if validation fails
+    }
+  
+    // If all fields are filled, show success alert
+    Alert.alert('Registration Successful', `Name: ${name}\nEmail: ${email}`);
+  
     // Resetting fields
     setName('');
     setEmail('');
@@ -27,7 +34,7 @@ export default function VolunteerRegistration() {
     setProfession('');
     setWorkArea('');
     setExperience('');
-  };
+  };  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -123,6 +130,9 @@ export default function VolunteerRegistration() {
                 source={require('../assets/register2.gif')}
                 style={styles.registerBackground}
               >
+                <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
               </ImageBackground>
             </View>
           </View>
@@ -205,12 +215,14 @@ const styles = StyleSheet.create({
     marginTop: -8,
   },
   registerButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0)', 
+    backgroundColor: 'transparent',
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
     alignItems: 'center',
     marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#fff', 
   },
   registerBackground: {
     width: '100%', 
