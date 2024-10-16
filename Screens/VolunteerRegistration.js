@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonText: {
-    color: 'white',
+    color: 'rgba(255, 255, 255, 0)',
     fontSize: 20,
     fontWeight: 'bold',
   },

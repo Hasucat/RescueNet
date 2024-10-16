@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
@@ -40,6 +40,10 @@ const AuthScreen = () => {
   };
 
   return (
+    <ImageBackground
+      source={require('../assets/background.png')} // Replace with your image path
+      style={styles.background}
+    >
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.authBox}>
         <Text style={styles.headerText}>{isSignUp ? 'Sign Up' : 'Login'}</Text>
@@ -79,17 +83,22 @@ const AuthScreen = () => {
         </View>
       </View>
     </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
 export default AuthScreen;
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // This will adjust the image aspect ratio
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
   },
   authBox: {
     width: '80%',

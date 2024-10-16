@@ -15,13 +15,14 @@ const DosAndDonts = () => {
       <View style={styles.container}>
             <View style={styles.cardContainer}>
             <ImageBackground
-    source={require('../assets/card_back.png')} // Background for the card
-    style={styles.cardBackground} 
-    resizeMode="cover"
-  ><ImageBackground
-      source={require('../assets/header.jpg')} 
-      style={styles.headerBackground} 
-    >
+                source={require('../assets/card_back.png')} // Background for the card
+                style={styles.cardBackground} 
+                resizeMode="cover"
+            >             
+              <ImageBackground
+                source={require('../assets/header.jpg')} 
+                style={styles.headerBackground} 
+              >
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Do's</Text>
                 </View>

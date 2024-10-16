@@ -37,18 +37,15 @@ const ImportantContacts = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={styles.container}>
+      <ScrollView >
         <ImageBackground
           source={require('../assets/background.png')}
           style={styles.backgroundImage}
           resizeMode="cover"
         >
+          <View style={styles.container}>
           <View style={styles.cardContainer}>
-            <ImageBackground
-              source={require('../assets/card_back.png')}
-              style={styles.cardBackground}
-              resizeMode="cover"
-            >
+            
               <ImageBackground
                 source={require('../assets/header.jpg')}
                 style={styles.headerBackground}
@@ -67,7 +64,8 @@ const ImportantContacts = () => {
                   </View>
                 ))}
               </View>
-            </ImageBackground>
+            
+          </View>
           </View>
         </ImageBackground>
       </ScrollView>
@@ -78,9 +76,18 @@ const ImportantContacts = () => {
 export default ImportantContacts;
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
     backgroundColor: 'rgba(255, 255, 255, 0)',
+    marginTop: 8,
   },
   backgroundImage: {
     flex: 1,
@@ -89,18 +96,22 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   cardContainer: {
-    padding: 20,
+    width: '100%', 
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+    padding: 20, 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 5,
-    marginBottom: 30,
+    elevation: 5, 
+    marginBottom: 80,
   },
   cardBackground: {
-    width: '100%',
-    height: '104%',
+    flex: 1,
     justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    marginBottom: 10,
   },
   headerBackground: {
     width: '100%',
@@ -110,6 +121,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   header: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
@@ -117,8 +129,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   headerTitle: {
-    fontSize: 26,
     color: '#ffffff',
+    fontSize: 24,
+    marginTop: 10,
     fontWeight: 'bold',
   },
   section: {
