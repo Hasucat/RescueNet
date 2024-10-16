@@ -3,9 +3,11 @@ import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Act
 import MapView, { Marker, UrlTile } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Picker } from '@react-native-picker/picker'; // For risk type dropdown
-import { db, getFirestore, collection, addDoc } from './../firebase.js';
+import { db, auth } from './../firebase.js'; // Ensure you're importing auth to get current user
+import { collection, addDoc } from 'firebase/firestore';
 import axios from 'axios'; // For search functionality
 import { Ionicons } from '@expo/vector-icons'; 
+
 const Rescue = () => {
   const [region, setRegion] = useState({
     latitude: 23.8103, // Dhaka, Bangladesh
@@ -31,6 +33,7 @@ const Rescue = () => {
       }
     })();
   }, []);
+
   const checkGpsEnabled = async () => {
     let providerStatus = await Location.hasServicesEnabledAsync();
     if (!providerStatus) {
@@ -41,6 +44,7 @@ const Rescue = () => {
       );
     }
   };
+
   const handleUseCurrentLocation = async () => {
     try {
       setLoadingLocation(true);
@@ -111,6 +115,14 @@ const Rescue = () => {
   };
 
   const handleSubmit = async () => {
+    const user = auth.currentUser; // Get current logged-in user
+    if (!user) {
+      Alert.alert("Error", "You must be logged in to submit a rescue request.");
+      return;
+    }
+
+    const userID = user.uid; // Get userID from Firebase Auth
+
     if (!marker || !name || !phone || !riskType || !description) {
       Alert.alert("Error", "Please fill in all fields and mark your location.");
       return;
@@ -118,6 +130,7 @@ const Rescue = () => {
     
     try {
       await addDoc(collection(db, "rescues"), {
+        userID, // Include userID in the Firestore document
         name,
         phone,
         riskType,
@@ -125,7 +138,9 @@ const Rescue = () => {
         location: {
           latitude: marker.latitude,
           longitude: marker.longitude
-        }
+        },
+        status: 'pending', // Set the default status to 'pending'
+        timestamp: new Date(), // Add a timestamp to track the request time
       });
       Alert.alert("Success", "Rescue request submitted!");
       setName('');
@@ -161,10 +176,10 @@ const Rescue = () => {
         </TouchableOpacity>
       </View>
 
-          {/* Location Button as Overlay */}
-  <TouchableOpacity style={styles.locationButton} onPress={handleUseCurrentLocation}>
-    {loadingLocation ? <ActivityIndicator color="#007bff" /> : <Ionicons name="locate" size={24} color="#007bff" />}
-  </TouchableOpacity>
+      {/* Location Button as Overlay */}
+      <TouchableOpacity style={styles.locationButton} onPress={handleUseCurrentLocation}>
+        {loadingLocation ? <ActivityIndicator color="#007bff" /> : <Ionicons name="locate" size={24} color="#007bff" />}
+      </TouchableOpacity>
 
       <MapView
         style={styles.map}
@@ -178,7 +193,6 @@ const Rescue = () => {
         {marker && <Marker coordinate={marker} />}
         
       </MapView>
-      
 
       <View style={styles.form}>
         <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
@@ -205,7 +219,6 @@ const Rescue = () => {
           multiline
         />
 
-
         {/* Submit Button */}
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitButtonText}>Submit Rescue Request</Text>
@@ -214,7 +227,6 @@ const Rescue = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -290,5 +302,4 @@ const styles = StyleSheet.create({
   },
 });
 
-  
-  export default Rescue;
+export default Rescue;

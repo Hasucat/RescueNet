@@ -1,11 +1,55 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Alert, Image } from 'react-native';
-import { auth } from './firebase.js';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Alert, Image, ActivityIndicator } from 'react-native';
+import { auth, db } from './firebase.js';
 import { signOut } from 'firebase/auth';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const UserDashboard = () => {
   const navigation = useNavigation();
+  const [rescueStatus, setRescueStatus] = useState(null);
+  const [isVolunteer, setIsVolunteer] = useState(false); // For checking if the user is a volunteer
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user rescue request status or check if the user is a volunteer
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        Alert.alert("Error", "You must be logged in to view your dashboard.");
+        return;
+      }
+
+      const userID = user.uid;
+
+      try {
+        // Check if the user is a volunteer
+        const volunteerQuery = query(collection(db, "volunteers"), where("userID", "==", userID));
+        const volunteerSnapshot = await getDocs(volunteerQuery);
+        
+        if (!volunteerSnapshot.empty) {
+          setIsVolunteer(true); // The user is a volunteer
+        } else {
+          // If the user is not a volunteer, check their rescue request status
+          const rescueQuery = query(collection(db, "rescues"), where("userID", "==", userID));
+          const rescueSnapshot = await getDocs(rescueQuery);
+
+          if (!rescueSnapshot.empty) {
+            const rescueData = rescueSnapshot.docs[0].data();
+            setRescueStatus(rescueData.status); // Assuming there's a 'status' field in the rescue document
+          } else {
+            setRescueStatus('No rescue requests found.');
+          }
+        }
+      } catch (error) {
+        Alert.alert("Error", "Failed to fetch user data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -21,6 +65,20 @@ const UserDashboard = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Welcome</Text>
       </View>
+
+      {/* Rescue Status for non-volunteers */}
+      {!isVolunteer && (
+        <View style={styles.statusContainer}>
+          <Text style={styles.statusLabel}>Rescue Request Status:</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color="#007bff" />
+          ) : (
+            <Text style={styles.statusText}>
+              {rescueStatus || 'No rescue request submitted yet.'}
+            </Text>
+          )}
+        </View>
+      )}
 
       {/* 4 icons for navigation */}
       <View style={styles.iconGrid}>
@@ -48,7 +106,6 @@ const UserDashboard = () => {
           <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
           <Text style={styles.iconText}>Volunteer Dashboard</Text>
         </TouchableOpacity>
-
       </View>
 
       {/* Sign out button */}
@@ -68,7 +125,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#1188ae', // Purple background color
-    height: 170, // Adjust height to your design
+    height: 150, // Adjust height to your design
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     justifyContent: 'center',
@@ -79,6 +136,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 32,
     fontWeight: 'bold',
+  },
+  statusContainer: {
+    marginTop: 0,
+    alignItems: 'center',
+  },
+  statusLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  statusText: {
+    fontSize: 16,
+    color: '#007bff',
+    marginTop: 2,
   },
   iconGrid: {
     flexDirection: 'row',

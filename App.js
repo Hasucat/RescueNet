@@ -26,6 +26,7 @@ export default function App() {
         <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
         <Stack.Screen name="ImportantContacts" component={ImportantContacts} options={{ title: "Important Contacts" }} />
         <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
+        
          {/* Map Screen for location selection */}
          <Stack.Screen
           name="MapScreen"
