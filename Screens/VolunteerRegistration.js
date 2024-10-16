@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Button, Alert, ImageBackground, TouchableOpacity, Modal, FlatList, Keyboard, TouchableWithoutFeedback, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, TextInput, Alert, ImageBackground, TouchableOpacity, Keyboard, TouchableWithoutFeedback, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import navigation
 
 export default function VolunteerRegistration() {
   const [name, setName] = useState('');
@@ -13,6 +14,8 @@ export default function VolunteerRegistration() {
   const [workArea, setWorkArea] = useState('');
   const [experience, setExperience] = useState('');
 
+  const navigation = useNavigation(); // Use navigation hook
+
   const handleSubmit = () => {
     // Check if any field is empty
     if (!name || !email || !phone || !address || !NID || !age || !gender || !profession || !workArea || !experience) {
@@ -20,8 +23,11 @@ export default function VolunteerRegistration() {
       return; // Stop further execution if validation fails
     }
   
-    // If all fields are filled, show success alert
-    Alert.alert('Registration Successful', `Name: ${name}\nEmail: ${email}`);
+    // Navigate to the user dashboard after successful registration
+    navigation.navigate('UserDashboard'); // Navigate to UserDashboard
+  
+    // Optionally, send a success notification or message
+    Alert.alert('Success', 'You have successfully registered as a volunteer!');
   
     // Resetting fields
     setName('');
@@ -34,7 +40,7 @@ export default function VolunteerRegistration() {
     setProfession('');
     setWorkArea('');
     setExperience('');
-  };  
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -131,7 +137,7 @@ export default function VolunteerRegistration() {
                 style={styles.registerBackground}
               >
                 <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Register</Text>
+                  <Text style={styles.buttonText}>Register</Text>
                 </TouchableOpacity>
               </ImageBackground>
             </View>
