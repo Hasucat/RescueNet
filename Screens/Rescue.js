@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { ScrollView,View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import MapView, { Marker, UrlTile } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Picker } from '@react-native-picker/picker'; // For risk type dropdown
@@ -155,6 +155,7 @@ const Rescue = () => {
   };
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
 
       {/* Map */}
@@ -225,12 +226,17 @@ const Rescue = () => {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1, // Allows content to fill the space when not enough items
+    paddingBottom: 20, // Optional: Add some space at the bottom
   },
   searchContainer: {
     flexDirection: 'row',
@@ -290,7 +296,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   submitButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#0c3038',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',

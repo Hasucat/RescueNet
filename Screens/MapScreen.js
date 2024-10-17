@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {  View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import MapView, { Marker, UrlTile } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios'; // For search functionality
@@ -125,6 +125,7 @@ const MapScreen = ({ route }) => {
   
 
   return (
+    
     <View style={styles.container}>
       {/* Search Bar */}
       <View style={styles.searchContainer}>
@@ -163,6 +164,7 @@ const MapScreen = ({ route }) => {
         <Text style={styles.submitButtonText}>Submit Location</Text>
       </TouchableOpacity>
     </View>
+   
   );
 };
 
@@ -170,6 +172,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',

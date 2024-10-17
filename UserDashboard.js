@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Alert, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity,ImageBackground, ActivityIndicator, View, Alert, Image,ScrollView } from 'react-native';
 import { auth, db } from './firebase.js';
 import { signOut } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';;
 
 const UserDashboard = () => {
   const navigation = useNavigation();
@@ -60,13 +60,17 @@ const UserDashboard = () => {
   };
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
-      {/* Curved Header */}
-      <View style={styles.header}>
+      {/* Rectangular Header with Background Image */}
+      <ImageBackground
+        source={require('./assets/header2.jpg')} // Your background image here
+        style={styles.header}
+        resizeMode="cover" // Makes the image cover the entire header
+      >
         <Text style={styles.headerText}>Welcome</Text>
-      </View>
+      </ImageBackground>
 
-      {/* Rescue Status for non-volunteers */}
       {!isVolunteer && (
         <View style={styles.statusContainer}>
           <Text style={styles.statusLabel}>Rescue Request Status:</Text>
@@ -79,40 +83,50 @@ const UserDashboard = () => {
           )}
         </View>
       )}
-
-      {/* 4 icons for navigation */}
-      <View style={styles.iconGrid}>
+      <ImageBackground
+        source={require('./assets/dashboard5.png')} // Background image for the icons
+        style={styles.contentBackground}
+        resizeMode="cover" // Makes the image cover the entire background
+      >
+    {/* 6 icons arranged in 3 rows of 2 icons each */}
+    <View style={styles.iconGrid}>
+    <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Rescue')}>
-          <Image source={require('./assets/logo/rescue.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Rescue</Text>
+        	<Image source={require('./assets/Rescue.png')} style={styles.cardImage} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('ImportantContacts')}>
-          <Image source={require('./assets/logo/contact.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Important Contacts</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
-          <Image source={require('./assets/logo/dos_and_donts.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Do's & Don'ts</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DisasterAlerts')}>
-          <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Disaster Alerts</Text>
+      		<Image source={require('./assets/alerts.png')} style={styles.cardImage} />
+      	</TouchableOpacity>
+</View>
+<View style={styles.iconRow}>
+	<TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Donation')}>
+      		<Image source={require('./assets/donation1.png')} style={styles.cardImage} />
+      	</TouchableOpacity>
+      	
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmergencyList')}>
+        	<Image source={require('./assets/emergency.png')} style={styles.cardImage} />
         </TouchableOpacity>
+</View>
+<View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerRegistration')}>
-          <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Volunteer Registration</Text>
+        	<Image source={require('./assets/volunreg.png')} style={styles.cardImage} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerDashboard')}>
-          <Image source={require('./assets/logo/alert.png')} style={styles.icon} />
-          <Text style={styles.iconText}>Volunteer Dashboard</Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* Sign out button */}
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerDashboard')}>
+        	<Image source={require('./assets/volunalert.png')} style={styles.cardImage} />
+        </TouchableOpacity>
+</View>
     </View>
+    
+    {/* Sign out button */}
+    <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+      <Text style={styles.buttonText}>Sign out</Text>
+    </TouchableOpacity>
+    </ImageBackground>
+    
+  </View>
+  </ScrollView>
   );
 };
 
@@ -122,15 +136,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
+    
   },
   header: {
+    
     backgroundColor: '#1188ae', // Purple background color
-    height: 150, // Adjust height to your design
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    height: 160, // Adjust height to your design
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50, // Space below header to content
+    
   },
   headerText: {
     color: 'white',
@@ -144,24 +158,55 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#0c3038',
   },
   statusText: {
     fontSize: 16,
-    color: '#007bff',
+    color: '#0c3038',
     marginTop: 2,
   },
+  contentBackground: {
+    flex: 1, // Make it cover the remaining space after the header
+    paddingHorizontal: 40,
+    justifyContent: 'center',
+    paddingVertical: 40, // Padding around the icons and button
+  },
+  scrollContainer: {
+    flexGrow: 1, // Allows content to fill the space when not enough items
+    paddingBottom: 10, // Optional: Add some space at the bottom
+  },
   iconGrid: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
+  iconRow: {
+    flexDirection: 'row', // Arrange icons in a row
+    justifyContent: 'space-between',
+    marginBottom: -2, // Space between rows
+  },
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '45%',
-    marginBottom: 20,
+    width: '50%', // Increased width to make icons wider
+    height: 200,
+    padding: 10, // Increased padding inside the card
+    marginBottom: 20, // Space between rows of icons
+    backgroundColor: "#f8f7e8", // White background for card appearance
+    borderRadius: 10, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowRadius: 4,
+    elevation: 3, // Shadow effect for Android
+    marginHorizontal: -5, // Space between icons in the same row
+    marginRight: -3,
+  },
+  cardImage: {
+    width: '100%', // Ensures image covers the entire width of the card
+    height: 130, // Adjust the height of the card as needed
+    borderRadius: 10, // Same as the card container to create a consistent look
   },
   icon: {
     width: 70,
@@ -169,17 +214,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   iconText: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#333',
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#0c3038',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     width: '60%',
     alignSelf: 'center',
-    marginTop: 30, // Adjust for spacing below icons
+    marginTop: 20, // Adjust for spacing below icons
   },
   buttonText: {
     color: 'white',

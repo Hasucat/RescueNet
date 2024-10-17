@@ -41,7 +41,7 @@ const AuthScreen = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/background.png')} // Replace with your image path
+      source={require('../assets/LoginBackground.png')} // Replace with your image path
       style={styles.background}
     >
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   authBox: {
     width: '80%',
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOpacity: 0.2,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#0c3038',
     padding: 15,
     borderRadius: 8,
     width: '100%',
@@ -141,14 +141,15 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 19,
   },
   switchButton: {
     marginTop: 10,
   },
   switchText: {
-    color: '#0782F9',
-    fontSize: 14,
+    color: '#0c3038',
+    fontSize: 16,
     textAlign: 'center',
+    fontWeight: '700',
   },
 });

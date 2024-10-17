@@ -9,6 +9,9 @@ import UserDashboard from './UserDashboard';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import ImportantContacts from './Screens/ImportantContacts';
+import Donation from './Screens/Donation';
+import Funding from './Screens/Funding';
+import EmergencyList from './Screens/EmergencyList';
 import VolunteerRegistration from './Screens/VolunteerRegistration';
 import MapScreen from './Screens/MapScreen';
 import VolunteerDashboard from './Screens/VolunteerDashboard';
@@ -25,6 +28,9 @@ export default function App() {
         <Stack.Screen name="Rescue" component={Rescue} options={{ headerShown: false   }} />
         <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
         <Stack.Screen name="ImportantContacts" component={ImportantContacts} options={{ title: "Important Contacts" }} />
+        <Stack.Screen name="Donation" component={Donation} options={{ title: "Donation" }} />
+        <Stack.Screen name="EmergencyList" component={EmergencyList} options={{ title: "EmergencyList" }} />
+        <Stack.Screen name="Funding" component={Funding} options={{ title: "Funding" }} />
         <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
         
          {/* Map Screen for location selection */}

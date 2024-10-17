@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Alert,
-  StyleSheet,
-} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { ScrollView, StyleSheet, TextInput, Button, Alert, ImageBackground, TouchableOpacity, Modal, FlatList, Keyboard, TouchableWithoutFeedback, View, Text } from 'react-native';
 import { useNavigation, useRoute } from "@react-navigation/native"; // Import useRoute
 import { Picker } from "@react-native-picker/picker";
 import { auth, db } from "./../firebase";
@@ -60,10 +52,27 @@ const VolunteerRegistration = () => {
     }
   };
 
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Volunteer Registration</Text>
-      <TextInput
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView>
+        <ImageBackground
+          source={require('../assets/background.png')} 
+          style={styles.backgroundImage}
+          resizeMode="cover"
+        >
+          <View style={styles.container}>
+            <View style={styles.cardContainer}>
+              <ImageBackground
+                source={require('../assets/header2.jpg')}
+                style={styles.headerBackground}
+              >
+                <View style={styles.header}>
+                  <Text style={styles.headerTitle}>Volunteer Registration</Text>
+                </View>
+              </ImageBackground>
+
+              <TextInput
         style={styles.input}
         placeholder="Name"
         value={name}
@@ -96,7 +105,6 @@ const VolunteerRegistration = () => {
           <Picker.Item label="Female" value="female" />
         </Picker>
       </View>
-
       {/* Location Picker Button */}
       <TouchableOpacity
         style={styles.locationButton}
@@ -110,32 +118,93 @@ const VolunteerRegistration = () => {
         </Text>
       </TouchableOpacity>
 
-      {/* Register Button */}
-      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-        <Text style={styles.registerButtonText}>Register as Volunteer</Text>
-      </TouchableOpacity>
-    </View>
+              <ImageBackground
+                source={require('../assets/register2.gif')}
+                style={styles.registerBackground}
+              >
+                <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+                <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
+              </ImageBackground>
+            </View>
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#333",
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    marginTop: 8,
+  },
+  cardContainer: {
+    width: '100%', 
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+    padding: 20, 
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5, 
+  },
+  headerBackground: {
+    width: '100%', 
+    height: 90,   
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    marginBottom: 10,
+  },
+  header: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+  headerTitle: {
+    color: '#ffffff',
+    fontSize: 22,
+    marginTop: 10,
+    fontWeight: '900',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 3, 
+    width: '100%',
+  },
+  smallContainer: {
+    flex: 1,
+    height: 50,
+    marginHorizontal: 1,
+    marginTop: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   input: {
+    width: '100%',
     height: 50,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
+    borderRadius: 5,
+    paddingHorizontal: 10,
     marginBottom: 15,
-    backgroundColor: "#fff",
-    fontSize: 16,
+    marginTop: -8,
   },
   pickerContainer: {
     borderColor: "#ccc",
@@ -154,14 +223,28 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 20,
   },
-  locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
   registerButton: {
-    backgroundColor: "#28a745",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
+    backgroundColor: 'transparent',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#fff', 
   },
-  registerButtonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
-});
-
-export default VolunteerRegistration;
+  locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
+  
+  registerBackground: {
+    width: '100%', 
+    height: 100,   
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'rgba(255, 255, 255, 0)',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});export default VolunteerRegistration;
