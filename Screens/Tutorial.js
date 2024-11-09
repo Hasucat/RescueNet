@@ -1,153 +1,226 @@
-import React, { useState, useEffect } from 'react';
-import { ImageBackground,StyleSheet, View, Text, ScrollView } from 'react-native';
+import React from 'react';
+import { ScrollView, ImageBackground, StyleSheet, Text, View, Linking, TouchableOpacity, Image } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Entypo } from 'react-native-vector-icons';
 
-const FoodBank = () => {
-    const [foodData, setFoodData] = useState({
-      drinks: 70,   // Example values
-      dryFood: 50,  // You can update these dynamically
-      meals: 90,
-    });
-  
-    const renderFoodBar = (percentage) => {
-        return (
-            <View style={styles.barContainer}>
-            <View style={[styles.foodBar, { width: `${percentage}%` }]} />
-            </View>
-        );
-    };
+const Tutorial = () => {
+  const handleLinkClick = (url) => {
+    Linking.openURL(url).catch((err) => console.error("Failed to open URL:", err));
+  };
 
- 
+  const youtubeThumbnails = {
+    flood: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg', // Placeholder
+    earthquake: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg', // Placeholder
+    cyclone: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg', // Placeholder
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-    {/* Header Section */}
-    <ImageBackground
-      source={require('../assets/header2.jpg')} // Replace with your header image
-      style={styles.header}
-    >
-      <Text style={styles.headerText}>FOOD BANK</Text>
-    </ImageBackground>
-    
-    
-    <ImageBackground
-        source={require('../assets/dashboard5.png')} // Background image for the icons
-        style={styles.contentBackground}
-        resizeMode="cover" // Makes the image cover the entire background
-      >
-        
-    <ImageBackground
-        source={require('../assets/foodbank.png')} // Replace with your card background image
-        style={styles.authBoxImage}
-      >
-    <View style={styles.authBox}>
-        
-        
-        <View style={styles.foodSection}>
-          <Text style={styles.foodCategory}>Drinks:</Text>
-          {renderFoodBar(foodData.drinks)}
-          <Text style={styles.foodPercentage}>{foodData.drinks}%</Text>
-        </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView>
+        <ImageBackground
+          source={require('../assets/background.png')}
+          style={styles.backgroundImage}
+          resizeMode="cover"
+        >
+          <View style={styles.container}>
+            <View style={styles.cardContainer}>
+              <ImageBackground
+                source={require('../assets/card_back.png')}
+                style={styles.cardBackground}
+                resizeMode="cover"
+              >
+                <ImageBackground
+                  source={require('../assets/header.jpg')}
+                  style={styles.headerBackground}
+                >
+                  <View style={styles.header}>
+                    <Text style={styles.headerTitle}>Tutorial</Text>
+                  </View>
+                </ImageBackground>
 
-        <View style={styles.foodSection}>
-          <Text style={styles.foodCategory}>Dry Food:</Text>
-          {renderFoodBar(foodData.dryFood)}
-          <Text style={styles.foodPercentage}>{foodData.dryFood}%</Text>
-        </View>
+                <View style={styles.section}>
+                  <Text style={styles.sectionTitle}>Flood Resources</Text>
 
-        <View style={styles.foodSection}>
-          <Text style={styles.foodCategory}>Meals:</Text>
-          {renderFoodBar(foodData.meals)}
-          <Text style={styles.foodPercentage}>{foodData.meals}%</Text>
-        </View>
-      </View>
-      </ImageBackground>
-    </ImageBackground>
-    </View>
+                  <TouchableOpacity
+                    style={styles.videoThumbnailContainer}
+                    onPress={() => handleLinkClick('https://www.youtube.com/watch?v=pi_nUPcQz_A')}
+                  >
+                    <Image
+                      source={{ uri: youtubeThumbnails.flood }}
+                      style={styles.thumbnail}
+                    />
+                    <Text style={styles.videoTitle}>Flood Safety Tips</Text>
+                  </TouchableOpacity>
+
+                  <Text style={styles.sectionTitle}>Earthquake Resources</Text>
+
+                  <TouchableOpacity
+                    style={styles.videoThumbnailContainer}
+                    onPress={() => handleLinkClick('https://www.youtube.com/watch?v=BLEPakj1YTY')}
+                  >
+                    <Image
+                      source={{ uri: youtubeThumbnails.earthquake }}
+                      style={styles.thumbnail}
+                    />
+                    <Text style={styles.videoTitle}>Earthquake Preparedness</Text>
+                  </TouchableOpacity>
+
+                  <Text style={styles.sectionTitle}>Cyclone Resources</Text>
+
+                  <TouchableOpacity
+                    style={styles.videoThumbnailContainer}
+                    onPress={() => handleLinkClick('https://www.youtube.com/watch?v=B9qR2e3xyJo')}
+                  >
+                    <Image
+                      source={{ uri: youtubeThumbnails.cyclone }}
+                      style={styles.thumbnail}
+                    />
+                    <Text style={styles.videoTitle}>Cyclone Safety Tips</Text>
+                  </TouchableOpacity>
+
+                  <Text style={styles.sectionTitle}>Other Guidelines</Text>
+
+                  <TouchableOpacity style={styles.menuItem} onPress={() => handleLinkClick('https://live7.bmd.gov.bd/')}>
+                    <View style={styles.iconTextContainer}>
+                      <Entypo name="link" size={30} color="#589ea3" />
+                      <Text style={styles.menuText}>Bangladesh Meteorological Department</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.menuItem} onPress={() => handleLinkClick('http://www.ffwc.gov.bd/')}>
+                    <View style={styles.iconTextContainer}>
+                      <Entypo name="link" size={30} color="#589ea3" />
+                      <Text style={styles.menuText}>Flood Forecasting & Warning Centre</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.menuItem} onPress={() => handleLinkClick('https://www.windy.com/?23.702,90.374,5')}>
+                    <View style={styles.iconTextContainer}>
+                      <Entypo name="link" size={30} color="#589ea3" />
+                      <Text style={styles.menuText}>WindMap & Weather Forecast</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.menuItem} onPress={() => handleLinkClick('https://modmr.gov.bd/')}>
+                    <View style={styles.iconTextContainer}>
+                      <Entypo name="link" size={30} color="#589ea3" />
+                      <Text style={styles.menuText}>Ministry of Disaster Management and Relief</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.menuItem} onPress={() => handleLinkClick('https://www.bamis.gov.bd/bulletin/district/')}>
+                    <View style={styles.iconTextContainer}>
+                      <Entypo name="link" size={30} color="#589ea3" />
+                      <Text style={styles.menuText}>BAMIS</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </ImageBackground>
+            </View>
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 };
 
-export default FoodBank;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      background: {
-        flex: 1,
-        resizeMode: 'cover', // This will adjust the image aspect ratio
-        justifyContent: 'center',
-      },
-      header: {
-        backgroundColor: '#1188ae', // Purple background color
-        height: 95, // Adjust height to your design
-        justifyContent: 'center',
-        alignItems: 'center',
-        
-      },
-      headerText: {
-        color: 'white',
-        fontSize: 32,
-        fontWeight: 'bold',
-      },
-      contentBackground: {
-        flex: 1, // Make it cover the remaining space after the header
-        paddingHorizontal: 0,
-        justifyContent: 'center',
-        paddingVertical: 50, // Padding around the icons and button
-      },
-      authBox: {
-        width: '80%',
-        height: '100',
-        padding: 40,
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        borderRadius: 10,
-        marginLeft: 30,
-        marginBottom: 50,
-      },
-      authBoxImage: {
-        width: '100%',  // Width of the food card
-        height: 570,  // Adjust height based on your layout
-        marginVertical: 60,  // Vertical spacing around the card
-        alignSelf: 'center',  // Center the card horizontally
-        resizeMode: 'cover',  // Adjust how the image fits within its container
-        overflow: 'hidden',  // Ensure content doesn’t exceed the rounded edges
-      },
-      
-      title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
-      },
-  foodSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  container: {
+    flex: 1,
     alignItems: 'center',
-    width: '90%',
-    marginBottom: 40,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    marginTop: 8,
   },
-  foodCategory: {
-    fontSize: 28,
-   marginLeft: -40,
-   
+  cardContainer: {
+    width: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
+    marginBottom: 30,
   },
-  foodPercentage: {
-    fontSize: 18,
+  cardBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+    height: '104%',
+    marginBottom: 10,
+  },
+  headerBackground: {
+    width: '100%',
+    height: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  header: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+  headerTitle: {
+    color: '#ffffff',
+    fontSize: 26,
+    marginTop: 10,
     fontWeight: 'bold',
-    
+    marginBottom: -18,
   },
-  barContainer: {
-    width: '60%',  // Adjust the width of the bar container
-    height: 25,    // Height of the bar
-    backgroundColor: '#ccc',
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 15,
+    color: '#007bff',
+  },
+  videoThumbnailContainer: {
+    marginBottom: 20,
     borderRadius: 10,
     overflow: 'hidden',
-    marginHorizontal: 10, // Space between bars and percentage
+    borderWidth: 2,
+    borderColor: '#ddd',
   },
-  foodBar: {
-    height: '100%',
-    backgroundColor: '#4caf50',  // Bar color
-    borderRadius: 10,
+  thumbnail: {
+    width: '100%',
+    height: 200,
+  },
+  videoTitle: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  iconTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuText: {
+    color: '#3c05e3',
+    fontSize: 14,
+    marginVertical: 10,
+    marginLeft: 15,
+  },
+  menuItem: {
+    padding: 15,
+    borderBottomColor: '#ddd',
+    marginLeft: 10,
   },
 });
+
+export default Tutorial;
