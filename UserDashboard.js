@@ -1,12 +1,25 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity,ImageBackground, ActivityIndicator, View, Alert, Image,ScrollView } from 'react-native';
+import { StyleSheet, Animated,Text, TouchableOpacity,ImageBackground, ActivityIndicator, View, Alert, Image,ScrollView } from 'react-native';
 import { auth, db } from './firebase.js';
 import { signOut } from 'firebase/auth';
 import { collection, query, where, getDocs } from 'firebase/firestore';;
+import { Ionicons,Entypo, MaterialCommunityIcons,AntDesign } from 'react-native-vector-icons';
 
 const UserDashboard = () => {
   const navigation = useNavigation();
+
+  const [menuVisible, setMenuVisible] = useState(false);
+  const slideAnim = useState(new Animated.Value(-300))[0];
+
+  const toggleMenu = () => {
+    Animated.timing(slideAnim, {
+      toValue: menuVisible ? -300 : 0, // Slide in when menuVisible is true
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => setMenuVisible(!menuVisible));
+  };
+
   const [rescueStatus, setRescueStatus] = useState(null);
   const [isVolunteer, setIsVolunteer] = useState(false); // For checking if the user is a volunteer
   const [loading, setLoading] = useState(true);
@@ -61,21 +74,93 @@ const UserDashboard = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-    <View style={styles.container}>
-      {/* Rectangular Header with Background Image */}
-      <ImageBackground
-        source={require('./assets/header2.jpg')} // Your background image here
-        style={styles.header}
-        resizeMode="cover" // Makes the image cover the entire header
-      >
-        <Text style={styles.headerText}>Welcome</Text>
-      </ImageBackground>
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={toggleMenu} style={styles.menuIcon}>
+            <Ionicons name="menu" size={39} color="#fff" />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Welcome</Text>
+        </View>
 
+        {/* Slide Menu */}
+        {menuVisible && (
+          <>
+            {/* Background overlay to close the menu */}
+            <TouchableOpacity style={styles.overlay} onPress={toggleMenu} />
+
+            <Animated.View style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}>
+  <TouchableOpacity onPress={toggleMenu} style={styles.backButton}>
+    <Ionicons name="arrow-back" size={30} color="#000" />
+  </TouchableOpacity>
+  <View style={styles.bar}></View> 
+  <TouchableOpacity onPress={() => navigation.navigate('UpdateProfile')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <Ionicons name="person" size={30} color="#5c6996" />
+      <Text style={styles.menuText}>Update Profile</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('ImportantContacts')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <MaterialCommunityIcons name="contacts" size={30} color="#158a20" />
+      <Text style={styles.menuText}>Emergency Contact</Text>
+    </View>
+  </TouchableOpacity>
+  
+  <TouchableOpacity onPress={() => navigation.navigate('VolunteerRegistration')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <MaterialCommunityIcons name="account-heart" size={30} color="#b01950" />
+      <Text style={styles.menuText}>Be Volunteer</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('Tutorial')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <Entypo name="youtube" size={30} color="#db1a14" />
+      <Text style={styles.menuText}>Tutorial</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('RelevantLink')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <Entypo name="link" size={30} color="#589ea3" />
+      <Text style={styles.menuText}>Relevant Link</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('Survey')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <Entypo name="clipboard" size={30} color="#6d666e" />
+      <Text style={styles.menuText}>Survey</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => navigation.navigate('About')} style={styles.menuItem}>
+    <View style={styles.iconTextContainer}>
+      <AntDesign name="infocirlce" size={30} color="#000000" />
+      <Text style={styles.menuText}>About</Text>
+    </View>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+    <View style={styles.iconTextContainer}>
+      <Text style={styles.buttonText}>Sign out</Text>
+    </View>
+  </TouchableOpacity>
+</Animated.View>
+          </>
+        )}
+<ImageBackground
+        source={require('./assets/header2.jpg')} // Background image for the icons
+        style={styles.rescueRequest}
+        resizeMode="cover" // Makes the image cover the entire background
+      >
       {!isVolunteer && (
         <View style={styles.statusContainer}>
-          <Text style={styles.statusLabel}>Rescue Request Status:</Text>
+          <Text style={styles.statusLabel}  color="#f7f8fa" > Rescue Request Status:</Text>
           {loading ? (
-            <ActivityIndicator size="large" color="#007bff" />
+            <ActivityIndicator size="large" color="#f7f8fa" />
           ) : (
             <Text style={styles.statusText}>
               {rescueStatus || 'No rescue request submitted yet.'}
@@ -83,6 +168,7 @@ const UserDashboard = () => {
           )}
         </View>
       )}
+      </ImageBackground>
       <ImageBackground
         source={require('./assets/dashboard5.png')} // Background image for the icons
         style={styles.contentBackground}
@@ -118,11 +204,6 @@ const UserDashboard = () => {
         </TouchableOpacity>
 </View>
     </View>
-    
-    {/* Sign out button */}
-    <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-      <Text style={styles.buttonText}>Sign out</Text>
-    </TouchableOpacity>
     </ImageBackground>
     
   </View>
@@ -132,6 +213,7 @@ const UserDashboard = () => {
 
 export default UserDashboard;
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -140,8 +222,8 @@ const styles = StyleSheet.create({
   },
   header: {
     
-    backgroundColor: '#1188ae', // Purple background color
-    height: 160, // Adjust height to your design
+    backgroundColor: '#2a5157', // Purple background color
+    height: 130, // Adjust height to your design
     justifyContent: 'center',
     alignItems: 'center',
     
@@ -150,19 +232,75 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 32,
     fontWeight: 'bold',
+    marginBottom: -60,
   },
+  bar: {
+    height: 90,
+    backgroundColor: '#fff',
+    marginBottom: 0,
+    marginTop: -40,
+    marginHorizontal: -10,
+    backgroundColor:'#1c294f'
+  },
+  menuItem: {
+    padding: 15,
+    borderBottomColor: '#ddd',
+    backgroundColor: '#f5f2e6',
+  },
+  iconTextContainer: {
+    flexDirection: 'row',     // Align icon and text in a row
+    alignItems: 'center',     // Center vertically
+  },
+  menuIcon: { 
+    position: 'absolute',
+     left: 20,
+      top: 80 ,
+      marginRight: 15,
+      color: '#000',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1, // Background overlay behind the menu
+  },
+  menu: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 300,
+    height: '100%',
+    backgroundColor: '#f5f2e6',
+    padding: 20,
+    zIndex: 10, // Ensure it sits above the overlay
+  },
+  menuText: { 
+    color: '#00000', 
+    fontSize: 19, 
+    marginVertical: 10,
+    marginLeft: 10, 
+ },
   statusContainer: {
     marginTop: 0,
+    height: 100,
     alignItems: 'center',
+    padding:20,
+  },
+  backButton: {
+    marginBottom: 60, // Space between the back button and menu items
+    alignSelf: 'flex-start',
   },
   statusLabel: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#0c3038',
+    color: '#f7f8fa',
   },
   statusText: {
     fontSize: 16,
-    color: '#0c3038',
+    color: '#e32802',
     marginTop: 2,
   },
   contentBackground: {
@@ -190,18 +328,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%', // Increased width to make icons wider
-    height: 200,
+    height: 160,
     padding: 10, // Increased padding inside the card
-    marginBottom: 20, // Space between rows of icons
+    marginBottom: 14, // Space between rows of icons
     backgroundColor: "#f8f7e8", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    borderRadius: 6, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
     shadowRadius: 4,
     elevation: 3, // Shadow effect for Android
-    marginHorizontal: -5, // Space between icons in the same row
-    marginRight: -3,
+    marginHorizontal: -6, // Space between icons in the same row
+    marginRight: -6,
+    marginTop: -5,
   },
   cardImage: {
     width: '100%', // Ensures image covers the entire width of the card
@@ -230,5 +369,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+  },
+  rescueRequest: {
+    width: '100%',
+    height:100,
   },
 });
