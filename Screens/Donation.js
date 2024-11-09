@@ -20,12 +20,12 @@ const Donation = () => {
             </TouchableOpacity>
         
         
-            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('FoodBank')}>
             <Image source={require('../assets/food.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         
-            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Clothing')}>
             <Image source={require('../assets/clothing.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
