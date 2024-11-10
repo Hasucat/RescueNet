@@ -22,6 +22,20 @@ import EmergencyList from './Screens/EmergencyList';
 import VolunteerRegistration from './Screens/VolunteerRegistration';
 import MapScreen from './Screens/MapScreen';
 import VolunteerDashboard from './Screens/VolunteerDashboard';
+import Cyclone from './Screens/Cyclone';
+import Flood from './Screens/Flood';
+import Earthquake from './Screens/Earthquake';
+import Tsunami from './Screens/Tsunami';
+import Landslide from './Screens/Landslide';
+import Drought from './Screens/Drought';
+import Hurricane from './Screens/Hurricane';
+import Wildfire from './Screens/Wildfire';
+import HighTide from './Screens/HighTide';
+import Lightning from './Screens/Lightning';
+import RoadAccident from './Screens/RoadAccident';
+import Fire from './Screens/Fire';
+import CyberCrime from './Screens/CyberCrime';
+import Robbery from './Screens/Robbery';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -46,7 +60,22 @@ export default function App() {
         <Stack.Screen name="Survey" component={Survey} options={{ title: "Survey" }} />
         <Stack.Screen name="Tutorial" component={Tutorial} options={{ title: "Tutorial" }} />
         <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
-        
+        <Stack.Screen name="Cyclone" component={Cyclone} options={{ title: "Cyclone" }} />
+        <Stack.Screen name="Flood" component={Flood} options={{ title: "Flood" }} />
+        <Stack.Screen name="Earthquake" component={Earthquake} options={{ title: "Earthquake" }} />
+        <Stack.Screen name="Tsunami" component={Tsunami} options={{ title: "Tsunami" }} />
+        <Stack.Screen name="Landslide" component={Landslide} options={{ title: "Landslide" }} />
+        <Stack.Screen name="Drought" component={Drought} options={{ title: "Drought" }} />
+        <Stack.Screen name="Hurricane" component={Hurricane} options={{ title: "Hurricane" }} />
+        <Stack.Screen name="Wildfire" component={Wildfire} options={{ title: "Wildfire" }} />
+        <Stack.Screen name="HighTide" component={HighTide} options={{ title: "HighTide" }} />
+        <Stack.Screen name="Lightning" component={Lightning} options={{ title: "Lightning" }} />
+        <Stack.Screen name="RoadAccident" component={RoadAccident} options={{ title: "RoadAccident" }} />
+        <Stack.Screen name="Fire" component={Fire} options={{ title: "Fire" }} />
+        <Stack.Screen name="CyberCrime" component={CyberCrime} options={{ title: "CyberCrime" }} />
+        <Stack.Screen name="Robbery" component={Robbery} options={{ title: "Robbery" }} />
+
+
          {/* Map Screen for location selection */}
          <Stack.Screen
           name="MapScreen"
