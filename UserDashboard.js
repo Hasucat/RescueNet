@@ -94,7 +94,7 @@ const UserDashboard = () => {
     <Ionicons name="arrow-back" size={30} color="#000" />
   </TouchableOpacity>
   <View style={styles.bar}></View> 
-  <TouchableOpacity onPress={() => navigation.navigate('UpdateProfile')} style={styles.menuItem}>
+  <TouchableOpacity onPress={() => navigation.navigate('VolunteerRegistration')} style={styles.menuItem}>
     <View style={styles.iconTextContainer}>
       <Ionicons name="person" size={30} color="#5c6996" />
       <Text style={styles.menuText}>Update Profile</Text>

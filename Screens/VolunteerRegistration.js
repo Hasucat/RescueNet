@@ -45,7 +45,7 @@ const VolunteerRegistration = () => {
 
     try {
       await setDoc(doc(db, "volunteers", currentUser.uid), volunteerData);
-      Alert.alert("Success", "You are registered as a volunteer!");
+      Alert.alert("Success", "Your profile has been updated as a volunteer!");
       navigation.replace("UserDashboard");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -68,7 +68,7 @@ const VolunteerRegistration = () => {
                 style={styles.headerBackground}
               >
                 <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Volunteer Registration</Text>
+                  <Text style={styles.headerTitle}>Volunteer Profile Update</Text>
                 </View>
               </ImageBackground>
 
@@ -119,7 +119,7 @@ const VolunteerRegistration = () => {
       </TouchableOpacity>
 
               <ImageBackground
-                source={require('../assets/register2.gif')}
+                source={require('../assets/update.gif')}
                 style={styles.registerBackground}
               >
                 <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
