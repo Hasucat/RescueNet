@@ -5,12 +5,12 @@ import { CheckBox } from 'react-native-elements';
 const Wildfire = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Ensure everyone in your household knows the evacuation routes, communication plan, and meeting points.", checked: false },
+    { title: "Prepare a kit with essentials like water, non-perishable food, first aid supplies, flashlights, and important documents.", checked: false },
+    { title: "Clear gutters, roofs, and surroundings of dry leaves and debris. Maintain a defensible space by removing flammable plants and materials.", checked: false },
+    { title: "Sign up for emergency alerts from local agencies, and monitor weather conditions and fire risks in your area.", checked: false },
+    { title: "Use fire-resistant materials for roofs, windows, and vents. Install smoke detectors and fire extinguishers.", checked: false },
+    { title: "Safeguard important documents digitally, such as IDs, insurance, and medical records.", checked: false }
   ]);
 
   // Define content for each tab
@@ -21,23 +21,23 @@ const Wildfire = () => {
       { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
       { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
       { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+      { title: "Safeguard important documents digitally, such as IDs, insurance, and medical records.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "Follow local authorities' instructions and leave as soon as advised.", checked: false },
+      { title: "Use N95 masks if available, and stay indoors with windows and doors shut if not in immediate danger.", checked: false },
+      { title: "Keep the fuel tank full and park in an open space facing out, ready to leave quickly.", checked: false },
+      { title: "Don't Use Indoor Fans or AC. Air systems can pull in smoke from the outside.", checked: false },
+      { title: "Visibility is drastically reduced, so avoid traveling through heavy smoke when possible.", checked: false },
+      { title: "Keep away from fire zones and do not block access for emergency responders.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Look for hazards like fallen power lines, hot spots, or structural damage.", checked: false },
+      { title: "Use masks, gloves, and sturdy shoes while inspecting or cleaning up.", checked: false },
+      { title: "Replenish your emergency kit, and consider upgrades for future preparedness.", checked: false },
+      { title: "Avoid Charred or Fallen Trees. These could be unstable and pose a risk of falling.", checked: false },
+      { title: "Inspect any home equipment or electronics for damage before use and Don't Drink Tap Water; It may be contaminated.", checked: false },
+      { title: "Don't Discard Damaged Belongings Hastily. Some items may be salvageable or required for insurance claims.", checked: false }
     ]
   };
 

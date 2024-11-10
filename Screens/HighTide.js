@@ -5,12 +5,12 @@ import { CheckBox } from 'react-native-elements';
 const HighTide = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Stay updated on tide schedules and listen for any warnings about unusually high tides or storm surges from local authorities.", checked: false },
+    { title: "Have a kit ready with essentials like drinking water, food, flashlights, first aid supplies, and important documents in waterproof containers.", checked: false },
+    { title: "Identify higher ground and safe evacuation routes, especially if you live in a flood-prone area. Share the plan with household members.", checked: false },
+    { title: "Remove or anchor outdoor furniture, boats, and other loose items that could be carried away by rising waters.", checked: false },
+    { title: "If possible, use sandbags or temporary barriers to prevent water from entering lower levels of your home.", checked: false },
+    { title: "Consider shutting off gas and electrical power to lower levels of your home if flooding is expected.", checked: false }
   ]);
 
   // Define content for each tab
@@ -24,20 +24,20 @@ const HighTide = () => {
       { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "If evacuation orders are issued, leave immediately and follow designated routes to avoid flooded areas.", checked: false },
+      { title: "Avoid the beach, shorelines, and flooded areas, as high tides and storm surges can produce strong currents and dangerous waves.", checked: false },
+      { title: "Even shallow water can sweep away vehicles; don’t attempt to drive through water-covered roads.", checked: false },
+      { title: "High tides can damage or expose electrical lines, so maintain a safe distance from potential hazards.", checked: false },
+      { title: "Floodwaters may contain debris, contaminants, or hidden hazards, so keep everyone away from these areas.", checked: false },
+      { title: "Continue to monitor emergency broadcasts and alerts for any changes in the tide levels or additional warnings.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Ensure it's safe to return to affected areas, as receding tides can leave unstable ground and hidden hazards.", checked: false },
+      { title: "Check for structural damage, electrical issues, or water damage inside your home and around the property.", checked: false },
+      { title: "Floodwaters may still be contaminated or contain debris, making it unsafe to cross.", checked: false },
+      { title: "Any items that came into contact with floodwater, such as food or porous materials, should be discarded to avoid health risks.", checked: false },
+      { title: "Notify authorities if you encounter downed power lines, broken pipes, or damaged roads, as these may pose hazards to the community.", checked: false },
+      { title: "Remove standing water and disinfect surfaces to prevent mold and bacterial growth. Allow belongings to dry thoroughly before reuse.", checked: false }
     ]
   };
 

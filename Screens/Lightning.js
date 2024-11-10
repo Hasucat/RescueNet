@@ -5,18 +5,18 @@ import { CheckBox } from 'react-native-elements';
 const Lightning = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Identify safe indoor locations and review safety tips with everyone in your household. Stay informed about weather conditions by monitoring alerts.", checked: false },
+    { title: "Bring in any objects that could attract lightning, such as metal tools, bikes, or lawn chairs, to reduce the risk of strikes near the house.", checked: false },
+    { title: "Protect your electronics from power surges by unplugging computers, TVs, and appliances.", checked: false },
+    { title: "Don't set up campsites or spend time in open areas where tall objects are nearby.", checked: false },
+    { title: "Plan to avoid open water or damp ground if lightning is predicted, as water is a strong conductor of electricity.", checked: false },
+    { title: "If you live in a high-risk area, consider lightning rods and surge protectors to help divert strikes safely.", checked: false }
   ]);
 
   // Define content for each tab
   const content = {
     Before: [
-      { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
+      { title: "Identify safe indoor locations and review safety tips with everyone in your household. Stay informed about weather conditions by monitoring alerts.", checked: false },
       { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
       { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
       { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
@@ -24,20 +24,20 @@ const Lightning = () => {
       { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "Go indoors or into a hard-topped vehicle if you hear thunder; remember, if you can hear thunder, you’re close enough to be struck by lightning.", checked: false },
+      { title: "Avoid windows, plumbing, and electrical fixtures as these can conduct electricity.", checked: false },
+      { title: "Don't bathe, shower, or wash dishes during a storm, as water pipes can carry electricity.", checked: false },
+      { title: "Avoid using corded phones or electronics plugged into outlets, as they can conduct lightning.", checked: false },
+      { title: "Lightning can travel through the metal rebar in concrete structures, so stand clear.", checked: false },
+      { title: "Do not take shelter under trees, near poles, or in open fields, as lightning often strikes the tallest point in an area.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Don't leave shelter immediately; wait at least 30 minutes after the last clap of thunder to ensure safety.", checked: false },
+      { title: "If someone has been struck, call emergency services and administer CPR if necessary—lightning strike victims can often be revived with prompt care.", checked: false },
+      { title: "Check your home for any signs of fire or electrical damage; look out for scorch marks or malfunctioning electronics.", checked: false },
+      { title: "Stay clear of any downed lines and report them to the authorities.", checked: false },
+      { title: "Avoid walking through or touching water outdoors, as it may still conduct electricity from any residual storm activity.", checked: false },
+      { title: "Check appliances and reset breakers if needed, but avoid using damaged devices until inspected by a professional.", checked: false }
     ]
   };
 
