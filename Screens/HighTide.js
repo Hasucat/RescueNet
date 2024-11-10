@@ -26,7 +26,7 @@ const HighTide = () => {
     During: [
       { title: "If evacuation orders are issued, leave immediately and follow designated routes to avoid flooded areas.", checked: false },
       { title: "Avoid the beach, shorelines, and flooded areas, as high tides and storm surges can produce strong currents and dangerous waves.", checked: false },
-      { title: "Even shallow water can sweep away vehicles; don’t attempt to drive through water-covered roads.", checked: false },
+      { title: "Even shallow water can sweep away vehicles; don't attempt to drive through water-covered roads.", checked: false },
       { title: "High tides can damage or expose electrical lines, so maintain a safe distance from potential hazards.", checked: false },
       { title: "Floodwaters may contain debris, contaminants, or hidden hazards, so keep everyone away from these areas.", checked: false },
       { title: "Continue to monitor emergency broadcasts and alerts for any changes in the tide levels or additional warnings.", checked: false }
@@ -70,7 +70,7 @@ const HighTide = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/cyclone.jpeg')} style={styles.image}>
+      <ImageBackground source={require('../assets/hightide.png')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

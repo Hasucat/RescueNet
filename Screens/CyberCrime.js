@@ -5,12 +5,12 @@ import { CheckBox } from 'react-native-elements';
 const CyberCrime = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Create strong passwords for each account, avoid using personal information, and change them regularly. Consider using a password manager for secure storage.", checked: false },
+    { title: "Protect accounts with an extra layer of security by enabling 2FA, especially for sensitive accounts like email, banking, and social media.", checked: false },
+    { title: "Regularly update operating systems, antivirus software, and applications to protect against known vulnerabilities.", checked: false },
+    { title: "Avoid clicking on suspicious links or downloading attachments from unknown sources to reduce the risk of malware or phishing attacks.", checked: false },
+    { title: "Be mindful of the information you share on social media or public websites to reduce the risk of identity theft.", checked: false },
+    { title: "Regularly back up important files and data to a secure, external location to avoid data loss in case of a cyber attack.", checked: false }
   ]);
 
   // Define content for each tab
@@ -24,20 +24,20 @@ const CyberCrime = () => {
       { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "If you suspect a device is compromised, immediately disconnect it from Wi-Fi or any network to prevent further spread.", checked: false },
+      { title: "Change passwords for sensitive accounts, starting with email, banking, and any other critical accounts that might be affected.", checked: false },
+      { title: "Report cyber crimes, such as identity theft or fraud, to local cyber crime units or law enforcement, providing details about the attack.", checked: false },
+      { title: "If financial information may be compromised, contact your bank or credit card provider to monitor for fraudulent transactions.", checked: false },
+      { title: "Review security alerts from affected services (e.g., emails or banking apps) and follow any specific guidance provided by the platforms.", checked: false },
+      { title: "Don't respond to emails, messages, or calls from the attackers, as engaging may further expose you or validate your information.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Use reliable antivirus software to perform a thorough scan of affected devices to detect and remove malware.", checked: false },
+      { title: "Update all passwords, enable 2FA on accounts that don't have it, and review recent logins or activity for any suspicious behavior.", checked: false },
+      { title: "Keep an eye on bank accounts, credit card statements, and credit reports to catch any signs of identity theft or fraud.", checked: false },
+      { title: "If personal information has been compromised, consider reaching out to identity theft protection services for monitoring and support.", checked: false },
+      { title: "Learn more about cyber safety practices, and consider sharing information with family or friends to prevent future attacks.", checked: false },
+      { title: "Keep records of the attack, including any losses and steps taken for recovery, as these may be needed for insurance claims or law enforcement.", checked: false }
     ]
   };
 
@@ -70,7 +70,7 @@ const CyberCrime = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/cyclone.jpeg')} style={styles.image}>
+      <ImageBackground source={require('../assets/cybercrime.png')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

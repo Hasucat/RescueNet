@@ -5,12 +5,12 @@ import { CheckBox } from 'react-native-elements';
 const RoadAccident = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Regularly check and service brakes, tires, lights, and other safety features to reduce the risk of malfunction-related accidents.", checked: false },
+    { title: "Ensure everyone in the vehicle is properly buckled up before driving, including in the back seats.", checked: false },
+    { title: "Adhering to road regulations and speed limits reduces the risk of accidents, especially in hazardous weather.", checked: false },
+    { title: "Refrain from using your phone, eating, or engaging in other distracting activities while driving.", checked: false },
+    { title: "Adjust your speed and driving behavior according to current road conditions, like rain or fog.", checked: false },
+    { title: "Never drive under the influence of alcohol, drugs, or medication that can impair your judgment or reaction time.", checked: false }
   ]);
 
   // Define content for each tab
@@ -24,20 +24,20 @@ const RoadAccident = () => {
       { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "Take a deep breath, check yourself and others for injuries, and stay aware of your surroundings.", checked: false },
+      { title: "Activate your hazard lights to warn other drivers, especially if your vehicle is obstructing traffic.", checked: false },
+      { title: "If you're able to, move the vehicle out of traffic to a safe spot. If not, remain inside the car with your seatbelt fastened.", checked: false },
+      { title: "If it's dangerous to exit, stay inside the car until help arrives, as stepping out may expose you to oncoming traffic.", checked: false },
+      { title: "Stick to the facts when discussing the incident with others, and avoid making statements about fault.", checked: false },
+      { title: "Contact emergency services immediately, providing clear information on your location and the nature of the accident.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Seek medical attention for anyone injured, even if injuries seem minor, as some symptoms may appear later.", checked: false },
+      { title: "Take photos or videos of the accident scene, vehicle damage, license plates, and any visible injuries for insurance and legal purposes.", checked: false },
+      { title: "Gather contact details, insurance information, and vehicle details from other drivers involved.", checked: false },
+      { title: "Limit discussions about the accident to prevent misunderstandings or complications, especially with witnesses or other drivers.", checked: false },
+      { title: "Report the accident to your insurance provider as soon as possible, sharing all necessary documentation.", checked: false },
+      { title: "Have your vehicle checked and repaired by a professional, even if the damage seems minor, as some issues may not be immediately visible.", checked: false }
     ]
   };
 
@@ -70,7 +70,7 @@ const RoadAccident = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/cyclone.jpeg')} style={styles.image}>
+      <ImageBackground source={require('../assets/roadacc.png')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

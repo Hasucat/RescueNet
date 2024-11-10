@@ -5,12 +5,12 @@ import { CheckBox } from 'react-native-elements';
 const Fire = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
   const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-    { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-    { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-    { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+    { title: "Place smoke alarms on every level of your home, especially near bedrooms, and test them monthly. Replace batteries at least once a year.", checked: false },
+    { title: "Make sure everyone knows at least two exits from each room and establish a safe meeting point outside.", checked: false },
+    { title: "Choose fire-resistant materials for home furnishings and building materials when possible, especially for roofs and exterior walls.", checked: false },
+    { title: "Place fire extinguishers in high-risk areas, like the kitchen and garage, and ensure household members know how to use them.", checked: false },
+    { title: "Don't plug too many devices into one outlet, and check cords for fraying or wear to prevent electrical fires.", checked: false },
+    { title: "Keep fuels, cleaning agents, and other flammable items in a cool, well-ventilated area away from heat sources.", checked: false }
   ]);
 
   // Define content for each tab
@@ -24,20 +24,20 @@ const Fire = () => {
       { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
-      { title: "Keep a battery-powered radio or phone handy for updates.", checked: false },
-      { title: "Have your supplies on hand and use them as needed.", checked: false },
-      { title: "Evacuate if ordered to do so by authorities, and stay safe in a designated shelter.", checked: false },
-      { title: "Stay away from floodwaters, as they can be dangerous and carry debris or hazards.", checked: false },
-      { title: "Stay indoors, away from windows and doors, in a safe location.", checked: false },
-      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if needed.", checked: false }
+      { title: "If there's smoke, crawl close to the ground to avoid inhaling toxic fumes, and exit the building as quickly as possible.", checked: false },
+      { title: "Before opening any door, feel it with the back of your hand. If it's hot, don't open it; find another way out.", checked: false },
+      { title: "In case of a fire, use stairs instead of elevators, as they may malfunction or open on a floor where fire is present.", checked: false },
+      { title: "If safe to do so, close doors as you exit to help contain the fire and slow its spread.", checked: false },
+      { title: "Focus solely on getting yourself and others to safety; belongings can be replaced, but lives cannot.", checked: false },
+      { title: "Once outside, call emergency services. Provide clear information about the location and scale of the fire.", checked: false }
     ],
     After: [
-      { title: "Continue to listen to official guidance for recovery and safety advice.", checked: false },
-      { title: "Ensure you have essential items for the recovery period, like first aid, food, and communication devices.", checked: false },
-      { title: "Inspect your home for damage and make temporary repairs if necessary.", checked: false },
-      { title: "Follow evacuation instructions for continued safety and recovery.", checked: false },
-      { title: "Avoid flooded areas to prevent further injury or contamination.", checked: false },
-      { title: "Monitor ongoing risks, such as continued flooding or aftershocks, and follow safety protocols.", checked: false }
+      { title: "Do not re-enter the building until fire officials declare it safe, as there could be structural damage or lingering hot spots.", checked: false },
+      { title: "Seek medical care for anyone who may have inhaled smoke or sustained injuries, as smoke inhalation effects may not be immediately apparent.", checked: false },
+      { title: "Take photos or videos of the damage for insurance claims, but avoid disturbing the scene too much.", checked: false },
+      { title: "Any food or items exposed to smoke, heat, or chemicals should be disposed of, as they could be unsafe.", checked: false },
+      { title: "Hire professionals to assess structural damage, electrical wiring, and plumbing systems, as fire can compromise these areas.", checked: false },
+      { title: "Fire events can be traumatic; seek emotional support for yourself or loved ones if needed to help with recovery and healing.", checked: false }
     ]
   };
 
@@ -70,7 +70,7 @@ const Fire = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/cyclone.jpeg')} style={styles.image}>
+      <ImageBackground source={require('../assets/fire.png')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>
