@@ -70,7 +70,7 @@ const Fire = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/fire.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/fire.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

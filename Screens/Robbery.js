@@ -70,7 +70,7 @@ const Robbery = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/robbery.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/robbery.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

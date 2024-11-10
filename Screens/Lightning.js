@@ -70,7 +70,7 @@ const Lightning = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/lightning.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/lightning.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

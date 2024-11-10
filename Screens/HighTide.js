@@ -70,7 +70,7 @@ const HighTide = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/hightide.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/hightide.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

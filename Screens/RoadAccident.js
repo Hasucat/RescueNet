@@ -70,7 +70,7 @@ const RoadAccident = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/roadacc.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/roadacc.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>

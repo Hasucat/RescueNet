@@ -70,7 +70,7 @@ const CyberCrime = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/cybercrime.png')} style={styles.image}>
+      <ImageBackground source={require('../assets/cybercrime.jpeg')} style={styles.image}>
         <TouchableOpacity style={styles.backButton}>
         </TouchableOpacity>
       </ImageBackground>
