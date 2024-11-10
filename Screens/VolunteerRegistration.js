@@ -68,7 +68,7 @@ const VolunteerRegistration = () => {
                 style={styles.headerBackground}
               >
                 <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Volunteer Profile Update</Text>
+                  <Text style={styles.headerTitle}>Profile Enhancement</Text>
                 </View>
               </ImageBackground>
 
@@ -123,7 +123,7 @@ const VolunteerRegistration = () => {
                 style={styles.registerBackground}
               >
                 <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                <Text style={styles.buttonText}>Register</Text>
+                
                 </TouchableOpacity>
               </ImageBackground>
             </View>
@@ -158,13 +158,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 5, 
+    marginBottom: 60,
   },
   headerBackground: {
     width: '100%', 
     height: 90,   
     justifyContent: 'center', 
     alignItems: 'center',  
-    marginBottom: 10,
+    marginBottom: 15,
   },
   header: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 19,
     marginTop: 10,
     fontWeight: '900',
   },
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 15,
+    marginBottom: 12,
     backgroundColor: "#fff",
   },
   picker: { height: 50, fontSize: 16 },
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#fff', 
+    borderColor: 'rgba(255, 255, 255, 0)', 
   },
   locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
   

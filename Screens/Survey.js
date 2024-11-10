@@ -44,7 +44,9 @@ const Survey = () => {
               </ImageBackground>
 
               {/* Age Question */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>What's your age?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setAge} value={age}>
                   <RadioButton.Item label="Less than 18" value="less than 18" />
@@ -56,7 +58,9 @@ const Survey = () => {
               </View>
 
               {/* Gender Question */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>What's your gender?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setGender} value={gender}>
                   <RadioButton.Item label="Male" value="male" />
@@ -65,10 +69,12 @@ const Survey = () => {
               </View>
 
               {/* Disasters Likely to Happen */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>Which of the following disasters are more likely to happen in your area?</Text>
-              <View style={styles.checkboxGroup}>
+              <View style={styles.horizontalLine} />
+              <View style={styles.radioGroup}>
                 {["Earthquake", "Flood", "Fire", "Tornado", "Hurricane", "Landslide", "Tsunami", "Volcanic Eruption", "Wildfire", "Pandemic", "Other"].map(option => (
-                  <Checkbox.Item
+                  <RadioButton.Item
                     key={option}
                     label={option}
                     status={disasters.includes(option) ? 'checked' : 'unchecked'}
@@ -84,7 +90,9 @@ const Survey = () => {
               </View>
 
               {/* Frequency of Using RescueNet */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How frequently do you use RescueNet for updates?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setUsage} value={usage}>
                   <RadioButton.Item label="Daily" value="daily" />
@@ -94,7 +102,9 @@ const Survey = () => {
               </View>
 
               {/* App Navigation Ease */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How easy is the app to navigate?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setNavigationEase} value={navigationEase}>
                   <RadioButton.Item label="Very Easy" value="very easy" />
@@ -106,7 +116,9 @@ const Survey = () => {
               </View>
 
               {/* UI Satisfaction */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How satisfied are you with the user interface?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setUiSatisfaction} value={uiSatisfaction}>
                   <RadioButton.Item label="Very Satisfied" value="very satisfied" />
@@ -118,7 +130,9 @@ const Survey = () => {
               </View>
 
               {/* Notifications Effectiveness */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How effective are the notifications from the app considering live disasters?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setNotificationsEffectiveness} value={notificationsEffectiveness}>
                   <RadioButton.Item label="Very Effective" value="very effective" />
@@ -130,7 +144,9 @@ const Survey = () => {
               </View>
 
               {/* Preparedness Question */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>Does the app help you to be prepared before, during, and after a disaster?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setPreparedness} value={preparedness}>
                   <RadioButton.Item label="Yes" value="yes" />
@@ -140,7 +156,9 @@ const Survey = () => {
               </View>
 
               {/* Emergency Contacts Effectiveness */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How effective are the emergency contacts list?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setEmergencyContactsEffectiveness} value={emergencyContactsEffectiveness}>
                   <RadioButton.Item label="Very Effective" value="very effective" />
@@ -152,7 +170,9 @@ const Survey = () => {
               </View>
 
               {/* Tutorial Effectiveness */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>How effective are the tutorial videos?</Text>
+              <View style={styles.horizontalLine} />
               <View style={styles.radioGroup}>
                 <RadioButton.Group onValueChange={setTutorialEffectiveness} value={tutorialEffectiveness}>
                   <RadioButton.Item label="Very Effective" value="very effective" />
@@ -164,7 +184,9 @@ const Survey = () => {
               </View>
 
               {/* Suggestion Box */}
+              <View style={styles.horizontalLine} />
               <Text style={styles.question}>Other Suggestions</Text>
+              <View style={styles.horizontalLine} />
               <TextInput
                 style={styles.input}
                 placeholder="Your suggestions here"
@@ -174,12 +196,16 @@ const Survey = () => {
               />
 
               {/* Submit Button */}
+              <ImageBackground
+                source={require('../assets/update.gif')}
+                style={styles.registerBackground}
+              >
               <TouchableOpacity
                 style={styles.submitButton}
                 onPress={handleSubmit}
               >
-                <Text style={styles.submitText}>Submit Survey</Text>
               </TouchableOpacity>
+              </ImageBackground>
             </View>
           </View>
         </ImageBackground>
@@ -190,7 +216,7 @@ const Survey = () => {
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    flex: 1,
+    flexgrow: 1,
     justifyContent: 'center',
     width: '100%',
     height: '100%',
@@ -205,7 +231,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: '100%', 
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    backgroundColor: '#fff',
     padding: 20, 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -230,7 +256,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 25,
     marginTop: 10,
     fontWeight: '900',
   },
@@ -238,7 +264,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 10,
-    color: '#333',
+    color: '#416c87',
+  },
+  section: {
+    marginBottom: 20, // Adds space between sections
   },
   radioGroup: {
     marginBottom: 15,
@@ -247,7 +276,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   submitButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: 'transparent',
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
@@ -262,12 +291,24 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 100,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderColor: '#000',
+    borderWidth: 2,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
     textAlignVertical: 'top',
+  },
+  horizontalLine: {
+    height: 2,
+    backgroundColor: '#ccc',
+    marginBottom: 15, // Adjust space below the line if needed
+  },
+  registerBackground: {
+    width: '100%', 
+    height: 100,   
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    marginBottom: 10,
   },
 });
 

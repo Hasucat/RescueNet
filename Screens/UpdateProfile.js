@@ -87,7 +87,7 @@ const UpdateProfile = () => {
                 style={styles.headerBackground}
               >
                 <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Update Profile</Text>
+                  <Text style={styles.headerTitle}>Profile Enhancement</Text>
                 </View>
               </ImageBackground>
 
@@ -139,7 +139,7 @@ const UpdateProfile = () => {
               </TouchableOpacity>
 
               <ImageBackground
-                source={require('../assets/register2.gif')}
+                source={require('../assets/update.gif')}
                 style={styles.registerBackground}
               >
                 <TouchableOpacity style={styles.registerButton} onPress={handleUpdateProfile}>
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#fff', 
+    borderColor: 'rgba(255, 255, 255, 0)', 
   },
   locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
   
