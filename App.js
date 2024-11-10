@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Toast from 'react-native-toast-message';
 import SplashScreen from './Screens/SplashScreen';
 import AuthScreen from './Screens/AuthScreen';
 import DosAndDonts from './Screens/DosAndDonts';
@@ -36,6 +37,14 @@ import RoadAccident from './Screens/RoadAccident';
 import Fire from './Screens/Fire';
 import CyberCrime from './Screens/CyberCrime';
 import Robbery from './Screens/Robbery';
+import BangladeshEmergencies from './Screens/BangladeshEmergencies';
+import BangladeshDailies from './Screens/BangladeshDailies';
+import RABContacts from './Screens/RABContacts';
+import NGOs from './Screens/NGOs';
+import Pharmacy from './Screens/Pharmacy';
+import EmbassyN_HighCommissions from './Screens/EmbassyN HighCommissions';
+import BloodBanks from './Screens/BloodBanks';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -74,6 +83,16 @@ export default function App() {
         <Stack.Screen name="Fire" component={Fire} options={{ title: "Fire" }} />
         <Stack.Screen name="CyberCrime" component={CyberCrime} options={{ title: "CyberCrime" }} />
         <Stack.Screen name="Robbery" component={Robbery} options={{ title: "Robbery" }} />
+        {/* Inside Emergency Contacts  */}
+        <Stack.Screen name="BangladeshEmergencies" component={BangladeshEmergencies} options={{ title: "BD Emergency Contacts" }} />
+        <Stack.Screen name="BangladeshDailies" component={BangladeshDailies} options={{ title: "BD Newspapers" }} />
+        <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
+        <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
+        <Stack.Screen name="BloodBanks" component={BloodBanks} options={{ title: "Blood Banks" }} />
+        <Stack.Screen name="Pharmacy" component={Pharmacy} options={{ title: "24/7 Pharmacy Contacts" }} />
+        <Stack.Screen name="RABContacts" component={RABContacts} options={{ title: "RAB Contacts" }} />
+
+        
 
 
          {/* Map Screen for location selection */}
@@ -90,6 +109,9 @@ export default function App() {
           options={{ title: 'Volunteer Dashboard' }} // Show title for volunteer dashboard
         />
       </Stack.Navigator>
+
+      {/* Toast for Toast Msgs */}
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   );
 }
