@@ -6,19 +6,9 @@ const About = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <ScrollView>
-      <ImageBackground
-        source={require('../assets/background.png')} 
-        style={styles.backgroundImage}
-        resizeMode="cover" 
-      >
       {/* Dos Section */}
       <View style={styles.container}>
-            <View style={styles.cardContainer}>
-            <ImageBackground
-                source={require('../assets/card_back.png')} // Background for the card
-                style={styles.cardBackground} 
-                resizeMode="cover"
-            >             
+                     
               <ImageBackground
                 source={require('../assets/header.jpg')} 
                 style={styles.headerBackground} 
@@ -28,18 +18,32 @@ const About = () => {
                 </View>
                 </ImageBackground>
       <View style={styles.section}>
+
+      <View style={styles.desc}>
+                    <Text style={styles.description}>Description</Text>
+                </View>
         
-        <Text style={styles.listItem}>RescueNet revolutionizes disaster response by strategically deploying volunteers to where they are needed most.
-It ensures aid  efficiently matched to affected locations, streamlining relief efforts.
-The platform analyzes incident reports to optimize decision-making and resource allocation.
-Personalized emergency alerts keep communities informed and prepared in real time.
-Leveraging valuable community feedback, RescueNet guarantees effective and timely crisis management.
+        <Text style={styles.listItem}>RescueNet transforms disaster response by deploying volunteers to areas in need, 
+          ensuring efficient aid delivery. It optimizes decision-making and resource allocation through incident analysis. 
+          With real-time alerts and community feedback, RescueNet ensures timely, effective crisis management.
         </Text>
       </View>
-      </ImageBackground>
-      </View>       
+
+      <View style={styles.desc}>
+                    <Text style={styles.description}>Developed by</Text>
+                </View>
+
+                <ImageBackground
+                source={require('../assets/logo.gif')} 
+                style={styles.logo} 
+              >
+                </ImageBackground>
+
+         <View style={styles.footer}>
+            <Text style={styles.footerText}>Version 2.8.9.2</Text>
+          </View>
+
         </View>
-      </ImageBackground>
         </ScrollView>
     </TouchableWithoutFeedback>
   );
@@ -62,10 +66,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    marginTop: 8,
+    backgroundColor: '#f5f2df',
   },
   cardContainer: {
     width: '100%', 
@@ -106,6 +108,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: 'bold',
   },
+  desc: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+
+  description: {
+    color: '#708b91',
+    fontSize: 18,
+    marginTop: 3,
+    fontWeight: 'bold',
+  },
   section: {
     marginBottom: 20,
   },
@@ -116,9 +133,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   listItem: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#333',
     marginBottom: 8,
     paddingLeft: 10,
+  },
+  footer: {
+    marginTop: 20,
+    paddingVertical: 10,
+    borderTopWidth: 3,
+    borderColor: '#ddd',
+    width: '100%',
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 15,
+    fontWeight:'bold',
+    color: '#3c415c',
+  },
+  logo: {
+    width: '100%', 
+    height: 350,   
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    marginBottom: 10,
   },
 });

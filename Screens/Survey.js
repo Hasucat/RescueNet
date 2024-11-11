@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#2a4e61',
-    marginTop: 8,
+   
   },
   cardContainer: {
     width: '100%', 

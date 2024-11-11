@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#918869',
-    marginTop: 8,
+   
   },
   cardContainer: {
     width: '100%',
