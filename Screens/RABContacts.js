@@ -120,7 +120,7 @@ const RABContacts = () => {
         >
             <TextInput
                 style={styles.searchInput}
-                placeholder="Search by area like 'Romna' ..."
+                placeholder="Search by area like 'Ramna'"
                 value={searchQuery}
                 onChangeText={text => setSearchQuery(text)}
             />

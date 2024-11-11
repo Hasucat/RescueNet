@@ -33,13 +33,13 @@ const VolunteerDashboard = () => {
     try {
       const rescueDocRef = doc(db, 'rescues', rescueId);
       await updateDoc(rescueDocRef, {
-        status: 'accepted',
+        status: 'Accepted',
       });
 
-      Alert.alert('Success', 'Rescue request accepted!');
+      Alert.alert('Success', 'Rescue Request Accepted!');
 
       const updatedRescues = rescues.map((rescue) =>
-        rescue.id === rescueId ? { ...rescue, status: 'accepted' } : rescue
+        rescue.id === rescueId ? { ...rescue, status: 'Accepted' } : rescue
       );
       setRescues(updatedRescues);
     } catch (error) {
@@ -77,13 +77,13 @@ const VolunteerDashboard = () => {
         <TouchableOpacity
           style={[
             styles.acceptButton,
-            { backgroundColor: item.status === 'accepted' ? '#28a745' : '#ffc107' },
+            { backgroundColor: item.status === 'Accepted' ? '#28a745' : '#ffc107' },
           ]}
           onPress={() => handleAccept(item.id)}
-          disabled={item.status === 'accepted'}
+          disabled={item.status === 'Accepted'}
         >
           <Text style={styles.buttonText}>
-            {item.status === 'accepted' ? 'Accepted' : 'Accept'}
+            {item.status === 'Accepted' ? 'Accepted' : 'Accept'}
           </Text>
         </TouchableOpacity>
       </View>
