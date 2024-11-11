@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
     scrollContainer: {
         paddingVertical: 20,
         alignItems: 'center',
+        backgroundColor: '#31505e',
     },
     searchInput: {
         width: '90%',

@@ -36,7 +36,7 @@ export default Media;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fffee6',
+        backgroundColor: '#31505e',
       },
     
       iconGrid: {

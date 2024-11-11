@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingVertical: 30,
     alignItems: 'center',
+    backgroundColor: '#31505e',
   },
   cardContainer: {
     width: '90%',
