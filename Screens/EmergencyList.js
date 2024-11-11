@@ -6,35 +6,31 @@ const EmergencyList = () => {
   const navigation = useNavigation();
 
   return (
+    <ScrollView contentContainerStyle={styles.iconGrid}>
     <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/dashboard5.png')} // Background image for the icons
-        style={styles.contentBackground}
-        resizeMode="cover" // Makes the image cover the entire background
-      >
-    
+      
         <View style={styles.iconGrid}>
         
-            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('ImportantContacts')}>
-            <Image source={require('../assets/RESCUENET(5).gif')} style={styles.cardImage} />
+            <TouchableOpacity style={styles.iconContainerE} onPress={() => navigation.navigate('EmergencyContacts')}>
+            <Image source={require('../assets/emergencycontacts.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         
             <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
-            <Image source={require('../assets/RESCUENET(4).gif')} style={styles.cardImage} />
+            <Image source={require('../assets/dosdonts.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         
-            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
-            <Image source={require('../assets/RESCUENET(6).gif')} style={styles.cardImage} />
+            <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('DosAndDonts')}>
+            <Image source={require('../assets/sheltar.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         </View>
-        
-        </ImageBackground>
+       
+      
 
      </View>
-  
+    </ScrollView>
   );
 };
 
@@ -43,7 +39,7 @@ export default EmergencyList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#31505e',
     
   },
   contentBackground: {
@@ -57,26 +53,72 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
-  iconContainer: {
+  iconContainerE: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 200, 
-    padding: 30, // Increased padding inside the card
+    height: 230, 
+    padding: 5, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#f8f7e8", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    backgroundColor: "#e94637", // White background for card appearance
+    borderRadius: 5, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
     shadowRadius: 4,
     elevation: 3, // Shadow effect for Android
+    marginTop: 20,
+    borderColor:'#000',
+    borderWidth:4,
+    marginHorizontal: 39,
+    
+  },
+  iconContainerS: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%', // Increased width to make icons wider
+    height: 230, 
+    padding: 5, // Increased padding inside the card
+    marginBottom: 8, // Space between rows of icons
+    backgroundColor: "#ffe9cd", // White background for card appearance
+    borderRadius: 5, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowRadius: 4,
+    elevation: 3, // Shadow effect for Android
+    marginTop: 20,
+    borderColor:'#000',
+    borderWidth:4,
+    marginHorizontal: 39,
+    
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%', // Increased width to make icons wider
+    height: 230, 
+    padding: 5, // Increased padding inside the card
+    marginBottom: 8, // Space between rows of icons
+    backgroundColor: "#f8f7e8", // White background for card appearance
+    borderRadius: 5, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowRadius: 4,
+    elevation: 3, // Shadow effect for Android
+    marginTop: 20,
+    borderColor:'#000',
+    borderWidth:4,
+    marginHorizontal: 39,
     
   },
   cardImage: {
-    width: '70%', // Ensures image covers the entire width of the card
-    height: 170, // Adjust the height of the card as needed
-    borderRadius: 10, // Same as the card container to create a consistent look
+    width: '103%', // Ensures image covers the entire width of the card
+    height: 215, // Adjust the height of the card as needed
   },
-
+  iconGrid: {
+    flexGrow: 1, 
+    paddingBottom: 10,
+  },
 });

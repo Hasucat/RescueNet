@@ -102,7 +102,7 @@ const UserDashboard = () => {
     </View>
   </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => navigation.navigate('ImportantContacts')} style={styles.menuItem}>
+  <TouchableOpacity onPress={() => navigation.navigate('EmergencyContacts')} style={styles.menuItem}>
     <View style={styles.iconTextContainer}>
       <MaterialCommunityIcons name="contacts" size={30} color="#158a20" />
       <Text style={styles.menuText}>Emergency Contact</Text>

@@ -9,7 +9,6 @@ import Rescue from './Screens/Rescue';
 import UserDashboard from './UserDashboard';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
-import ImportantContacts from './Screens/ImportantContacts';
 import Donation from './Screens/Donation';
 import Funding from './Screens/Funding';
 import FoodBank from './Screens/FoodBank';
@@ -20,6 +19,10 @@ import Survey from './Screens/Survey';
 import Tutorial from './Screens/Tutorial';
 import UpdateProfile from './Screens/UpdateProfile';
 import EmergencyList from './Screens/EmergencyList';
+import EmergencyContacts from './Screens/EmergencyContacts';
+import Helplines from './Screens/Helplines';
+import Hospitals from './Screens/Hospitals';
+import Media from './Screens/Media';
 import VolunteerRegistration from './Screens/VolunteerRegistration';
 import MapScreen from './Screens/MapScreen';
 import VolunteerDashboard from './Screens/VolunteerDashboard';
@@ -54,21 +57,48 @@ export default function App() {
       <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{ headerShown: false }} />
+        {/* Inside UserDashboard */}
         <Stack.Screen name="UserDashboard" component={UserDashboard} options={{ headerShown: false  }} />
         <Stack.Screen name="Rescue" component={Rescue} options={{ headerShown: false   }} />
-        <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
-        <Stack.Screen name="ImportantContacts" component={ImportantContacts} options={{ title: "Important Contacts" }} />
         <Stack.Screen name="Donation" component={Donation} options={{ title: "Donation" }} />
-        <Stack.Screen name="EmergencyList" component={EmergencyList} options={{ title: "EmergencyList" }} />
-        <Stack.Screen name="Funding" component={Funding} options={{ title: "Funding" }} />
-        <Stack.Screen name="FoodBank" component={FoodBank} options={{ title: "FoodBank" }} />
-        <Stack.Screen name="Clothing" component={Clothing} options={{ title: "Clothing" }} />
+        <Stack.Screen name="EmergencyList" component={EmergencyList} options={{ title: "Emergency List" }} />
+        <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
+
+        {/* Inside Sidebar */}
         <Stack.Screen name="UpdateProfile" component={UpdateProfile} options={{ title: "Update Profile" }} />
         <Stack.Screen name="RelevantLink" component={RelevantLink} options={{ title: "Relevant Link" }} />
         <Stack.Screen name="About" component={About} options={{ title: "About" }} />
         <Stack.Screen name="Survey" component={Survey} options={{ title: "Survey" }} />
         <Stack.Screen name="Tutorial" component={Tutorial} options={{ title: "Tutorial" }} />
-        <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
+
+        {/* Inside Donation */}
+        <Stack.Screen name="Funding" component={Funding} options={{ title: "Funding" }} />
+        <Stack.Screen name="FoodBank" component={FoodBank} options={{ title: "FoodBank" }} />
+        <Stack.Screen name="Clothing" component={Clothing} options={{ title: "Clothing" }} />
+
+        {/* Inside Emergency Data */}
+        <Stack.Screen name="EmergencyContacts" component={EmergencyContacts} options={{ title: "Important Contacts" }} />
+        <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
+
+        {/* Inside Emergency Contacts */}
+        <Stack.Screen name="Helplines" component={Helplines} options={{ title: "Helpline Section" }} />
+        <Stack.Screen name="Hospitals" component={Hospitals} options={{ title: "Hospital Section" }} />
+        <Stack.Screen name="Media" component={Media} options={{ title: "Media Section" }} />
+
+        {/* Inside helpline */}
+        <Stack.Screen name="BangladeshEmergencies" component={BangladeshEmergencies} options={{ title: "BD Emergency Contacts" }} />
+        <Stack.Screen name="RABContacts" component={RABContacts} options={{ title: "RAB Contacts" }} />
+
+        {/* Inside hospitals */}
+        <Stack.Screen name="BloodBanks" component={BloodBanks} options={{ title: "Blood Banks" }} />
+        <Stack.Screen name="Pharmacy" component={Pharmacy} options={{ title: "24/7 Pharmacy Contacts" }} />
+
+        {/* Inside media */}
+        <Stack.Screen name="BangladeshDailies" component={BangladeshDailies} options={{ title: "BD Newspapers" }} />
+        <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
+        <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
+        
+        {/* Inside Dos and Donts */}
         <Stack.Screen name="Cyclone" component={Cyclone} options={{ title: "Cyclone" }} />
         <Stack.Screen name="Flood" component={Flood} options={{ title: "Flood" }} />
         <Stack.Screen name="Earthquake" component={Earthquake} options={{ title: "Earthquake" }} />
@@ -83,17 +113,6 @@ export default function App() {
         <Stack.Screen name="Fire" component={Fire} options={{ title: "Fire" }} />
         <Stack.Screen name="CyberCrime" component={CyberCrime} options={{ title: "CyberCrime" }} />
         <Stack.Screen name="Robbery" component={Robbery} options={{ title: "Robbery" }} />
-        {/* Inside Emergency Contacts  */}
-        <Stack.Screen name="BangladeshEmergencies" component={BangladeshEmergencies} options={{ title: "BD Emergency Contacts" }} />
-        <Stack.Screen name="BangladeshDailies" component={BangladeshDailies} options={{ title: "BD Newspapers" }} />
-        <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
-        <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
-        <Stack.Screen name="BloodBanks" component={BloodBanks} options={{ title: "Blood Banks" }} />
-        <Stack.Screen name="Pharmacy" component={Pharmacy} options={{ title: "24/7 Pharmacy Contacts" }} />
-        <Stack.Screen name="RABContacts" component={RABContacts} options={{ title: "RAB Contacts" }} />
-
-        
-
 
          {/* Map Screen for location selection */}
          <Stack.Screen

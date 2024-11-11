@@ -13,6 +13,7 @@ const ImportantContacts = () => {
         resizeMode="cover"
       >
         <ScrollView contentContainerStyle={styles.iconGrid}>
+          
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('BangladeshEmergencies')}>
             <Image source={require('../assets/BDEmergency_.webp')} style={styles.cardImage} />
           </TouchableOpacity>
