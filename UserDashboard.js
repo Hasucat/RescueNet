@@ -76,6 +76,7 @@ const UserDashboard = () => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         {/* Header */}
+        
         <View style={styles.header}>
           <TouchableOpacity onPress={toggleMenu} style={styles.menuIcon}>
             <Ionicons name="menu" size={39} color="#fff" />
@@ -151,7 +152,7 @@ const UserDashboard = () => {
 </Animated.View>
           </>
         )}
-<ImageBackground
+ <ImageBackground
         source={require('./assets/header2.jpg')} // Background image for the icons
         style={styles.rescueRequest}
         resizeMode="cover" // Makes the image cover the entire background
@@ -169,6 +170,7 @@ const UserDashboard = () => {
         </View>
       )}
       </ImageBackground>
+      
       <ImageBackground
         source={require('./assets/dashboard5.png')} // Background image for the icons
         style={styles.contentBackground}
@@ -221,18 +223,17 @@ const styles = StyleSheet.create({
     
   },
   header: {
-    
-    backgroundColor: '#2a5157', // Purple background color
+    backgroundColor: '#2a5157', 
     height: 130, // Adjust height to your design
     justifyContent: 'center',
     alignItems: 'center',
-    
+    marginBottom: -10,
   },
   headerText: {
     color: 'white',
     fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: -60,
+    marginBottom: -30,
   },
   bar: {
     height: 90,
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   menuIcon: { 
     position: 'absolute',
      left: 20,
-      top: 80 ,
+      top: 60 ,
       marginRight: 15,
       color: '#000',
   },
@@ -285,22 +286,22 @@ const styles = StyleSheet.create({
  },
   statusContainer: {
     marginTop: 0,
-    height: 100,
+    height: 60,
     alignItems: 'center',
-    padding:20,
+    padding:5,
   },
   backButton: {
     marginBottom: 60, // Space between the back button and menu items
     alignSelf: 'flex-start',
   },
   statusLabel: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#f7f8fa',
+    color: '#77bd82',
   },
   statusText: {
     fontSize: 16,
-    color: '#e32802',
+    color: '#fff',
     marginTop: 2,
   },
   contentBackground: {
@@ -372,6 +373,6 @@ const styles = StyleSheet.create({
   },
   rescueRequest: {
     width: '100%',
-    height:100,
+    height:95,
   },
 });

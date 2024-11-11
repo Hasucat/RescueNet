@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#918869',
-    marginTop: 8,
+    backgroundColor: '#a1c3c4',
+   
   },
   cardContainer: {
     width: '100%',
