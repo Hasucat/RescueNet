@@ -210,6 +210,23 @@ const Rescue = () => {
           <Picker.Item label="Flood" value="Flood" />
           <Picker.Item label="Earthquake" value="Earthquake" />
           <Picker.Item label="Theft" value="Theft" />
+          <Picker.Item label="Cyclone" value="Cyclone" />
+          <Picker.Item label="Hurricane" value="Hurricane" />
+          <Picker.Item label="Tornado" value="Tornado" />
+          <Picker.Item label="Tsunami" value="Tsunami" />
+          <Picker.Item label="Landslide" value="Landslide" />
+          <Picker.Item label="Drought" value="Drought" />
+          <Picker.Item label="Wildfire" value="Wildfire" />
+          <Picker.Item label="High Tide" value="High Tide" />
+          <Picker.Item label="Lightning" value="Lightning" />
+          <Picker.Item label="Cyber Crime" value="Cyber Crime" />
+          <Picker.Item label="Heatwave" value="Heatwave" />
+          <Picker.Item label="Road Accident" value="Road Accident" />
+          <Picker.Item label="Industrial Accident" value="Industrial Accident" />
+          <Picker.Item label="Terrorist Attack" value="Terrorist Attack" />
+          <Picker.Item label="Chemical Spill" value="Chemical Spill" />
+          <Picker.Item label="Nuclear Accident" value="Nuclear Accident" />
+          <Picker.Item label="Pandemic" value="Pandemic" />
         </Picker>
 
         <TextInput
