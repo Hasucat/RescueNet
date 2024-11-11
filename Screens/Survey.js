@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: '#2a4e61',
     marginTop: 8,
   },
   cardContainer: {

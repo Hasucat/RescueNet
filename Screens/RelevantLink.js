@@ -38,7 +38,7 @@ const Tutorial = () => {
                 </ImageBackground>
 
                 <View style={styles.section}>
-                  <Text style={styles.sectionTitle}>Bangladesh Meteorological Departments</Text>
+                  <Text style={styles.sectionTitle}>Bangladesh Meteorological Departments (BMD) </Text>
 
                   <TouchableOpacity
                     style={styles.videoThumbnailContainer}
@@ -51,7 +51,7 @@ const Tutorial = () => {
                     <Text style={styles.videoTitle}>Weather Forecasts, Cyclone, Storm, Flood, Rainfall, Temperature, Climate, Marine Weather, Aviation Weather, Earthquake related information</Text>
                   </TouchableOpacity>
 
-                  <Text style={styles.sectionTitle}>Flood Forecasting & Warning Centre</Text>
+                  <Text style={styles.sectionTitle}>Flood Forecasting & Warning Centre (FFWC)</Text>
 
                   <TouchableOpacity
                     style={styles.videoThumbnailContainer}
@@ -64,7 +64,7 @@ const Tutorial = () => {
                     <Text style={styles.videoTitle}>Flood Forecasts , Water Level Monitoring, Rainfall Data, Inundation Mapping, Risk and Impact Analysis, Seasonal Flood Outlooks related information</Text>
                   </TouchableOpacity>
 
-                  <Text style={styles.sectionTitle}>WindMap & Weather Forecast</Text>
+                  <Text style={styles.sectionTitle}>WindMap & Weather Forecast </Text>
 
                   <TouchableOpacity
                     style={styles.videoThumbnailContainer}
@@ -77,7 +77,7 @@ const Tutorial = () => {
                     <Text style={styles.videoTitle}>Weather Forecasts, Wind and Storm Tracking, Air Quality, Rainfall and Lightning Activity, Sea and Wave Conditions, Radar and Satellite Imagery related information</Text>
                   </TouchableOpacity>
 
-                  <Text style={styles.sectionTitle}>Ministry of Disaster Management and Relief</Text>
+                  <Text style={styles.sectionTitle}>Ministry of Disaster Management and Relief (MoDMR)</Text>
 
                   <TouchableOpacity
                     style={styles.videoThumbnailContainer}
@@ -90,7 +90,7 @@ const Tutorial = () => {
                     <Text style={styles.videoTitle}>Disaster Preparedness, Relief Distribution, Recovery Initiatives, Risk Reduction, Disaster Warnings, Policies for Disaster Response, Training Resources, Resources on Cyclone Shelters, Flood Relief, and Emergency Contact information related information.</Text>
                   </TouchableOpacity>
 
-                  <Text style={styles.sectionTitle}>BAMIS</Text>
+                  <Text style={styles.sectionTitle}>Bangladesh Agro-Mateorological Information Service (BAMIS)</Text>
 
                   <TouchableOpacity
                     style={styles.videoThumbnailContainer}
@@ -124,12 +124,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: '#918869',
     marginTop: 8,
   },
   cardContainer: {
     width: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    backgroundColor: '#f0efda',
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 15,
-    color: '#540620',
+    color: '#ab0314',
   },
   videoThumbnailContainer: {
     marginBottom: 20,

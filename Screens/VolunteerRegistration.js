@@ -56,11 +56,7 @@ const VolunteerRegistration = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView>
-        <ImageBackground
-          source={require('../assets/background.png')} 
-          style={styles.backgroundImage}
-          resizeMode="cover"
-        >
+        
           <View style={styles.container}>
             <View style={styles.cardContainer}>
               <ImageBackground
@@ -128,7 +124,7 @@ const VolunteerRegistration = () => {
               </ImageBackground>
             </View>
           </View>
-        </ImageBackground>
+        
       </ScrollView>
     </TouchableWithoutFeedback>
   );
@@ -146,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: '#173a4d',
     marginTop: 8,
   },
   cardContainer: {
