@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, TextInput, Button, Alert, ImageBackground, TouchableOpacity, Modal, FlatList, TouchableWithoutFeedback, View, Text } from 'react-native';
 import { RadioButton, Checkbox } from 'react-native-paper';
+import { auth, db } from "./../firebase"; // Import auth and db
+import { doc, setDoc } from "firebase/firestore"; // Import Firestore functions
 
 const Survey = () => {
   const [age, setAge] = useState("");
@@ -15,13 +17,35 @@ const Survey = () => {
   const [tutorialEffectiveness, setTutorialEffectiveness] = useState("");
   const [suggestions, setSuggestions] = useState("");
 
-  const handleSubmit = () => {
+  const currentUser = auth.currentUser;
+
+  const handleSubmit = async () => {
     if (!age || !gender || !disasters.length || !usage || !preparedness) {
       Alert.alert("Error", "Please fill all required fields.");
       return;
     }
-    // Submit the survey data
-    Alert.alert("Success", "Survey submitted successfully!");
+
+    const surveyData = {
+      userId: currentUser.uid,
+      age,
+      gender,
+      disasters,
+      usage,
+      navigationEase,
+      uiSatisfaction,
+      notificationsEffectiveness,
+      preparedness,
+      emergencyContactsEffectiveness,
+      tutorialEffectiveness,
+      suggestions,
+    };
+
+    try {
+      await setDoc(doc(db, "surveys", currentUser.uid), surveyData);
+      Alert.alert("Success", "Survey submitted successfully!");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
   };
 
   return (

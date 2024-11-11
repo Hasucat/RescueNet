@@ -130,7 +130,7 @@ export default function App() {
       </Stack.Navigator>
 
       {/* Toast for Toast Msgs */}
-      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <Toast />
     </NavigationContainer>
   );
 }
