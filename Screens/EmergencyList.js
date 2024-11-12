@@ -15,7 +15,7 @@ const EmergencyList = () => {
             <Image source={require('../assets/emergencycontacts.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
-            <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('DosAndDonts')}>
+            <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('ShelterContacts')}>
             <Image source={require('../assets/sheltar.png')} style={styles.cardImage} />
             </TouchableOpacity>
         

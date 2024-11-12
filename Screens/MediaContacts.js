@@ -16,11 +16,11 @@ const mediaContacts = [
     {
         name: "NTV",
         contact: [
-            "Address: বিএসইসি ভবন (৪র্থ তলা), ১০২ কাজী নজরুল ইসলাম এভিনিউ, কারওয়ান বাজার, ঢাকা-১২১৫",
-            "Tel: +৮৮০২৯১৪৩৩৮১-৫",
-            "Fax: +৮৮০২৯১৪৩৩৮৬-৭"
+            "Address: BSEC Building (4th Floor), 102 Kazi Nazrul Islam Avenue, Karwan Bazar, Dhaka-1215",
+            "Tel: +88029143381-5",
+            "Fax: +88029143386-7"
         ]
-    },
+    },    
     {
         name: "ATN Bangla",
         contact: [
