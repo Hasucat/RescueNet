@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
+    shadowOpacity: 0.96, // Slight shadow for card effect
+    shadowRadius: 4.5,
+    elevation: 10, // Shadow effect for Android
     marginTop: 80,
     borderColor:'#000',
     borderWidth:4,
@@ -78,9 +78,9 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
+    shadowOpacity: 0.96, // Slight shadow for card effect
+    shadowRadius: 4.5,
+    elevation: 10, // Shadow effect for Android
     marginTop: 20,
     borderColor:'#000',
     borderWidth:4,

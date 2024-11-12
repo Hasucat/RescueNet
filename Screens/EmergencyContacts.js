@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     borderRadius: 10, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowOpacity: 0.85, // Slight shadow for card effect
     shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
+    elevation: 8.4, // Shadow effect for Android
     borderWidth:4,
     borderColor:'#000',
     marginHorizontal: 18,
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     
   },
   cardImage: {
-    width: '110%', // Ensures image covers the entire width of the card
-    height: 250, // Adjust the height of the card as needed
+    width: '120%', // Ensures image covers the entire width of the card
+    height: 252, // Adjust the height of the card as needed
      // Same as the card container to create a consistent look
   },
   iconGrid: {

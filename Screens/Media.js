@@ -14,10 +14,6 @@ const Media = () => {
             <Image source={require('../assets/BDDailies_.webp')} style={styles.cardImage} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('NGOs')}>
-            <Image source={require('../assets/NGO_.webp')} style={styles.cardImage} />
-          </TouchableOpacity>
-
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmbassyN_HighCommissions')}>
             <Image source={require('../assets/Embassy_.webp')} style={styles.cardImage} />
           </TouchableOpacity>

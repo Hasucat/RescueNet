@@ -10,16 +10,16 @@ const Hospitals = () => {
       
         <ScrollView contentContainerStyle={styles.iconGrid}>
 
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Hospitals')}>
+          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('HospitalContacts')}>
             <Image source={require('../assets/Hospital_.webp')} style={styles.cardImage} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Pharmacy')}>
-            <Image source={require('../assets/Pharmacy_.webp')} style={styles.cardImage} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('BloodBanks')}>
             <Image source={require('../assets/Blood_.webp')} style={styles.cardImage} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Pharmacy')}>
+            <Image source={require('../assets/Pharmacy_.webp')} style={styles.cardImage} />
           </TouchableOpacity>
 
         </ScrollView>
