@@ -47,6 +47,8 @@ import NGOs from './Screens/NGOs';
 import Pharmacy from './Screens/Pharmacy';
 import EmbassyN_HighCommissions from './Screens/EmbassyN HighCommissions';
 import BloodBanks from './Screens/BloodBanks';
+import VolunteerSection from './Screens/VolunteerSection';
+import Guides from './Screens/Guides';
 
 const Stack = createStackNavigator();
 
@@ -62,8 +64,7 @@ export default function App() {
         <Stack.Screen name="Rescue" component={Rescue} options={{ headerShown: false   }} />
         <Stack.Screen name="Donation" component={Donation} options={{ title: "Donation" }} />
         <Stack.Screen name="EmergencyList" component={EmergencyList} options={{ title: "Emergency List" }} />
-        <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
-
+        
         {/* Inside Sidebar */}
         <Stack.Screen name="UpdateProfile" component={UpdateProfile} options={{ title: "Update Profile" }} />
         <Stack.Screen name="RelevantLink" component={RelevantLink} options={{ title: "Relevant Link" }} />
@@ -98,6 +99,15 @@ export default function App() {
         <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
         <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
         
+        {/* Inside volunteers */}
+        <Stack.Screen name="VolunteerSection" component={VolunteerSection} options={{ title: "Volunteers Section" }} />
+        <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" }} />
+        <Stack.Screen name="VolunteerDashboard" component={VolunteerDashboard} options={{ title: 'Volunteer Dashboard' }}/>
+
+
+        {/* Inside volunteers */}
+        <Stack.Screen name="Guides" component={Guides} options={{ title: "Disaster Guides" }} />
+
         {/* Inside Dos and Donts */}
         <Stack.Screen name="Cyclone" component={Cyclone} options={{ title: "Cyclone" }} />
         <Stack.Screen name="Flood" component={Flood} options={{ title: "Flood" }} />
@@ -121,12 +131,7 @@ export default function App() {
           options={{ title: 'Select Location' }} // Show title for map screen
         />
 
-        {/* Volunteer Dashboard */}
-        <Stack.Screen
-          name="VolunteerDashboard"
-          component={VolunteerDashboard}
-          options={{ title: 'Volunteer Dashboard' }} // Show title for volunteer dashboard
-        />
+        
       </Stack.Navigator>
 
       {/* Toast for Toast Msgs */}

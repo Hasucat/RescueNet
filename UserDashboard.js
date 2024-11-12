@@ -116,20 +116,6 @@ const UserDashboard = () => {
     </View>
   </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => navigation.navigate('Tutorial')} style={styles.menuItem}>
-    <View style={styles.iconTextContainer}>
-      <Entypo name="youtube" size={30} color="#db1a14" />
-      <Text style={styles.menuText}>Tutorial</Text>
-    </View>
-  </TouchableOpacity>
-
-  <TouchableOpacity onPress={() => navigation.navigate('RelevantLink')} style={styles.menuItem}>
-    <View style={styles.iconTextContainer}>
-      <Entypo name="link" size={30} color="#589ea3" />
-      <Text style={styles.menuText}>Relevant Link</Text>
-    </View>
-  </TouchableOpacity>
-
   <TouchableOpacity onPress={() => navigation.navigate('Survey')} style={styles.menuItem}>
     <View style={styles.iconTextContainer}>
       <Entypo name="clipboard" size={30} color="#6d666e" />
@@ -197,12 +183,12 @@ const UserDashboard = () => {
         </TouchableOpacity>
 </View>
 <View style={styles.iconRow}>
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerRegistration')}>
-        	<Image source={require('./assets/volunreg.png')} style={styles.cardImage} />
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerSection')}>
+        	<Image source={require('./assets/volunteers.png')} style={styles.cardImageV} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerDashboard')}>
-        	<Image source={require('./assets/volunalert.png')} style={styles.cardImage} />
+        <TouchableOpacity style={styles.iconContainerG} onPress={() => navigation.navigate('Guides')}>
+        	<Image source={require('./assets/guides.png')} style={styles.cardImageG} />
         </TouchableOpacity>
 </View>
     </View>
@@ -328,9 +314,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '50%', // Increased width to make icons wider
-    height: 160,
-    padding: 10, // Increased padding inside the card
+    width: '60%', // Increased width to make icons wider
+    height: 180,
+    padding: 0, // Increased padding inside the card
     marginBottom: 14, // Space between rows of icons
     backgroundColor: "#f8f7e8", // White background for card appearance
     borderRadius: 6, // Rounded corners
@@ -339,13 +325,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1, // Slight shadow for card effect
     shadowRadius: 4,
     elevation: 3, // Shadow effect for Android
-    marginHorizontal: -6, // Space between icons in the same row
-    marginRight: -6,
+    marginHorizontal: -30, // Space between icons in the same row
+    marginRight: 35,
     marginTop: -5,
+    borderColor:'#000',
+    borderWidth:3,
   },
   cardImage: {
-    width: '100%', // Ensures image covers the entire width of the card
-    height: 130, // Adjust the height of the card as needed
+    width: '90%', // Ensures image covers the entire width of the card
+    height: 170, // Adjust the height of the card as needed
     borderRadius: 10, // Same as the card container to create a consistent look
   },
   icon: {
@@ -374,5 +362,35 @@ const styles = StyleSheet.create({
   rescueRequest: {
     width: '100%',
     height:95,
+  },
+  cardImageV: {
+    width: '100%', // Ensures image covers the entire width of the card
+    height: 110, // Adjust the height of the card as needed
+    // Same as the card container to create a consistent look
+  },
+  cardImageG: {
+    width: '100%', // Ensures image covers the entire width of the card
+    height: 95, // Adjust the height of the card as needed
+    borderRadius: 10, // Same as the card container to create a consistent look
+  },
+  iconContainerG: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '60%', // Increased width to make icons wider
+    height: 180,
+    padding: -3, // Increased padding inside the card
+    marginBottom: 14, // Space between rows of icons
+    backgroundColor: "#fffadf", // White background for card appearance
+    borderRadius: 6, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowRadius: 4,
+    elevation: 3, // Shadow effect for Android
+    marginHorizontal: -30, // Space between icons in the same row
+    marginRight: 35,
+    marginTop: -5,
+    borderColor:'#000',
+    borderWidth:3,
   },
 });

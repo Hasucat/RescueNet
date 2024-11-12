@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
   iconGrid: {
     flexGrow: 1, 
     paddingBottom: 10,
+    backgroundColor: '#31505e',
   },
 });

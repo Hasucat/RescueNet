@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity,ImageBackground, View, Alert, Image,ScrollView } from 'react-native';
 
-const EmergencyList = () => {
+const VolunteerSection = () => {
   const navigation = useNavigation();
 
   return (
@@ -11,24 +11,23 @@ const EmergencyList = () => {
       
         <View style={styles.iconGrid}>
         
-            <TouchableOpacity style={styles.iconContainerE} onPress={() => navigation.navigate('EmergencyContacts')}>
-            <Image source={require('../assets/emergencycontacts.png')} style={styles.cardImage} />
+            <TouchableOpacity style={styles.iconContainerM} onPress={() => navigation.navigate('VolunteerRegistration')}>
+            <Image source={require('../assets/volunregis.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
-            <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('DosAndDonts')}>
-            <Image source={require('../assets/sheltar.png')} style={styles.cardImage} />
+        
+            <TouchableOpacity style={styles.iconContainerF} onPress={() => navigation.navigate('VolunteerDashboard')}>
+            <Image source={require('../assets/volunalert.png')} style={styles.cardImageC} />
             </TouchableOpacity>
         
         </View>
-       
-      
-
+        
      </View>
-    </ScrollView>
+     </ScrollView>
   );
 };
 
-export default EmergencyList;
+export default VolunteerSection;
 
 const styles = StyleSheet.create({
   container: {
@@ -47,48 +46,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
-  iconContainerE: {
+  iconContainerM: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 230, 
-    padding: 5, // Increased padding inside the card
+    height: 235, 
+    padding: 10, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#e94637", // White background for card appearance
-    borderRadius: 5, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 10, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
     shadowRadius: 4,
     elevation: 3, // Shadow effect for Android
-    marginTop: 80,
     borderColor:'#000',
     borderWidth:4,
     marginHorizontal: 39,
+    marginTop: 80,
+  },
+
+  iconContainerF: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%', // Increased width to make icons wider
+    height: 245, 
+    padding: 10, // Increased padding inside the card
+    marginBottom: 8, // Space between rows of icons
+    backgroundColor: "#f1f1f1", // White background for card appearance
+    borderRadius: 10, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.1, // Slight shadow for card effect
+    shadowRadius: 4,
+    elevation: 3, // Shadow effect for Android
+    borderColor:'#000',
+    borderWidth:4,
+    marginHorizontal: 39,
+    marginTop: 20,
     
   },
-  iconContainerS: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%', // Increased width to make icons wider
-    height: 230, 
-    padding: 5, // Increased padding inside the card
-    marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#ffe9cd", // White background for card appearance
-    borderRadius: 5, // Rounded corners
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
-    marginTop: 20,
-    borderColor:'#000',
-    borderWidth:4,
-    marginHorizontal: 39,
-    
+  cardImageC: {
+    width: '100%', // Ensures image covers the entire width of the card
+    height: 235, // Adjust the height of the card as needed
   },
   cardImage: {
-    width: '103%', // Ensures image covers the entire width of the card
+    width: '105%', // Ensures image covers the entire width of the card
     height: 215, // Adjust the height of the card as needed
   },
   iconGrid: {
