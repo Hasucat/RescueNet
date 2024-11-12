@@ -36,6 +36,7 @@
     "react-native-screens": "^3.31.1",
     "react-native-svg": "^15.7.1",
     "react-native-toast-message": "^2.2.1",
+    "react-native-webview": "^13.12.3",
     "react-navigation": "^5.0.0"
   },
   "devDependencies": {
