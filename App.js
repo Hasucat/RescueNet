@@ -49,6 +49,7 @@ import EmbassyN_HighCommissions from './Screens/EmbassyN HighCommissions';
 import BloodBanks from './Screens/BloodBanks';
 import VolunteerSection from './Screens/VolunteerSection';
 import Guides from './Screens/Guides';
+import MediaContacts from './Screens/MediaContacts';
 
 const Stack = createStackNavigator();
 
@@ -89,6 +90,7 @@ export default function App() {
         {/* Inside helpline */}
         <Stack.Screen name="BangladeshEmergencies" component={BangladeshEmergencies} options={{ title: "BD Emergency Contacts" }} />
         <Stack.Screen name="RABContacts" component={RABContacts} options={{ title: "RAB Contacts" }} />
+        <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
 
         {/* Inside hospitals */}
         <Stack.Screen name="BloodBanks" component={BloodBanks} options={{ title: "Blood Banks" }} />
@@ -97,7 +99,8 @@ export default function App() {
         {/* Inside media */}
         <Stack.Screen name="BangladeshDailies" component={BangladeshDailies} options={{ title: "BD Newspapers" }} />
         <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
-        <Stack.Screen name="NGOs" component={NGOs} options={{ title: "NGO Contacts" }} />
+        <Stack.Screen name="MediaContacts" component={MediaContacts} options={{ title: "Media Contacts" }} />
+        
         
         {/* Inside volunteers */}
         <Stack.Screen name="VolunteerSection" component={VolunteerSection} options={{ title: "Volunteers Section" }} />

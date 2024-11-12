@@ -18,6 +18,10 @@ const Helplines = () => {
             <Image source={require('../assets/RAB_.webp')} style={styles.cardImage} />
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('NGOs')}>
+            <Image source={require('../assets/NGO_.webp')} style={styles.cardImage} />
+          </TouchableOpacity>
+
         </ScrollView>
     </View>
   );
