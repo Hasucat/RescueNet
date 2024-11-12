@@ -51,6 +51,8 @@ import VolunteerSection from './Screens/VolunteerSection';
 import Guides from './Screens/Guides';
 import MediaContacts from './Screens/MediaContacts';
 import ShelterContacts from './Screens/ShelterContacts';
+import HospitalContacts from './Screens/HospitalContacts';
+import DHK_Hospitals from './Screens/DHK_Hospitals';
 
 const Stack = createStackNavigator();
 
@@ -98,12 +100,15 @@ export default function App() {
         {/* Inside hospitals */}
         <Stack.Screen name="BloodBanks" component={BloodBanks} options={{ title: "Blood Banks" }} />
         <Stack.Screen name="Pharmacy" component={Pharmacy} options={{ title: "24/7 Pharmacy Contacts" }} />
+        <Stack.Screen name="HospitalContacts" component={HospitalContacts} options={{ title: "Hospital Contacts" }} />
 
         {/* Inside media */}
         <Stack.Screen name="BangladeshDailies" component={BangladeshDailies} options={{ title: "BD Newspapers" }} />
         <Stack.Screen name="EmbassyN_HighCommissions" component={EmbassyN_HighCommissions} options={{ title: "Embassies' Contacts" }} />
         <Stack.Screen name="MediaContacts" component={MediaContacts} options={{ title: "Media Contacts" }} />
         
+        {/* Inside HospitalContacts */}
+        <Stack.Screen name="DHK_Hospitals" component={DHK_Hospitals} options={{ title: "Dhaka Hospitals" }} />
         
         {/* Inside volunteers */}
         <Stack.Screen name="VolunteerSection" component={VolunteerSection} options={{ title: "Volunteers Section" }} />

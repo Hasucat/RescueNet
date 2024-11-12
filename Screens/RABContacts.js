@@ -299,6 +299,7 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 14,
         textAlign: 'left',
+        fontWeight: '500',
     },     
     callicon: {
         display: 'flex',
