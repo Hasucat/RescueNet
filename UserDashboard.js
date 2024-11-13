@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Animated,Text, TouchableOpacity,ImageBackground, ActivityIndicator, View, Alert, Image,ScrollView } from 'react-native';
 import { auth, db } from './firebase.js';
 import { signOut } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';;
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Ionicons,Entypo, MaterialCommunityIcons,AntDesign } from 'react-native-vector-icons';
 
 const UserDashboard = () => {

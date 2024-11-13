@@ -329,7 +329,7 @@ const ShelterContacts = () => {
                     <Text style={styles.noResultsText}>No Results Found</Text>
                 ) : null}
             </ScrollView>
-            <Toast ref={(ref) => Toast.setRef(ref)} />
+            <Toast />
         </ImageBackground>
     );
 };

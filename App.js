@@ -53,6 +53,8 @@ import MediaContacts from './Screens/MediaContacts';
 import ShelterContacts from './Screens/ShelterContacts';
 import HospitalContacts from './Screens/HospitalContacts';
 import DHK_Hospitals from './Screens/DHK_Hospitals';
+import DisasterAlertScreen from './Screens/DisasterAlerts';
+
 
 const Stack = createStackNavigator();
 
@@ -69,7 +71,8 @@ export default function App() {
         <Stack.Screen name="Donation" component={Donation} options={{ title: "Donation" }} />
         <Stack.Screen name="EmergencyList" component={EmergencyList} options={{ title: "Emergency List" }} />
         <Stack.Screen name="DosAndDonts" component={DosAndDonts} options={{ title: "Do's & Don'ts" }} />
-        
+        <Stack.Screen name="DisasterAlerts" component={DisasterAlertScreen} options={{ title: "Disaster Alerts" }} />
+
         {/* Inside Sidebar */}
         <Stack.Screen name="UpdateProfile" component={UpdateProfile} options={{ title: "Update Profile" }} />
         <Stack.Screen name="RelevantLink" component={RelevantLink} options={{ title: "Relevant Link" }} />
