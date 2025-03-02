@@ -46,7 +46,6 @@ const VolunteerRegistration = () => {
     try {
       await setDoc(doc(db, "volunteers", currentUser.uid), volunteerData);
       Alert.alert("Success", "Your profile has been updated as a volunteer!");
-      navigation.replace("UserDashboard");
     } catch (error) {
       Alert.alert("Error", error.message);
     }

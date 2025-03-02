@@ -91,6 +91,9 @@ const Rescue = () => {
           format: 'json',
           addressdetails: 1,
           limit: 1,
+        },
+        headers: {
+          'User-Agent': 'RescueNet/1.0.0 (rafidahmed816@gmail.com)'
         }
       });
 

@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import {  View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {  
+  View, 
+  Text, 
+  TextInput, 
+  Alert, 
+  StyleSheet, 
+  TouchableOpacity, 
+  ActivityIndicator 
+} from 'react-native';
 import MapView, { Marker, UrlTile } from 'react-native-maps';
 import * as Location from 'expo-location';
-import axios from 'axios'; // For search functionality
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 
@@ -14,7 +22,7 @@ const MapScreen = ({ route }) => {
     longitudeDelta: 0.0421,
   });
   const [marker, setMarker] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // For search input
+  const [searchQuery, setSearchQuery] = useState('');
   const [loadingLocation, setLoadingLocation] = useState(false);
   const navigation = useNavigation();
 
@@ -85,13 +93,17 @@ const MapScreen = ({ route }) => {
           format: 'json',
           addressdetails: 1,
           limit: 1,
+        },
+        // Provide a valid User-Agent as per Nominatim policy.
+        headers: {
+          'User-Agent': 'RescueNet/1.0.0 (rafidahmed816@gmail.com)'
         }
       });
 
       if (response.data.length > 0) {
-        const location = response.data[0];
-        const latitude = parseFloat(location.lat);
-        const longitude = parseFloat(location.lon);
+        const locationData = response.data[0];
+        const latitude = parseFloat(locationData.lat);
+        const longitude = parseFloat(locationData.lon);
 
         setMarker({ latitude, longitude });
         setRegion({
@@ -114,7 +126,6 @@ const MapScreen = ({ route }) => {
       return;
     }
   
-    // Return the selected location to the VolunteerRegistration screen
     navigation.navigate('VolunteerRegistration', {
       location: {
         latitude: marker.latitude,
@@ -122,10 +133,8 @@ const MapScreen = ({ route }) => {
       },
     });
   };
-  
 
   return (
-    
     <View style={styles.container}>
       {/* Search Bar */}
       <View style={styles.searchContainer}>
@@ -134,7 +143,7 @@ const MapScreen = ({ route }) => {
           placeholder="Search location"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          onSubmitEditing={() => handleSearch(searchQuery)}
+          onSubmitEditing={handleSearch}
         />
         <TouchableOpacity onPress={handleSearch}>
           <Ionicons name="search" size={24} color="#007bff" />
@@ -164,7 +173,6 @@ const MapScreen = ({ route }) => {
         <Text style={styles.submitButtonText}>Submit Location</Text>
       </TouchableOpacity>
     </View>
-   
   );
 };
 
@@ -172,7 +180,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',

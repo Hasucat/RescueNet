@@ -1,61 +1,62 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Toast from 'react-native-toast-message';
-import SplashScreen from './Screens/SplashScreen';
-import AuthScreen from './Screens/AuthScreen';
-import DosAndDonts from './Screens/DosAndDonts';
-import Rescue from './Screens/Rescue';
-import UserDashboard from './UserDashboard';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
-import Donation from './Screens/Donation';
-import Funding from './Screens/Funding';
-import FoodBank from './Screens/FoodBank';
-import Clothing from './Screens/Clothing';
-import RelevantLink from './Screens/RelevantLink';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import Toast from 'react-native-toast-message';
+import UserDashboard from './dashboards/UserDashboard';
 import About from './Screens/About';
-import Survey from './Screens/Survey';
-import Tutorial from './Screens/Tutorial';
-import UpdateProfile from './Screens/UpdateProfile';
-import EmergencyList from './Screens/EmergencyList';
-import EmergencyContacts from './Screens/EmergencyContacts';
-import Helplines from './Screens/Helplines';
-import Hospitals from './Screens/Hospitals';
-import Media from './Screens/Media';
-import VolunteerRegistration from './Screens/VolunteerRegistration';
-import MapScreen from './Screens/MapScreen';
-import VolunteerDashboard from './Screens/VolunteerDashboard';
-import Cyclone from './Screens/Cyclone';
-import Flood from './Screens/Flood';
-import Earthquake from './Screens/Earthquake';
-import Tsunami from './Screens/Tsunami';
-import Landslide from './Screens/Landslide';
-import Drought from './Screens/Drought';
-import Hurricane from './Screens/Hurricane';
-import Wildfire from './Screens/Wildfire';
-import HighTide from './Screens/HighTide';
-import Lightning from './Screens/Lightning';
-import RoadAccident from './Screens/RoadAccident';
-import Fire from './Screens/Fire';
-import CyberCrime from './Screens/CyberCrime';
-import Robbery from './Screens/Robbery';
-import BangladeshEmergencies from './Screens/BangladeshEmergencies';
+import AuthScreen from './Screens/AuthScreen';
 import BangladeshDailies from './Screens/BangladeshDailies';
-import RABContacts from './Screens/RABContacts';
-import NGOs from './Screens/NGOs';
-import Pharmacy from './Screens/Pharmacy';
-import EmbassyN_HighCommissions from './Screens/EmbassyN HighCommissions';
+import BangladeshEmergencies from './Screens/BangladeshEmergencies';
 import BloodBanks from './Screens/BloodBanks';
-import VolunteerSection from './Screens/VolunteerSection';
-import Guides from './Screens/Guides';
-import MediaContacts from './Screens/MediaContacts';
-import ShelterContacts from './Screens/ShelterContacts';
-import HospitalContacts from './Screens/HospitalContacts';
+import Clothing from './Screens/Clothing';
+import CyberCrime from './Screens/CyberCrime';
+import Cyclone from './Screens/Cyclone';
 import DHK_Hospitals from './Screens/DHK_Hospitals';
 import DisasterAlertScreen from './Screens/DisasterAlerts';
-
-
+import Donation from './Screens/Donation';
+import DosAndDonts from './Screens/DosAndDonts';
+import Drought from './Screens/Drought';
+import Earthquake from './Screens/Earthquake';
+import EmbassyN_HighCommissions from './Screens/EmbassyN HighCommissions';
+import EmergencyContacts from './Screens/EmergencyContacts';
+import EmergencyList from './Screens/EmergencyList';
+import Fire from './Screens/Fire';
+import Flood from './Screens/Flood';
+import FoodBank from './Screens/FoodBank';
+import Funding from './Screens/Funding';
+import Guides from './Screens/Guides';
+import Helplines from './Screens/Helplines';
+import HighTide from './Screens/HighTide';
+import HospitalContacts from './Screens/HospitalContacts';
+import Hospitals from './Screens/Hospitals';
+import Hurricane from './Screens/Hurricane';
+import Landslide from './Screens/Landslide';
+import Lightning from './Screens/Lightning';
+import MapScreen from './Screens/MapScreen';
+import Media from './Screens/Media';
+import MediaContacts from './Screens/MediaContacts';
+import NGOs from './Screens/NGOs';
+import Pharmacy from './Screens/Pharmacy';
+import RABContacts from './Screens/RABContacts';
+import RelevantLink from './Screens/RelevantLink';
+import Rescue from './Screens/Rescue';
+import RoadAccident from './Screens/RoadAccident';
+import Robbery from './Screens/Robbery';
+import ShelterContacts from './Screens/ShelterContacts';
+import SplashScreen from './Screens/SplashScreen';
+import Survey from './Screens/Survey';
+import Tsunami from './Screens/Tsunami';
+import Tutorial from './Screens/Tutorial';
+import UpdateProfile from './Screens/UpdateProfile';
+import UserStatus from './Screens/UserStatus';
+import VolunteerRegistration from './Screens/VolunteerRegistration';
+import VolunteerSection from './Screens/VolunteerSection';
+import VolunteerStatus from './Screens/VolunteerStatus';
+import Wildfire from './Screens/Wildfire';
+import VolunteerDashboard from './dashboards/VolunteerDashboard';
+import RescueRequests from './Screens/RescueRequests';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -144,8 +145,14 @@ export default function App() {
           component={MapScreen}
           options={{ title: 'Select Location' }} // Show title for map screen
         />
-
+         {/* User Status Screen */}
+        <Stack.Screen name="UserStatus" component={UserStatus} options={{ title: "Rescue Request Status" }} />
+        {/* Volunteer Status Screen */}
+        <Stack.Screen name="VolunteerStatus" component={VolunteerStatus} options={{ title: "Volunteer Response Status" }} />
         
+        <Stack.Screen name="RescueRequests" component={RescueRequests} options={{ title: "Rescue Requests" }} />
+        
+
       </Stack.Navigator>
 
       {/* Toast for Toast Msgs */}
