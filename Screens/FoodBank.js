@@ -21,7 +21,7 @@ const FoodBank = () => {
     <View style={{ flex: 1 }}>
     {/* Header Section */}
     <ImageBackground
-      source={require('../assets/header2.jpg')} // Replace with your header image
+      source={require('../assets/blue.jpeg')} // Replace with your header image
       style={styles.header}
     >
       <Text style={styles.headerText}>FOOD BANK</Text>
@@ -29,7 +29,7 @@ const FoodBank = () => {
     
     
     <ImageBackground
-        source={require('../assets/dashboard5.png')} // Background image for the icons
+        source={require('../assets/dashboard.png')} // Background image for the icons
         style={styles.contentBackground}
         resizeMode="cover" // Makes the image cover the entire background
       >

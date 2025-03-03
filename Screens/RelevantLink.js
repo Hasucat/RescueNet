@@ -29,7 +29,7 @@ const Tutorial = () => {
           <View style={styles.container}>
             <View style={styles.cardContainer}>
                 <ImageBackground
-                  source={require('../assets/header.jpg')}
+                  source={require('../assets/blue.jpeg')}
                   style={styles.headerBackground}
                 >
                   <View style={styles.header}>
@@ -124,12 +124,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#a1c3c4',
+    backgroundColor: '#f8f7e8',
    
   },
   cardContainer: {
     width: '100%',
-    backgroundColor: '#f0efda',
+    backgroundColor: '#c9d5d6',
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -137,6 +137,10 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
     marginBottom: 30,
+    borderRadius: 2,
+    borderColor: '#000',
+
+
   },
   cardBackground: {
     flex: 1,
@@ -163,9 +167,8 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: '#ffffff',
     fontSize: 23,
-    marginTop: 20,
     fontWeight: 'bold',
-    marginBottom: -18,
+    marginBottom: -15,
   },
   section: {
     marginBottom: 20,

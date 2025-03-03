@@ -220,16 +220,11 @@ const Survey = () => {
               />
 
               {/* Submit Button */}
-              <ImageBackground
-                source={require('../assets/update.gif')}
-                style={styles.registerBackground}
-              >
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={handleSubmit}
-              >
+              
+              <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
-              </ImageBackground>
+
             </View>
           </View>
         </ImageBackground>
@@ -250,7 +245,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#2a4e61',
+    backgroundColor: '#f8f7e8',
    
   },
   cardContainer: {
@@ -262,6 +257,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 5, 
+    borderColor: '#000',
+    borderWidth: 2,
   },
   headerBackground: {
     width: '100%', 
@@ -299,18 +296,24 @@ const styles = StyleSheet.create({
   checkboxGroup: {
     marginBottom: 15,
   },
-  submitButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 5,
+  registerButton: {
+    backgroundColor: '#56ba65',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
     alignItems: 'center',
-    marginTop: 20,
+    marginBottom: 40,
+    width: '45%',
+    height: 60,
+    marginLeft:84,
+    borderRadius: 5,
   },
-  submitText: {
+  buttonText: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: 'bold',
+    marginTop: 9,
+    fontWeight: '900',
+    marginBottom: 3,
+    
   },
   input: {
     width: '100%',
@@ -333,6 +336,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',  
     marginBottom: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    marginTop: 9,
+    fontWeight: '900',
+    marginBottom: 3,
+    
   },
 });
 

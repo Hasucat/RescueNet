@@ -7,7 +7,7 @@ const HospitalContacts = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/dashboard5.png')}
+      source={require('../assets/dashboard.png')}
       style={styles.backgroundImage}
     >
       <ScrollView contentContainerStyle={styles.iconGrid}>
@@ -18,9 +18,9 @@ const HospitalContacts = () => {
               onPress={() => navigation.navigate('DHK_Hospitals')}
             >
               <ImageBackground
-                source={require('../assets/header.jpg')}
+                source={require('../assets/blue.jpeg')}
                 style={styles.cardBackground}
-                imageStyle={{ borderRadius: 12 }}
+                imageStyle={{ borderRadius: 3 }}
               >
                 <Text style={styles.cardText}>Dhaka</Text>
               </ImageBackground>
@@ -31,9 +31,9 @@ const HospitalContacts = () => {
               onPress={() => navigation.navigate('CTG_Hospitals')}
             >
               <ImageBackground
-                source={require('../assets/header.jpg')}
+                source={require('../assets/blue.jpeg')}
                 style={styles.cardBackground}
-                imageStyle={{ borderRadius: 12 }}
+                imageStyle={{ borderRadius: 3 }}
               >
                 <Text style={styles.cardText}>Chittagong</Text>
               </ImageBackground>
@@ -44,9 +44,9 @@ const HospitalContacts = () => {
               onPress={() => navigation.navigate('KHL_Hospitals')}
             >
               <ImageBackground
-                source={require('../assets/header.jpg')}
+                source={require('../assets/blue.jpeg')}
                 style={styles.cardBackground}
-                imageStyle={{ borderRadius: 12 }}
+                imageStyle={{ borderRadius: 3 }}
               >
                 <Text style={styles.cardText}>Khulna</Text>
               </ImageBackground>
@@ -57,9 +57,9 @@ const HospitalContacts = () => {
               onPress={() => navigation.navigate('BGR_Hospitals')}
             >
               <ImageBackground
-                source={require('../assets/header.jpg')}
+                source={require('../assets/blue.jpeg')}
                 style={styles.cardBackground}
-                imageStyle={{ borderRadius: 12 }}
+                imageStyle={{ borderRadius: 3 }}
               >
                 <Text style={styles.cardText}>Bogra</Text>
               </ImageBackground>
@@ -70,9 +70,9 @@ const HospitalContacts = () => {
               onPress={() => navigation.navigate('XYZ_Hospitals')}
             >
               <ImageBackground
-                source={require('../assets/header.jpg')}
+                source={require('../assets/blue.jpeg')}
                 style={styles.cardBackground}
-                imageStyle={{ borderRadius: 12 }}
+                imageStyle={{ borderRadius: 3}}
               >
                 <Text style={styles.cardText}>Others</Text>
               </ImageBackground>
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     marginTop: 22.5,
   },
   iconContainer: {
-    width: '228%',
-    height: 78,
+    width: '230%',
+    height: 95,
     marginBottom: 15,
     borderRadius: 12,
     shadowColor: '#000',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.96,
     shadowRadius: 3,
     elevation: 7.5,
-    borderColor: 'transparent',
+    borderColor: '35435c',
     borderWidth: 4,
     overflow: 'hidden',
   },

@@ -113,14 +113,11 @@ const VolunteerRegistration = () => {
         </Text>
       </TouchableOpacity>
 
-              <ImageBackground
-                source={require('../assets/update.gif')}
-                style={styles.registerBackground}
-              >
+              
                 <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                
+                <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
-              </ImageBackground>
+              
             </View>
           </View>
         
@@ -141,8 +138,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#173a4d',
-   
+    backgroundColor: '#fff',
   },
   cardContainer: {
     width: '100%', 
@@ -154,6 +150,9 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5, 
     marginBottom: 60,
+    borderColor: '#000',
+    borderWidth: 2,
+    borderRadius: 1,
   },
   headerBackground: {
     width: '100%', 
@@ -205,11 +204,18 @@ const styles = StyleSheet.create({
   pickerContainer: {
     borderColor: "#ccc",
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 12,
+    borderRadius: 5,
+    marginBottom: 20,
     backgroundColor: "#fff",
+    marginTop: -8,
   },
-  picker: { height: 50, fontSize: 16 },
+  picker: { 
+    height: 55, 
+    fontSize: 16 ,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 8,
+  },
   locationButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -219,16 +225,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 20,
   },
-  registerButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0)', 
-  },
+  
   locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
   
   registerBackground: {
@@ -238,9 +235,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',  
     marginBottom: 10,
   },
+  registerButton: {
+    backgroundColor: '#56ba65',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+    alignItems: 'center',
+    marginBottom: 40,
+    width: '45%',
+    height: 60,
+    marginLeft:84,
+    borderRadius: 5,
+  },
   buttonText: {
-    color: 'rgba(255, 255, 255, 0)',
+    color: '#fff',
     fontSize: 20,
-    fontWeight: 'bold',
+    marginTop: 9,
+    fontWeight: '900',
+    marginBottom: 3,
+    
   },
 });export default VolunteerRegistration;

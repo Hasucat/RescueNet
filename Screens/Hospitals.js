@@ -11,15 +11,15 @@ const Hospitals = () => {
         <ScrollView contentContainerStyle={styles.iconGrid}>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('HospitalContacts')}>
-            <Image source={require('../assets/Hospital_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/bdhosp.png')} style={styles.cardImage} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('BloodBanks')}>
-            <Image source={require('../assets/Blood_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/bloodbank.png')} style={styles.cardImage} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Pharmacy')}>
-            <Image source={require('../assets/Pharmacy_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/pharmacy.png')} style={styles.cardImage} />
           </TouchableOpacity>
 
         </ScrollView>
@@ -33,7 +33,7 @@ export default Hospitals;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#31505e',
+        backgroundColor: '#fff',
       },
     
       iconGrid: {
@@ -43,18 +43,20 @@ const styles = StyleSheet.create({
       iconContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
-        height: 290,
-        padding: 10,
-        marginBottom: 25,
+        width: '70%',
+        height: 190,
+        padding: 5,
+        marginBottom: 1,
+        borderRadius: 1, // Rounded corners
         backgroundColor: "transparent",
-        border: 'none',
+        borderColor:'#000',
+        borderWidth:4,
         marginTop:20,
         
       },
       cardImage: {
         width: '80%',
-        height: 300,
+        height: 140,
        
       },
 });

@@ -32,7 +32,7 @@ const Tutorial = () => {
           <View style={styles.container}>
             <View style={styles.cardContainer}>
                 <ImageBackground
-                  source={require('../assets/header.jpg')}
+                  source={require('../assets/blue.jpeg')}
                   style={styles.headerBackground}
                 >
                   <View style={styles.header}>
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: '#ffffff',
     fontSize: 26,
-    marginTop: 10,
+    marginTop: -5,
     fontWeight: 'bold',
     marginBottom: -18,
   },

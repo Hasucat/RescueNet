@@ -26,7 +26,6 @@ function DisasterAlertScreen() {
         <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         
-        <Text style={styles.headerText}>Disaster Alerts</Text>
         
         <FlatList
           data={alerts}
@@ -44,11 +43,11 @@ function DisasterAlertScreen() {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#2a5157',  // Dark background for contrast
+      backgroundColor: '#fff',  // Dark background for contrast
       padding: 20,
     },
     headerText: {
-      color: 'white',
+      color: 'black',
       fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 20,
@@ -56,9 +55,10 @@ const styles = StyleSheet.create({
     },
     alertItem: {
       padding: 15,
-      borderRadius: 8,
+      borderColor: '#000',
+      borderRadius: 3,
       marginBottom: 10,
-      backgroundColor: '#1E1E1E',  // Slightly lighter background for alert item
+      backgroundColor: '#727e94',  // Slightly lighter background for alert item
       shadowColor: '#000',  // For subtle shadow effect
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.3,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     timestampText: {
       fontSize: 12,
-      color: 'gray',
+      color: 'black',
       fontFamily: 'Roboto',
     },
   });

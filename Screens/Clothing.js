@@ -30,7 +30,7 @@ const Clothing = () => {
     
     
     <ImageBackground
-        source={require('../assets/dashboard5.png')} // Background image for the icons
+        source={require('../assets/dashboard.png')} // Background image for the icons
         style={styles.contentBackground}
         resizeMode="cover" // Makes the image cover the entire background
       >

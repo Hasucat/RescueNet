@@ -39,7 +39,7 @@ export default EmergencyContacts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
   iconGrid: {
     flexDirection: 'column',
@@ -49,31 +49,31 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%', // Increased width to make icons wider
-    height: 300, 
+    width: '75%', // Increased width to make icons wider
+    height: 180, 
     padding: 30, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
     backgroundColor: "#fff", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.85, // Slight shadow for card effect
     shadowRadius: 4,
     elevation: 8.4, // Shadow effect for Android
     borderWidth:4,
-    borderColor:'#000',
-    marginHorizontal: 18,
+    borderColor:'#062e08',
+    marginHorizontal: 48,
     marginTop: 20
     
   },
   cardImage: {
-    width: '120%', // Ensures image covers the entire width of the card
-    height: 252, // Adjust the height of the card as needed
+    width: '115%', // Ensures image covers the entire width of the card
+    height: 170, // Adjust the height of the card as needed
      // Same as the card container to create a consistent look
   },
   iconGrid: {
     flexGrow: 1, 
     paddingBottom: 10,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
 });

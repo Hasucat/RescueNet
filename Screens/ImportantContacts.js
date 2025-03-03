@@ -8,7 +8,7 @@ const ImportantContacts = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../assets/dashboard5.png')}
+        source={require('../assets/dashboard.png')}
         style={styles.contentBackground}
         resizeMode="cover"
       >
@@ -60,7 +60,7 @@ export default ImportantContacts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
   },
   contentBackground: {
     flex: 1,

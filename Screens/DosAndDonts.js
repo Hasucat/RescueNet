@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
     resizeMode: 'cover',
-    backgroundColor: '#3d586e', // Teal color for the background
+    backgroundColor: '#fff', // Teal color for the background
     paddingHorizontal: 10,
     paddingVertical: 22,
   },

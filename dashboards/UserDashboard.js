@@ -11,13 +11,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 import { AntDesign, Entypo, Ionicons, MaterialCommunityIcons } from 'react-native-vector-icons';
 import { auth, db } from '../firebase.js';
 
+const { width } = Dimensions.get('window'); // Get screen width
+
 const UserDashboard = () => {
   const navigation = useNavigation();
+
+  const handleNavigate = (route) => {
+    navigation.navigate(route);
+  };
 
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(-300))[0];
@@ -51,7 +58,7 @@ const UserDashboard = () => {
           <TouchableOpacity onPress={toggleMenu} style={styles.menuIcon}>
             <Ionicons name="menu" size={39} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.headerText}>Welcome</Text>
+          <Text style={styles.headerText}>    User Dashboard</Text>
         </View>
 
         {/* Slide Menu */}
@@ -116,34 +123,140 @@ const UserDashboard = () => {
         
         
         <ImageBackground
-          source={require('../assets/dashboard5.png')} // Background image for the icons
+          source={require('../assets/dashboard.png')} // Background image for the icons
           style={styles.contentBackground}
           resizeMode="cover" // Makes the image cover the entire background
         >
-          <TouchableOpacity style={styles.statusButton} onPress={() => navigation.navigate('UserStatus')}>
-              <Text style={styles.statusButtonText}>Rescue Status</Text>
-          </TouchableOpacity>
 
           {/* 6 icons arranged in 3 rows of 2 icons each */}
+          <View style={styles.iconbox}>
+          <Text style={styles.iconText}>Priority Services</Text>
           <View style={styles.iconGrid}>
             <View style={styles.iconRow}>
               <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Rescue')}>
-                <Image source={require('../assets/Rescue.png')} style={styles.cardImage} />
+                <Image source={require('../assets/rescue.png')} style={styles.cardImage} />
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DisasterAlerts')}>
-                <Image source={require('../assets/alerts.png')} style={styles.cardImage} />
+                <Image source={require('../assets/disal.png')} style={styles.cardImage} />
               </TouchableOpacity>
-            </View>
-            <View style={styles.iconRow}>
+
               <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Donation')}>
                 <Image source={require('../assets/donation1.png')} style={styles.cardImage} />
               </TouchableOpacity>
-              
+            </View>
+            <View style={styles.iconRow}>
               <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmergencyList')}>
                 <Image source={require('../assets/emergency.png')} style={styles.cardImage} />
               </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerSection')}>
+                <Image source={require('../assets/volunteers.png')} style={styles.cardImage} />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Guides')}>
+                <Image source={require('../assets/guides.png')} style={styles.cardImage} />
+              </TouchableOpacity>
             </View>
+            
+            <View style={styles.slidecontainer}>
+    <Text style={styles.sliderText}>Disaster Information</Text>
+      <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+      <View style={styles.row}>
+          {/* Card 1 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Cyclone')}>
+            <ImageBackground source={require('../assets/cyclone.png')} style={styles.DcardImage} resizeMode="cover">
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 2 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Flood')}>
+            <ImageBackground source={require('../assets/flood.png')} style={styles.DcardImage} resizeMode="cover">
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 3 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Earthquake')}>
+            <ImageBackground source={require('../assets/earthquake.png')} style={styles.DcardImage} resizeMode="cover">
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 4 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Tsunami')}>
+            <ImageBackground source={require('../assets/tsunami.png')} style={styles.DcardImage}  resizeMode="cover">             
+            </ImageBackground>
+          </TouchableOpacity>
+          
+          {/* Card 5 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Landslide')}>
+            <ImageBackground source={require('../assets/landslide.png')} style={styles.DcardImage} resizeMode="cover">            
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 6 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Drought')}>
+            <ImageBackground source={require('../assets/drought.png')} style={styles.DcardImage} resizeMode="cover">             
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 7 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Hurricane')}>
+            <ImageBackground source={require('../assets/hurricane.png')} style={styles.DcardImage} resizeMode="cover">            
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 8 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Wildfire')}>
+            <ImageBackground source={require('../assets/wildfire.png')} style={styles.DcardImage} resizeMode="cover">              
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 9 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('HighTide')}>
+            <ImageBackground source={require('../assets/hightide.png')} style={styles.DcardImage} resizeMode="cover">            
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 10 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Lightning')}>
+            <ImageBackground source={require('../assets/lightning.png')} style={styles.DcardImage} resizeMode="cover">            
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 11 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('RoadAccident')}>
+            <ImageBackground source={require('../assets/roadacc.png')} style={styles.DcardImage} resizeMode="cover">             
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 12 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Fire')}>
+            <ImageBackground source={require('../assets/fire.png')} style={styles.DcardImage} resizeMode="cover">             
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 13 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('CyberCrime')}>
+            <ImageBackground source={require('../assets/cybercrime.png')} style={styles.DcardImage} resizeMode="cover">             
+            </ImageBackground>
+          </TouchableOpacity>
+
+          {/* Card 14 */}
+          <TouchableOpacity style={styles.Dcard} onPress={() => handleNavigate('Robbery')}>
+            <ImageBackground source={require('../assets/robbery.png')} style={styles.DcardImage} resizeMode="cover">
+            </ImageBackground>
+          </TouchableOpacity>
+           
+
+
+    </View>
+      </ScrollView>
+   </View>
+            
+            <TouchableOpacity style={styles.statusButton} onPress={() => navigation.navigate('UserStatus')}>
+              <Text style={styles.statusButtonText}>Rescue Status</Text>
+          </TouchableOpacity>
+          </View>
           </View>
         </ImageBackground>
       </View>
@@ -164,12 +277,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: -10,
+   
   },
   headerText: {
     color: 'white',
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: -30,
+    
   },
   bar: {
     height: 90,
@@ -222,22 +337,6 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     alignSelf: 'flex-start',
   },
-  // --- New Status Button Styles ---
-  statusButton: {
-    backgroundColor: 'green',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignSelf: 'center',
-    marginBottom: 40,
-  },
-  statusButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  // -----------------------------
   rescueRequest: {
     width: '100%',
     height: 95,
@@ -257,35 +356,39 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
+    paddingVertical: 30,
+    marginTop: 10,
+   
   },
   iconRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: -2,
+    marginBottom: 25,
+    paddingHorizontal: 20,
   },
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '60%',
-    height: 180,
+    width: '43%',
+    height: 93,
     backgroundColor: "#f8f7e8",
-    borderRadius: 6,
+    borderRadius: 4,
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    marginHorizontal: -30,
-    marginRight: 35,
-    marginTop: -5,
-    borderColor: '#000',
+    marginHorizontal: -45,
+    marginRight: -45,
+    marginTop: -17,
+    borderColor: '#368009',
     borderWidth: 3,
   },
   cardImage: {
-    width: '90%',
-    height: 170,
-    borderRadius: 10,
+    width: '100%',
+    height: 87,
+    
   },
   icon: {
     width: 70,
@@ -295,6 +398,25 @@ const styles = StyleSheet.create({
   iconText: {
     fontSize: 12,
     color: '#333',
+  },
+  iconbox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginTop: 20,
+    borderColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 1,
+    paddingHorizontal: 1,
+    marginHorizontal: -25,
+  },
+  iconText: {
+    color: '#43547a',
+    fontSize: 17,
+    fontWeight: 'bold', 
+    marginLeft: -180,
+    marginTop: -60, 
   },
   button: {
     backgroundColor: '#0c3038',
@@ -337,4 +459,80 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderWidth: 3,
   },
+
+  slidecontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginTop: 10,
+    borderColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 1,
+    paddingHorizontal: 3,
+    marginHorizontal: -30,
+  },
+  row: {
+    flexDirection: 'row',
+    paddingHorizontal: 1,
+  },
+  card: {
+    width: width / 5, // 3 cards per screen
+    height: 80,
+    backgroundColor: '#3498db',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 6,
+    borderRadius: 1,
+    shadowColor: '#fff',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  sliderText: {
+    color: '#43547a',
+    fontSize: 17,
+    fontWeight: 'bold', 
+    marginLeft: -150, 
+    marginBottom: 19,
+  },
+
+  // --- New Status Button Styles ---
+  statusButton: {
+    backgroundColor: 'green',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginBottom: -26,
+  },
+  statusButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  Dcard: {
+    width: width/4,
+    height: 90,
+    borderColor: '#b06464',
+    borderWidth: 2,
+    borderRadius: 4,
+    marginHorizontal: 3,
+    backgroundColor: '#f0b4b4',
+  
+  },
+  DcardImage:{
+    width: '100%',
+    height: 80,
+   
+  }
+  // -----------------------------
 });

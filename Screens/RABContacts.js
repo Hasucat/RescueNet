@@ -115,7 +115,7 @@ const RABContacts = () => {
 
     return (
         <ImageBackground
-            source={require('../assets/dashboard5.png')}
+            source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
             <TextInput
@@ -215,14 +215,14 @@ const styles = StyleSheet.create({
     scrollContainer: {
         paddingVertical: 20,
         alignItems: 'center',
-        backgroundColor: '#31505e',
+        backgroundColor: '#fff',
     },
     searchInput: {
         width: '90%',
         padding: 10,
         margin: 15,
-        borderColor: '#cccccc',
-        borderWidth: 1,
+        borderColor: '#000',
+        borderWidth: 2,
         borderRadius: 8,
         backgroundColor: '#ffffff',
         color: '#333333',
@@ -231,7 +231,9 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         width: '90%',
-        borderRadius: 10,
+        borderColor: '#403f3f',
+        borderWidth: 2,
+        borderRadius: 12,
         paddingVertical: 15,
         paddingHorizontal: 20,
         marginBottom: 24,

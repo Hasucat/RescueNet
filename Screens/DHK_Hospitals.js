@@ -244,11 +244,11 @@ const DHK_Hospitals = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/dashboard5.png')} // Ensure correct path
+      source={require('../assets/dashboard.png')} // Ensure correct path
       style={styles.backgroundImage}
     >
         <ImageBackground
-            source={require('../assets/header.jpg')} 
+            source={require('../assets/blue.jpeg')} 
             style={styles.headerBackground} 
             >
             <View style={styles.header}>
@@ -372,15 +372,17 @@ export default DHK_Hospitals;
 
 const styles = StyleSheet.create({
   headerBackground: {
-    width: '100%', 
+    width: '95%', 
     height: 81,   
     justifyContent: 'center', 
     alignItems: 'center',  
     marginBottom: 42,
+    marginTop: 10,
+    marginHorizontal:20,
   },
   header: {
     backgroundColor: 'rgba(255, 255, 255, 0)',
-    padding: 9,
+    padding: 10,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -389,9 +391,9 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: '#ffffff',
     fontSize: 26,
-    marginTop: 30,
+    marginTop: -5,
     fontWeight: 'bold',
-    marginBottom: -18,
+    marginBottom: -20,
   },
   backgroundImage: {
     flex: 1,
@@ -408,8 +410,8 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 10,
     margin: 15,
-    borderColor: '#cccccc',
-    borderWidth: 1,
+    borderColor: '#000',
+    borderWidth: 2,
     borderRadius: 12,
     backgroundColor: '#ffffff',
     color: '#333333',
@@ -430,7 +432,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: '90%',
     marginBottom: 15,
-    borderRadius: 8,
+    borderColor: '#403f3f',
+    borderWidth: 2,
+    borderRadius: 12,
     padding: 10,
   },
   office: {

@@ -11,15 +11,11 @@ const Guides = () => {
       
         <View style={styles.iconGrid}>
         
-            <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('DosAndDonts')}>
-            <Image source={require('../assets/dosdonts.png')} style={styles.cardImageD} />
-            </TouchableOpacity>
-        
-            <TouchableOpacity style={styles.iconContainerT} onPress={() => navigation.navigate('Tutorial')}>
-            <Image source={require('../assets/tutorials.png')} style={styles.cardImageT} />
+            <TouchableOpacity style={styles.iconContainerE} onPress={() => navigation.navigate('Tutorial')}>
+            <Image source={require('../assets/tutorials.png')} style={styles.cardImage} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconContainerR} onPress={() => navigation.navigate('RelevantLink')}>
+            <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('RelevantLink')}>
             <Image source={require('../assets/revlinks.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
@@ -35,7 +31,7 @@ export default Guides;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#31505e',
+    backgroundColor: '#f8f7e8',
     
   },
   contentBackground: {
@@ -49,82 +45,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   
-  iconContainerR: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%', // Increased width to make icons wider
-    height: 235, 
-    padding: 10, // Increased padding inside the card
-    marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#fdfefe", // White background for card appearance
-    borderRadius: 10, // Rounded corners
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
-    borderColor:'#000',
-    borderWidth:4,
-    marginHorizontal: 39,
-    marginTop: 20,
-  },
-  cardImage: {
-    width: '107%', // Ensures image covers the entire width of the card
-    height: 215, // Adjust the height of the card as needed
-  },
-  cardImageD: {
-    width: '103%', // Ensures image covers the entire width of the card
-    height: 215, // Adjust the height of the card as needed
-  },
-  iconContainerT: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%', // Increased width to make icons wider
-    height: 245, 
-    padding: 10, // Increased padding inside the card
-    marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#fdfefe", // White background for card appearance
-    borderRadius: 10, // Rounded corners
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
-    borderColor:'#000',
-    borderWidth:4,
-    marginHorizontal: 39,
-    marginTop: 20,
-    
-  },
-  cardImageT: {
-    width: '105%', // Ensures image covers the entire width of the card
-    height: 235, // Adjust the height of the card as needed
-  },
- 
-  iconContainer: {
+  iconContainerE: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
     height: 230, 
     padding: 5, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#f8f7e8", // White background for card appearance
-    borderRadius: 5, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
+    shadowOpacity: 0.96, // Slight shadow for card effect
+    shadowRadius: 4.5,
+    elevation: 10, // Shadow effect for Android
     marginTop: 80,
     borderColor:'#000',
     borderWidth:4,
     marginHorizontal: 39,
-    marginTop: 30,
     
+  },
+  iconContainerS: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%', // Increased width to make icons wider
+    height: 230, 
+    padding: 5, // Increased padding inside the card
+    marginBottom: 8, // Space between rows of icons
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2},
+    shadowOpacity: 0.96, // Slight shadow for card effect
+    shadowRadius: 4.5,
+    elevation: 10, // Shadow effect for Android
+    marginTop: 20,
+    borderColor:'#000',
+    borderWidth:4,
+    marginHorizontal: 39,
+    
+  },
+  cardImage: {
+    width: '103%', // Ensures image covers the entire width of the card
+    height: 215, // Adjust the height of the card as needed
   },
   iconGrid: {
     flexGrow: 1, 
     paddingBottom: 10,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
 });

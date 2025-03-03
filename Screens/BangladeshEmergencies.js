@@ -97,7 +97,7 @@ const BangladeshEmergencies = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/dashboard5.png')}
+      source={require('../assets/dashboard.png')}
       style={styles.backgroundImage}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -144,12 +144,14 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingVertical: 30,
     alignItems: 'center',
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
   cardContainer: {
     width: '90%',
     backgroundColor: '#AEDBFB', // Card background color
-    borderRadius: 10,
+    borderColor: '#403f3f',
+    borderWidth: 2,
+    borderRadius: 12,
     paddingVertical: 15,
     paddingHorizontal: 20,
     marginBottom: 20,

@@ -388,7 +388,7 @@ const EmbassyN_HighCommissions = () => {
     };
 
     return (
-        <ImageBackground source={require('../assets/dashboard5.png')} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/dashboard.png')} style={styles.backgroundImage}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
@@ -459,22 +459,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#31505e',
+        backgroundColor: '#fff',
     },
     searchContainer: {
         marginBottom: 20,
     },
     searchInput: {
         padding: 10,
-        borderColor: '#ccc',
-        borderWidth: 1,
+        borderColor: '#000',
+        borderWidth: 2,
         borderRadius: 12,
         backgroundColor: '#fff',
     },
     outputContainer: {
         flex: 1,
         backgroundColor: 'rgba(255, 255, 255, 0.30)', // Semi-transparent background
-        borderRadius: 12,
         padding: 12,
     },
     embassyItem: {
@@ -483,7 +482,9 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingBottom: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.78)', // Semi-transparent background for each embassy item
-        borderRadius: 15,
+        borderColor: '#403f3f',
+        borderWidth: 2,
+        borderRadius: 12,
         shadowColor: '#00594A',
         shadowOffset: { width: -0.21, height: 1 },
         shadowOpacity: 0.84,

@@ -12,11 +12,11 @@ const EmergencyList = () => {
         <View style={styles.iconGrid}>
         
             <TouchableOpacity style={styles.iconContainerE} onPress={() => navigation.navigate('EmergencyContacts')}>
-            <Image source={require('../assets/emergencycontacts.png')} style={styles.cardImage} />
+            <Image source={require('../assets/emergencyccontacts.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
             <TouchableOpacity style={styles.iconContainerS} onPress={() => navigation.navigate('ShelterContacts')}>
-            <Image source={require('../assets/sheltar.png')} style={styles.cardImage} />
+            <Image source={require('../assets/shelter.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         </View>
@@ -33,7 +33,7 @@ export default EmergencyList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#31505e',
+    backgroundColor: '#f8f7e8',
     
   },
   contentBackground: {
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     height: 230, 
     padding: 5, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#e94637", // White background for card appearance
-    borderRadius: 5, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.96, // Slight shadow for card effect
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     height: 230, 
     padding: 5, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#ffe9cd", // White background for card appearance
-    borderRadius: 5, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.96, // Slight shadow for card effect
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
   iconGrid: {
     flexGrow: 1, 
     paddingBottom: 10,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
 });

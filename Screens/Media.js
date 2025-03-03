@@ -11,15 +11,15 @@ const Media = () => {
         <ScrollView contentContainerStyle={styles.iconGrid}>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('BangladeshDailies')}>
-            <Image source={require('../assets/BDDailies_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/newspaper.png')} style={styles.cardImage} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmbassyN_HighCommissions')}>
-            <Image source={require('../assets/Embassy_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/emabassy.png')} style={styles.cardImage} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('MediaContacts')}>
-            <Image source={require('../assets/Channels_.webp')} style={styles.cardImage} />
+            <Image source={require('../assets/channels.png')} style={styles.cardImage} />
           </TouchableOpacity>
         </ScrollView>
       
@@ -32,7 +32,7 @@ export default Media;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#31505e',
+        backgroundColor: '#fff',
       },
     
       iconGrid: {
@@ -42,18 +42,20 @@ const styles = StyleSheet.create({
       iconContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
-        height: 290,
-        padding: 10,
-        marginBottom: 25,
+        width: '75%',
+        height: 180,
+        padding: 1,
+        marginBottom: 5,
+        borderRadius: 1, // Rounded corners
         backgroundColor: "transparent",
-        border: 'none',
-        marginTop:20,
+        borderColor:'#000',
+        borderWidth:4,
+        marginTop:30,
         
       },
       cardImage: {
-        width: '80%',
-        height: 300,
+        width: '101%',
+        height: 160,
        
       },
 });

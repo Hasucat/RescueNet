@@ -69,7 +69,7 @@ const Pharmacy = () => {
     };
 
     return (
-        <ImageBackground source={require('../assets/dashboard5.png')} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/dashboard.png')} style={styles.backgroundImage}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
@@ -153,15 +153,15 @@ const styles = {
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#31505e',
+        backgroundColor: '#fff',
     },
     searchContainer: {
         marginBottom: 20,
     },
     searchInput: {
         padding: 10,
-        borderColor: '#ccc',
-        borderWidth: 1,
+        borderColor: '#000',
+        borderWidth: 2,
         borderRadius: 12,
         backgroundColor: '#fff',
     },
@@ -174,7 +174,9 @@ const styles = {
     bankContainer: {
         marginBottom: 15,
         padding: 10,
-        borderRadius: 15,
+        borderColor: '#403f3f',
+        borderWidth: 2,
+        borderRadius: 12,
         marginTop: 6,
         shadowColor: '#00594A',
         shadowOffset: { width: -0.21, height: 3 },

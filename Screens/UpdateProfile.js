@@ -133,14 +133,10 @@ const UpdateProfile = () => {
                 </Text>
               </TouchableOpacity>
 
-              <ImageBackground
-                source={require('../assets/update.gif')}
-                style={styles.registerBackground}
-              >
-                <TouchableOpacity style={styles.registerButton} onPress={handleUpdateProfile}>
-                  <Text style={styles.buttonText}>Update</Text>
+              <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+                <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
-              </ImageBackground>
+              
             </View>
           </View>
       </ScrollView>
@@ -260,6 +256,25 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0)',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  registerButton: {
+    backgroundColor: '#56ba65',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+    alignItems: 'center',
+    marginBottom: 40,
+    width: '45%',
+    height: 60,
+    marginLeft:84,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    marginTop: 9,
+    fontWeight: '900',
+    marginBottom: 3,
+    
   },
 });
 

@@ -17,7 +17,7 @@ const Donation = () => {
         
         
             <TouchableOpacity style={styles.iconContainerF} onPress={() => navigation.navigate('FoodBank')}>
-            <Image source={require('../assets/food.png')} style={styles.cardImage} />
+            <Image source={require('../assets/foodbank.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         
@@ -37,7 +37,7 @@ export default Donation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
     
   },
   contentBackground: {
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     justifyContent: 'center',
     paddingVertical: 50, // Padding around the icons and button
+    
   },
   iconGrid: {
     flexDirection: 'column',
@@ -55,11 +56,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 235, 
+    height: 209, 
     padding: 10, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#fbf3e1", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
@@ -75,11 +76,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 235, 
+    height: 209, 
     padding: 10, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#66acab", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
@@ -94,11 +95,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 245, 
+    height: 209, 
     padding: 10, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#fcfdfc", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    backgroundColor: "#fff", // White background for card appearance
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
@@ -110,12 +111,12 @@ const styles = StyleSheet.create({
     
   },
   cardImageC: {
-    width: '100%', // Ensures image covers the entire width of the card
-    height: 235, // Adjust the height of the card as needed
+    width: '106%', // Ensures image covers the entire width of the card
+    height: 190, // Adjust the height of the card as needed
   },
   cardImage: {
-    width: '100%', // Ensures image covers the entire width of the card
-    height: 225, // Adjust the height of the card as needed
+    width: '105%', // Ensures image covers the entire width of the card
+    height: 190, // Adjust the height of the card as needed
   },
   iconGrid: {
     flexGrow: 1, 

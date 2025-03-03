@@ -16,8 +16,8 @@ const VolunteerSection = () => {
             </TouchableOpacity>
         
         
-            <TouchableOpacity style={styles.iconContainerF} onPress={() => navigation.navigate('VolunteerDashboard')}>
-            <Image source={require('../assets/volunalert.png')} style={styles.cardImageC} />
+            <TouchableOpacity style={styles.iconContainerM} onPress={() => navigation.navigate('VolunteerDashboard')}>
+            <Image source={require('../assets/volunalert.png')} style={styles.cardImage} />
             </TouchableOpacity>
         
         </View>
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%', // Increased width to make icons wider
-    height: 235, 
+    height: 220, 
     padding: 10, // Increased padding inside the card
     marginBottom: 8, // Space between rows of icons
     backgroundColor: "#fff", // White background for card appearance
-    borderRadius: 10, // Rounded corners
+    borderRadius: 1, // Rounded corners
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2},
     shadowOpacity: 0.1, // Slight shadow for card effect
@@ -66,37 +66,13 @@ const styles = StyleSheet.create({
     marginTop: 80,
   },
 
-  iconContainerF: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%', // Increased width to make icons wider
-    height: 245, 
-    padding: 10, // Increased padding inside the card
-    marginBottom: 8, // Space between rows of icons
-    backgroundColor: "#f1f1f1", // White background for card appearance
-    borderRadius: 10, // Rounded corners
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2},
-    shadowOpacity: 0.1, // Slight shadow for card effect
-    shadowRadius: 4,
-    elevation: 3, // Shadow effect for Android
-    borderColor:'#000',
-    borderWidth:4,
-    marginHorizontal: 39,
-    marginTop: 20,
-    
-  },
-  cardImageC: {
-    width: '100%', // Ensures image covers the entire width of the card
-    height: 235, // Adjust the height of the card as needed
-  },
   cardImage: {
     width: '105%', // Ensures image covers the entire width of the card
-    height: 215, // Adjust the height of the card as needed
+    height: 180, // Adjust the height of the card as needed
   },
   iconGrid: {
     flexGrow: 1, 
     paddingBottom: 10,
-    backgroundColor: '#31505e',
+    backgroundColor: '#fff',
   },
 });
