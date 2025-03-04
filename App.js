@@ -11,6 +11,7 @@ import BangladeshDailies from './Screens/BangladeshDailies';
 import BangladeshEmergencies from './Screens/BangladeshEmergencies';
 import BloodBanks from './Screens/BloodBanks';
 import Clothing from './Screens/Clothing';
+import CTG_Hospitals from './Screens/CTG_Hospitals';
 import CyberCrime from './Screens/CyberCrime';
 import Cyclone from './Screens/Cyclone';
 import DHK_Hospitals from './Screens/DHK_Hospitals';
@@ -32,6 +33,7 @@ import HighTide from './Screens/HighTide';
 import HospitalContacts from './Screens/HospitalContacts';
 import Hospitals from './Screens/Hospitals';
 import Hurricane from './Screens/Hurricane';
+import KHL_Hospitals from './Screens/KHL_Hospitals';
 import Landslide from './Screens/Landslide';
 import Lightning from './Screens/Lightning';
 import MapScreen from './Screens/MapScreen';
@@ -42,6 +44,7 @@ import Pharmacy from './Screens/Pharmacy';
 import RABContacts from './Screens/RABContacts';
 import RelevantLink from './Screens/RelevantLink';
 import Rescue from './Screens/Rescue';
+import RescueRequests from './Screens/RescueRequests';
 import RoadAccident from './Screens/RoadAccident';
 import Robbery from './Screens/Robbery';
 import ShelterContacts from './Screens/ShelterContacts';
@@ -51,12 +54,12 @@ import Tsunami from './Screens/Tsunami';
 import Tutorial from './Screens/Tutorial';
 import UpdateProfile from './Screens/UpdateProfile';
 import UserStatus from './Screens/UserStatus';
+import VolunteerDashboard from './dashboards/VolunteerDashboard';
 import VolunteerRegistration from './Screens/VolunteerRegistration';
 import VolunteerSection from './Screens/VolunteerSection';
 import VolunteerStatus from './Screens/VolunteerStatus';
 import Wildfire from './Screens/Wildfire';
-import VolunteerDashboard from './dashboards/VolunteerDashboard';
-import RescueRequests from './Screens/RescueRequests';
+import XYZ_Hospitals from './Screens/XYZ_Hospitals';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -113,7 +116,9 @@ export default function App() {
         
         {/* Inside HospitalContacts */}
         <Stack.Screen name="DHK_Hospitals" component={DHK_Hospitals} options={{ title: "Dhaka Hospitals" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
-        
+        <Stack.Screen name="KHL_Hospitals" component={KHL_Hospitals} options={{ title: "Khulna Hospitals" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
+        <Stack.Screen name="CTG_Hospitals" component={CTG_Hospitals} options={{ title: "Chattogram Hospitals" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
+        <Stack.Screen name="XYZ_Hospitals" component={XYZ_Hospitals} options={{ title: "Other Hospitals" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         {/* Inside volunteers */}
         <Stack.Screen name="VolunteerSection" component={VolunteerSection} options={{ title: "Volunteers Section" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />

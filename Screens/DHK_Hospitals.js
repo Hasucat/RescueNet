@@ -282,7 +282,7 @@ const DHK_Hospitals = () => {
               <View
                 key={index}
                 style={[styles.cardContainer, {
-                  backgroundColor: index % 2 === 0 ? 'rgba(221, 225, 225, 0.8)' : 'rgba(245, 225, 225, 0.8)'   // Alternating colors
+                  backgroundColor: index % 2 === 0 ? 'rgba(210, 245, 245, 1)' : 'rgba(210, 250, 220, 1)'   // Alternating colors
                 }]}
               >
                 <Text style={styles.office}>{hospital.name}</Text>
@@ -319,7 +319,7 @@ const DHK_Hospitals = () => {
               <View
                 key={index}
                 style={[styles.cardContainer, {
-                  backgroundColor: index % 2 === 0 ? 'rgba(210, 225, 225, 0.8)' : 'rgba(189, 225, 225, 0.8)'   // Alternating colors
+                  backgroundColor: index % 2 === 0 ? 'rgba(230, 255, 235, 1)' : 'rgba(250, 255, 220, 1)'   // Alternating colors
                 }]}
               >
                 <Text style={styles.office}>{hospital.name}</Text>
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     alignItems: 'center',
     backgroundColor: 'transparent',
-    marginTop: 27,
+    marginTop: -24,
   },
   searchInput: {
     width: '90%',

@@ -35,7 +35,7 @@ const HospitalContacts = () => {
                 style={styles.cardBackground}
                 imageStyle={{ borderRadius: 3 }}
               >
-                <Text style={styles.cardText}>Chittagong</Text>
+                <Text style={styles.cardText}>Chattogram</Text>
               </ImageBackground>
             </TouchableOpacity>
 
@@ -49,19 +49,6 @@ const HospitalContacts = () => {
                 imageStyle={{ borderRadius: 3 }}
               >
                 <Text style={styles.cardText}>Khulna</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.iconContainer}
-              onPress={() => navigation.navigate('BGR_Hospitals')}
-            >
-              <ImageBackground
-                source={require('../assets/blue.jpeg')}
-                style={styles.cardBackground}
-                imageStyle={{ borderRadius: 3 }}
-              >
-                <Text style={styles.cardText}>Bogra</Text>
               </ImageBackground>
             </TouchableOpacity>
 
@@ -98,7 +85,7 @@ const styles = StyleSheet.create({
   iconGrid: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 22.5,
+    marginTop: 60,
   },
   iconContainer: {
     width: '230%',
