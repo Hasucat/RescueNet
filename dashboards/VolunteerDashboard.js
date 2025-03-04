@@ -9,6 +9,8 @@ import {
   Modal,
   Button,
   ActivityIndicator,
+  ImageBackground,
+  Image
 } from "react-native";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -95,35 +97,26 @@ const VolunteerDashboard = () => {
       {/* Header at top left */}
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
-          <Text style={styles.welcomeText}>Welcome</Text>
+          <Text style={styles.welcomeText}>Priority Services</Text>
         </Text>
       </View>
 
       {/* Grid Layout */}
       <View style={styles.gridContainer}>
-        <TouchableOpacity
-          style={styles.gridItem}
-          onPress={() => navigation.navigate("VolunteerRegistration")}
-        >
-          <Text style={styles.gridText}>Volunteer Registration</Text>
+        <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerRegistration")}>
+        <Image source={require('../assets/regicon.png')} style={styles.cardImage} />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.gridItem}
-          onPress={() => navigation.navigate("VolunteerProfileUpdate")}
-        >
-          <Text style={styles.gridText}>Profile Update</Text>
+        <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerProfileUpdate")}>
+        <Image source={require('../assets/update.png')} style={styles.cardImage} />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.gridItem}
-          onPress={handleRescueRequests}
-        >
-          <Text style={styles.gridText}>Rescue Requests</Text>
+        <TouchableOpacity style={styles.gridItem} onPress={handleRescueRequests}>
+        <Image source={require('../assets/requesticon.png')} style={styles.cardImage} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.gridItem} onPress={handleRescueStatus}>
-          <Text style={styles.gridText}>Rescue Status</Text>
+        <Image source={require('../assets/statusicon.png')} style={styles.cardImage} />
         </TouchableOpacity>
       </View>
 
@@ -174,10 +167,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 28,
+    fontSize: 20,
+    color: '#43547a',
   },
   welcomeText: {
     fontWeight: "bold",
+  },
+  cardImage: {
+    width: '98%',
+    height: 60,
+    
   },
   gridContainer: {
     flexDirection: "row",
@@ -185,15 +184,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   gridItem: {
-    width: "48%",
-    height: 120,
-    backgroundColor: "#e0f0ff",
+    width: "90%",
+    height: 70,
+    marginLeft:15,
+    backgroundColor: "#f1f0d7",
     marginBottom: 15,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#0c3038",
+    borderWidth: 2,
+    borderColor: "#368009",
   },
   gridText: {
     fontSize: 18,
@@ -243,4 +243,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
+
 });

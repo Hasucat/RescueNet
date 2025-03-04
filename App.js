@@ -122,7 +122,7 @@ export default function App() {
         {/* Inside volunteers */}
         <Stack.Screen name="VolunteerSection" component={VolunteerSection} options={{ title: "Volunteers Section" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         <Stack.Screen name="VolunteerRegistration" component={VolunteerRegistration} options={{ title: "Volunteer Registration" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
-        <Stack.Screen name="VolunteerDashboard" component={VolunteerDashboard} options={{ title: 'Volunteer Dashboard' }}/>
+        <Stack.Screen name="VolunteerDashboard" component={VolunteerDashboard} options={{ title: 'Volunteer Dashbaord',headerStyle: { backgroundColor: "#40646b"},  headerTintColor: "#fff" ,headerTitleStyle: { fontWeight: 'bold', fontSize: 20 },headerTitleAlign: 'center'}}/>
 
 
         {/* Inside volunteers */}
@@ -151,11 +151,11 @@ export default function App() {
           options={{ title: 'Select Location' }} // Show title for map screen
         />
          {/* User Status Screen */}
-        <Stack.Screen name="UserStatus" component={UserStatus} options={{ title: "Rescue Request Status" }} />
+        <Stack.Screen name="UserStatus" component={UserStatus} options={{ title: "Rescue Request Status" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         {/* Volunteer Status Screen */}
-        <Stack.Screen name="VolunteerStatus" component={VolunteerStatus} options={{ title: "Volunteer Response Status" }} />
+        <Stack.Screen name="VolunteerStatus" component={VolunteerStatus} options={{ title: "Volunteer Response Status" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         
-        <Stack.Screen name="RescueRequests" component={RescueRequests} options={{ title: "Rescue Requests" }} />
+        <Stack.Screen name="RescueRequests" component={RescueRequests} options={{ title: "Rescue Requests" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         
 
       </Stack.Navigator>

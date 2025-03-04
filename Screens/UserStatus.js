@@ -167,10 +167,14 @@ const UserStatus = () => {
         rescues.map((rescue) => (
           <View key={rescue.id} style={styles.rescueBox}>
             <Text style={styles.rescueName}>{rescue.name}</Text>
-            <Text style={styles.rescueDescription}>{rescue.description}</Text>
             <Text style={styles.rescueStatus}>
-              Status: {rescue.status} {rescue.lastAction ? `(${rescue.lastAction}${rescue.cancelReason ? `: ${rescue.cancelReason}` : ''})` : ""}
-            </Text>
+  <Text style={styles.statusLabel}>Status: </Text>
+  <Text style={styles.statusContent}>
+    {rescue.status} 
+    {rescue.lastAction ? ` (${rescue.lastAction}${rescue.cancelReason ? `: ${rescue.cancelReason}` : ''})` : ""}
+  </Text>
+</Text>
+            <Text style={styles.rescueDescription}>Description: {rescue.description}</Text>
             <Text style={styles.rescueInfo}>Risk: {rescue.riskType}</Text>
             <Text style={styles.rescueInfo}>Phone: {rescue.phone}</Text>
 
@@ -308,11 +312,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   rescueBox: {
-    borderWidth: 2,
-    borderColor: '#3b82f6',
+    borderWidth: 3,
+    borderColor: '#3b5063',
     borderRadius: 8,
     padding: 10,
-    marginVertical: 8,
+    marginVertical: 20,
   },
   rescueName: {
     fontSize: 20,
@@ -321,27 +325,36 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   rescueDescription: {
-    fontSize: 16,
-    marginBottom: 4,
-    color: '#333',
+    fontSize: 14,
+    marginBottom: 2,
+    color: '#555',
   },
   header: {
-    backgroundColor: '#2a5157',
-    height: 130,
+    backgroundColor: '#374552',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: -10,
+    borderRadius: 5,
+    borderColor:'#b8cde0',
+    borderWidth:4,
   },
   headerText: {
     color: '#fff',
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: 'bold',
   },
-  rescueStatus: {
-    fontSize: 16,
-    marginBottom: 4,
-    color: '#333',
-  },
+    rescueStatus: {
+      fontSize: 16, 
+      marginVertical: 2, 
+    },
+    statusLabel: {
+      color: "#18ad6d",
+      fontWeight: "bold",
+    },
+    statusContent: {
+      color: "#000", 
+    },
   rescueInfo: {
     fontSize: 14,
     marginBottom: 2,
@@ -378,9 +391,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   mapButton: {
-    marginVertical: 20,
+    marginVertical: 5,
     padding: 10,
-    backgroundColor: '#0a84ff',
+    backgroundColor: '#4178bf',
     borderRadius: 8,
     alignItems: 'center',
   },

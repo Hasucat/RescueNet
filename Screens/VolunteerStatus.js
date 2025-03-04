@@ -148,14 +148,33 @@ const VolunteerStatus = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Rescue Request Status</Text>
+      <View style={styles.statusContainer}>
+  <Text style={styles.header}>Rescue Request Status</Text>
+</View>
+
       <Text style={styles.name}>{rescue.name}</Text>
-      <Text style={styles.description}>Description: {rescue.description}</Text>
-      <Text style={styles.info}>Risk Type: {rescue.riskType}</Text>
-      <Text style={styles.info}>Phone: {rescue.phone}</Text>
-      <Text style={styles.info}>
-        Status: {rescue.status} {rescue.lastAction ? `(${rescue.lastAction}${rescue.cancelReason ? `: ${rescue.cancelReason}` : ''})` : ""}
-      </Text>
+      <Text style={styles.description}>
+  <Text style={styles.label}>Description : </Text>
+  <Text style={styles.descriptionContent}>{rescue.description}</Text>
+</Text>
+
+<Text style={styles.info}>
+  <Text style={styles.label}>Risk Type: </Text>
+  <Text style={styles.infoContent}>{rescue.riskType}</Text>
+</Text>
+
+<Text style={styles.info}>
+  <Text style={styles.label}>Phone: </Text>
+  <Text style={styles.infoContent}>{rescue.phone}</Text>
+</Text>
+
+<Text style={styles.info}>
+  <Text style={styles.label}>Status: </Text>
+  <Text style={styles.infoContent}>
+    {rescue.status} 
+    {rescue.lastAction ? ` (${rescue.lastAction}${rescue.cancelReason ? `: ${rescue.cancelReason}` : ''})` : ""}
+  </Text>
+</Text>
 
       <TouchableOpacity onPress={openLocationModal} style={styles.mapButton}>
         <Text style={styles.mapButtonText}>View Location</Text>
@@ -166,7 +185,7 @@ const VolunteerStatus = () => {
           <TouchableOpacity style={styles.actionButton} onPress={handleConfirmArrival}>
             <Text style={styles.buttonText}>Confirm Arrival</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#ff3b30' }]} onPress={openCancelModal}>
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#c9371a' }]} onPress={openCancelModal}>
             <Text style={styles.buttonText}>Cancel Request</Text>
           </TouchableOpacity>
         </View>
@@ -263,39 +282,59 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  statusContainer: {
+    backgroundColor: "#374552", // Light gray background
+    padding: 5, // Add some padding
+    borderRadius: 5,
+    borderColor:'#b8cde0',
+    borderWidth:4,
+    alignItems: "center", // Center the text horizontally
+    marginTop: -5, // Add some margin
+    marginBottom:4,
+  },
   header: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 2,
     textAlign: 'center',
+    color:'#fff'
   },
   name: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 8,
+    marginTop:5,
     textAlign: 'center',
   },
   description: {
-    fontSize: 16,
-    marginBottom: 8,
-    textAlign: 'center',
+    fontSize: 16, 
+  },
+  label: {
+    color: "#633b4b", // Change to your preferred label color
+    fontWeight: "bold",
+  },
+  descriptionContent: {
+    color: "#000", // Black color for the description content
   },
   info: {
-    fontSize: 14,
-    marginBottom: 4,
-    textAlign: 'center',
-    color: '#555',
+    fontSize: 16, 
+    marginVertical: 2, // Small spacing between lines
   },
-  infoText: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#555',
+  label: {
+    color: "#633b4b", // Change this to your preferred label color
+    fontWeight: "bold",
+  },
+  infoContent: {
+    color: "#000", // Black color for the actual content
   },
   mapButton: {
-    marginVertical: 20,
-    padding: 10,
-    backgroundColor: '#0a84ff',
-    borderRadius: 8,
+    marginVertical: 15,
+    marginLeft:35,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#4178bf',
+    borderRadius: 6,
+    width: '80%',
     alignItems: 'center',
   },
   mapButtonText: {
@@ -303,15 +342,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   actionsContainer: {
-    marginVertical: 15,
+    marginVertical: -12,
     alignItems: 'center',
   },
   actionButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#4da361',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 6,
-    marginVertical: 5,
+    marginVertical: 4,
     width: '80%',
     alignItems: 'center',
   },

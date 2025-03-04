@@ -261,11 +261,11 @@ const styles = StyleSheet.create({
   },
   card: {
     borderWidth: 2,
-    borderColor: '#3b82f6',
+    borderColor: '#35585c',
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#ccdadb',
   },
   name: {
     fontSize: 14,
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginBottom: 4,
-    color: '#333',
+    color: '#555',
   },
   info: {
     fontSize: 14,
@@ -287,7 +287,9 @@ const styles = StyleSheet.create({
     height: 150,
     width: '100%',
     marginVertical: 10,
-    borderRadius: 8,
+    borderRadius: 6,
+    borderColor: '#ad1818',
+    borderWidth: 1,
     overflow: 'hidden',
   },
   map: {
@@ -301,17 +303,18 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 10,
+    marginTop: -1,
   },
   callButton: {
-    backgroundColor: '#0a84ff',
-    paddingVertical: 8,
+    backgroundColor: '#4aab05',
+    paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 6,
+
   },
   acceptButton: {
-    backgroundColor: '#28a745',
-    paddingVertical: 8,
+    backgroundColor: '#bf0a3d',
+    paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 6,
   },

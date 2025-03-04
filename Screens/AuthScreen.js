@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   inputContainer: {
-    marginBottom: 20
+    marginBottom: -1
   },
   input: {
     backgroundColor: '#e8e8e8',
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   picker: {
-    height: 50,
+    height: 60,
     width: '100%'
   },
   buttonContainer: {
