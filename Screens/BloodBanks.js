@@ -164,10 +164,11 @@ const styles = {
         borderWidth: 2,
         borderRadius: 12,
         backgroundColor: '#fff',
+        marginBottom: 15
     },
     scrollView: {
         flex: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0.30)', // Slight transparent background to match the container style
+        backgroundColor: 'rgba(255, 255, 255, 0.30)',
         borderRadius: 12,
         padding: 12,
     },
@@ -177,7 +178,7 @@ const styles = {
         borderColor: '#403f3f',
         borderWidth: 2,
         borderRadius: 12,
-        marginTop: 6,
+        marginTop: 12,
         shadowColor: '#00594A',
         shadowOffset: { width: -0.21, height: 3 },
         shadowOpacity: 0.90,

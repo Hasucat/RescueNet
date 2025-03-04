@@ -136,19 +136,30 @@ const XYZ_Hospitals = () => {
                 backgroundColor: index % 2 === 0 ? 'rgba(221, 250, 255, 0.8)' : 'rgba(245, 255, 250, 0.8)'
               }]}
             >
+              {/* Hospital Name */}
               <Text style={styles.office}>{hospital.name}</Text>
-              <View style={styles.contactBox}>
-                <Text style={styles.contactLabel}>Telephone:</Text>
-                {hospital.phone.map((number, i) => (
-                  <View key={i} style={styles.contactWrapper}>
-                    <TouchableOpacity onPress={() => handleMakeCall(number)} onLongPress={() => handleCopyNotification(number)}>
+
+              {/* District Information */}
+              <View style={styles.infoRow}>
+                <Text style={styles.DistcontactText}>District:</Text>
+                <Text style={styles.contactNumber}>{hospital.district}</Text>
+              </View>
+
+              {/* Contact Information */}
+              <View style={styles.infoRow}>
+                <Text style={styles.contactText}>Telephone:</Text>
+                <View style={styles.phoneNumbers}>
+                  {hospital.phone.map((number, i) => (
+                    <TouchableOpacity key={i} onPress={() => handleMakeCall(number)} onLongPress={() => handleCopyNotification(number)}>
                       <Text style={styles.contactNumber}>{number}</Text>
                     </TouchableOpacity>
-                  </View>
-                ))}
+                  ))}
+                </View>
               </View>
-              <View style={styles.callicon}>
-                <Text style={styles.contactText}>Make a Call: </Text>
+
+              {/* Call Icon */}
+              <View style={styles.infoRow}>
+                <Text style={styles.contactText}>Make a Call:</Text>
                 <TouchableOpacity onPress={() => handleMakeCall(hospital.phone[0])}>
                   <Image source={require('../assets/phn.png')} style={styles.phoneIcon} />
                 </TouchableOpacity>
@@ -162,6 +173,7 @@ const XYZ_Hospitals = () => {
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </ImageBackground>
   );
+
 };
 
 export default XYZ_Hospitals;
@@ -240,21 +252,21 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginLeft: 84
   },
-  callicon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10
-  },
   contactText: {
     fontSize: 14,
     color: '#00796b',
     fontWeight: 'bold',
   },
+  DistcontactText: {
+    fontSize: 14,
+    color: '#00796b',
+    fontWeight: 'bold',
+    marginTop: 18
+  },
   phoneIcon: {
     width: 27,
     height: 27,
-    marginLeft: 10,
-    marginLeft: 84
+    marginLeft: 147
   },
   noResultsText: {
     textAlign: 'center',
@@ -263,4 +275,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 60,
   },
+  
 });

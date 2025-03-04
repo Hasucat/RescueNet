@@ -88,8 +88,8 @@ const Pharmacy = () => {
                                     key={index} 
                                     style={[
                                         styles.bankContainer,
-                                        { backgroundColor: index % 2 === 0 ? 'rgba(173, 216, 245, 0.81)'  // Light ocean blue
-                                                                            : 'rgba(200, 250, 250, 0.81)'  // Light sky blue
+                                        { backgroundColor: index % 2 === 0 ? 'rgba(173, 216, 245, 1)'  // Light ocean blue
+                                                                            : 'rgba(200, 250, 250, 1)'  // Light sky blue
                                                                             }
                                     ]}
                                 >
@@ -164,10 +164,11 @@ const styles = {
         borderWidth: 2,
         borderRadius: 12,
         backgroundColor: '#fff',
+        marginBottom: 15
     },
     scrollView: {
         flex: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0.30)', // Slight transparent background to match the container style
+        backgroundColor: 'rgba(255, 255, 255, 0.30)', 
         borderRadius: 12,
         padding: 12,
     },
@@ -177,7 +178,7 @@ const styles = {
         borderColor: '#403f3f',
         borderWidth: 2,
         borderRadius: 12,
-        marginTop: 6,
+        marginTop: 12,
         shadowColor: '#00594A',
         shadowOffset: { width: -0.21, height: 3 },
         shadowOpacity: 0.90,
@@ -240,7 +241,7 @@ const styles = {
         width: '100%',
     },
     copyButton: {
-        padding: 10,
+        padding: 8,
         backgroundColor: '#4CAF50',
         borderRadius: 8,
         marginHorizontal: 5,
