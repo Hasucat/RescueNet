@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Fire = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Place smoke alarms on every level of your home, especially near bedrooms, and test them monthly. Replace batteries at least once a year.", checked: false },
-    { title: "Make sure everyone knows at least two exits from each room and establish a safe meeting point outside.", checked: false },
-    { title: "Choose fire-resistant materials for home furnishings and building materials when possible, especially for roofs and exterior walls.", checked: false },
-    { title: "Place fire extinguishers in high-risk areas, like the kitchen and garage, and ensure household members know how to use them.", checked: false },
-    { title: "Don't plug too many devices into one outlet, and check cords for fraying or wear to prevent electrical fires.", checked: false },
-    { title: "Keep fuels, cleaning agents, and other flammable items in a cool, well-ventilated area away from heat sources.", checked: false }
-  ]);
+  const [checkboxes, setCheckboxes] = useState([]);
 
-  // Define content for each tab
   const content = {
     Before: [
-      { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-      { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
-    ],
+      { title: "Monitor weather reports, fire danger warnings, and updates from local authorities about potential fire risks.", checked: false },
+      { title: "Prepare an emergency kit with water, food, medications, flashlight, batteries, and important documents.", checked: false },
+      { title: "Clear brush, dry leaves, and other flammable materials around your home, and create defensible space to prevent fire spread.", checked: false },
+      { title: "Know multiple evacuation routes and have a pre-determined meeting point for family members.", checked: false },
+      { title: "Check fire alarms, extinguishers, and fire hoses to ensure they are working properly, and educate everyone on fire safety." , checked: false },
+      { title: "Create a fire-resistant barrier around your home, including firebreaks and fireproof landscaping." , checked: false }
+    ],    
     During: [
       { title: "If there's smoke, crawl close to the ground to avoid inhaling toxic fumes, and exit the building as quickly as possible.", checked: false },
       { title: "Before opening any door, feel it with the back of your hand. If it's hot, don't open it; find another way out.", checked: false },
@@ -41,31 +34,33 @@ const Fire = () => {
     ]
   };
 
-  // Update checkboxes when tab changes
-  const handleTabPress = (tab) => {
-    setSelectedTab(tab);
-    setCheckboxes(content[tab]);
+  useEffect(() => {
+    loadCheckboxes();
+  }, [selectedTab]);
+
+  const loadCheckboxes = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem(`checkboxes_${selectedTab}`);
+      if (storedData) {
+        setCheckboxes(JSON.parse(storedData));
+      } else {
+        setCheckboxes(content[selectedTab]);
+      }
+    } catch (error) {
+      console.error("Failed to load checkboxes", error);
+    }
   };
 
-  const renderContent = () => {
-    return (
-      <View style={styles.checklistContainer}>
-        <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
-          <CheckBox
-            key={index}
-            title={item.title}
-            checked={item.checked}
-            onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
-            }}
-          />
-        ))}
-      </View>
-    );
+  const handleCheckboxPress = async (index) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxes(newCheckboxes);
+
+    try {
+      await AsyncStorage.setItem(`checkboxes_${selectedTab}`, JSON.stringify(newCheckboxes));
+    } catch (error) {
+      console.error("Failed to save checkbox state", error);
+    }
   };
 
   return (
@@ -79,16 +74,10 @@ const Fire = () => {
         {['Before', 'During', 'After'].map((tab) => (
           <TouchableOpacity
             key={tab}
-            onPress={() => handleTabPress(tab)}
-            style={[
-              styles.tab,
-              selectedTab === tab && styles.activeTab,
-            ]}
+            onPress={() => setSelectedTab(tab)}
+            style={[styles.tab, selectedTab === tab && styles.activeTab]}
           >
-            <Text style={[
-              styles.tabText,
-              selectedTab === tab && styles.activeTabText,
-            ]}>
+            <Text style={[styles.tabText, selectedTab === tab && styles.activeTabText]}>
               {tab}
             </Text>
           </TouchableOpacity>
@@ -97,7 +86,17 @@ const Fire = () => {
 
       <View style={styles.scrollContainer}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          {renderContent()}
+          <View style={styles.checklistContainer}>
+            <Text style={styles.sectionTitle}>For Community</Text>
+            {checkboxes.map((item, index) => (
+              <CheckBox
+                key={index}
+                title={item.title}
+                checked={item.checked}
+                onPress={() => handleCheckboxPress(index)}
+              />
+            ))}
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -111,7 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  
   image: {
     width: '100%',
     height: 280,
@@ -124,34 +122,25 @@ const styles = StyleSheet.create({
     left: 10,
     padding: 10,
   },
-  backText: {
-    color: '#fff',
-    fontSize: 24,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
   tabsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
     marginHorizontal: 20,
-    borderRadius: 20, // Rounds the entire tab bar
-    borderWidth: 5, // Border width for the tab bar
-    borderColor: '#2f515c', // Border color for the tab bar (red color)
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: '#2f515c',
     marginTop: 5,
   },
   tab: {
     paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 15, // Rounds each tab button
-    backgroundColor: '#fff', 
+    borderRadius: 15,
+    backgroundColor: '#fff',
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#691b38', // red color for active tab
+    borderBottomColor: '#691b38',
   },
   tabText: {
     fontSize: 16,
@@ -161,7 +150,7 @@ const styles = StyleSheet.create({
     color: '#691b38',
   },
   scrollContainer: {
-    flex: 1, // This will allow ScrollView to take up remaining space
+    flex: 1,
   },
   contentContainer: {
     padding: 20,

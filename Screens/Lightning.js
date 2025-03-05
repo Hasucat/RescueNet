@@ -1,67 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Lightning = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Identify safe indoor locations and review safety tips with everyone in your household. Stay informed about weather conditions by monitoring alerts.", checked: false },
-    { title: "Bring in any objects that could attract lightning, such as metal tools, bikes, or lawn chairs, to reduce the risk of strikes near the house.", checked: false },
-    { title: "Protect your electronics from power surges by unplugging computers, TVs, and appliances.", checked: false },
-    { title: "Don't set up campsites or spend time in open areas where tall objects are nearby.", checked: false },
-    { title: "Plan to avoid open water or damp ground if lightning is predicted, as water is a strong conductor of electricity.", checked: false },
-    { title: "If you live in a high-risk area, consider lightning rods and surge protectors to help divert strikes safely.", checked: false }
-  ]);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   // Define content for each tab
   const content = {
     Before: [
-      { title: "Identify safe indoor locations and review safety tips with everyone in your household. Stay informed about weather conditions by monitoring alerts.", checked: false },
-      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-      { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+      { title: "Identify safe indoor locations and review safety tips with everyone in your household. Stay informed about weather conditions by monitoring alerts." },
+      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents." },
+      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards." },
+      { title: "Know evacuation routes, emergency shelters, and meeting points." },
+      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion." },
+      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages." }
     ],
     During: [
-      { title: "Go indoors or into a hard-topped vehicle if you hear thunder; remember, if you can hear thunder, you’re close enough to be struck by lightning.", checked: false },
-      { title: "Avoid windows, plumbing, and electrical fixtures as these can conduct electricity.", checked: false },
-      { title: "Don't bathe, shower, or wash dishes during a storm, as water pipes can carry electricity.", checked: false },
-      { title: "Avoid using corded phones or electronics plugged into outlets, as they can conduct lightning.", checked: false },
-      { title: "Lightning can travel through the metal rebar in concrete structures, so stand clear.", checked: false },
-      { title: "Do not take shelter under trees, near poles, or in open fields, as lightning often strikes the tallest point in an area.", checked: false }
+      { title: "Go indoors or into a hard-topped vehicle if you hear thunder; remember, if you can hear thunder, you’re close enough to be struck by lightning." },
+      { title: "Avoid windows, plumbing, and electrical fixtures as these can conduct electricity." },
+      { title: "Don't bathe, shower, or wash dishes during a storm, as water pipes can carry electricity." },
+      { title: "Avoid using corded phones or electronics plugged into outlets, as they can conduct lightning." },
+      { title: "Lightning can travel through the metal rebar in concrete structures, so stand clear." },
+      { title: "Do not take shelter under trees, near poles, or in open fields, as lightning often strikes the tallest point in an area." }
     ],
     After: [
-      { title: "Don't leave shelter immediately; wait at least 30 minutes after the last clap of thunder to ensure safety.", checked: false },
-      { title: "If someone has been struck, call emergency services and administer CPR if necessary—lightning strike victims can often be revived with prompt care.", checked: false },
-      { title: "Check your home for any signs of fire or electrical damage; look out for scorch marks or malfunctioning electronics.", checked: false },
-      { title: "Stay clear of any downed lines and report them to the authorities.", checked: false },
-      { title: "Avoid walking through or touching water outdoors, as it may still conduct electricity from any residual storm activity.", checked: false },
-      { title: "Check appliances and reset breakers if needed, but avoid using damaged devices until inspected by a professional.", checked: false }
+      { title: "Don't leave shelter immediately; wait at least 30 minutes after the last clap of thunder to ensure safety." },
+      { title: "If someone has been struck, call emergency services and administer CPR if necessary—lightning strike victims can often be revived with prompt care." },
+      { title: "Check your home for any signs of fire or electrical damage; look out for scorch marks or malfunctioning electronics." },
+      { title: "Stay clear of any downed lines and report them to the authorities." },
+      { title: "Avoid walking through or touching water outdoors, as it may still conduct electricity from any residual storm activity." },
+      { title: "Check appliances and reset breakers if needed, but avoid using damaged devices until inspected by a professional." }
     ]
   };
 
-  // Update checkboxes when tab changes
+  // Fetch previously saved checked items from AsyncStorage
+  const loadCheckedItems = async () => {
+    try {
+      const savedCheckedItems = await AsyncStorage.getItem('checkedItems');
+      if (savedCheckedItems) {
+        const parsedItems = JSON.parse(savedCheckedItems);
+        setCheckedItems(Array.isArray(parsedItems) ? parsedItems : []);
+      }
+    } catch (error) {
+      console.log('Error loading checked items from AsyncStorage:', error);
+    }
+  };
+
+  // Save checked items to AsyncStorage
+  const saveCheckedItems = async (updatedCheckedItems) => {
+    try {
+      await AsyncStorage.setItem('checkedItems', JSON.stringify(updatedCheckedItems));
+    } catch (error) {
+      console.log('Error saving checked items to AsyncStorage:', error);
+    }
+  };
+
+  // Update the selected tab and fetch the corresponding content
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
-    setCheckboxes(content[tab]);
+  };
+
+  // Update the checked state for the checkbox and persist it
+  const handleCheckboxToggle = (tab, index) => {
+    const newCheckedItems = [...checkedItems];
+    const itemIndex = newCheckedItems.findIndex(item => item.tab === tab && item.index === index);
+    
+    if (itemIndex === -1) {
+      newCheckedItems.push({ tab, index, checked: true });
+    } else {
+      newCheckedItems[itemIndex].checked = !newCheckedItems[itemIndex].checked;
+    }
+
+    setCheckedItems(newCheckedItems);
+    saveCheckedItems(newCheckedItems); // Save to AsyncStorage
+  };
+
+  // Initialize content and load checked items when the component mounts
+  useEffect(() => {
+    loadCheckedItems();
+  }, []);
+
+  // Function to check if a checkbox is checked
+  const isChecked = (tab, index) => {
+    return Array.isArray(checkedItems) && checkedItems.some(item => item.tab === tab && item.index === index && item.checked);
   };
 
   const renderContent = () => {
     return (
       <View style={styles.checklistContainer}>
         <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
+        {content[selectedTab].map((item, index) => (
           <CheckBox
             key={index}
             title={item.title}
-            checked={item.checked}
-            onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
-            }}
+            checked={isChecked(selectedTab, index)}
+            onPress={() => handleCheckboxToggle(selectedTab, index)}
           />
         ))}
       </View>
@@ -71,8 +106,7 @@ const Lightning = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/lightning.jpeg')} style={styles.image}>
-        <TouchableOpacity style={styles.backButton}>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton}></TouchableOpacity>
       </ImageBackground>
 
       <View style={styles.tabsContainer}>
@@ -102,7 +136,7 @@ const Lightning = () => {
       </View>
     </View>
   );
-}
+};
 
 export default Lightning;
 
@@ -111,7 +145,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  
   image: {
     width: '100%',
     height: 280,
@@ -138,20 +171,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingVertical: 10,
     marginHorizontal: 20,
-    borderRadius: 20, // Rounds the entire tab bar
-    borderWidth: 5, // Border width for the tab bar
-    borderColor: '#2f515c', // Border color for the tab bar (red color)
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: '#2f515c',
     marginTop: 5,
   },
   tab: {
     paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 15, // Rounds each tab button
-    backgroundColor: '#fff', 
+    borderRadius: 15,
+    backgroundColor: '#fff',
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#691b38', // red color for active tab
+    borderBottomColor: '#691b38',
   },
   tabText: {
     fontSize: 16,
@@ -161,7 +194,7 @@ const styles = StyleSheet.create({
     color: '#691b38',
   },
   scrollContainer: {
-    flex: 1, // This will allow ScrollView to take up remaining space
+    flex: 1,
   },
   contentContainer: {
     padding: 20,

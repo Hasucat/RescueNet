@@ -1,69 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HighTide = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Stay updated on tide schedules and listen for any warnings about unusually high tides or storm surges from local authorities.", checked: false },
-    { title: "Have a kit ready with essentials like drinking water, food, flashlights, first aid supplies, and important documents in waterproof containers.", checked: false },
-    { title: "Identify higher ground and safe evacuation routes, especially if you live in a flood-prone area. Share the plan with household members.", checked: false },
-    { title: "Remove or anchor outdoor furniture, boats, and other loose items that could be carried away by rising waters.", checked: false },
-    { title: "If possible, use sandbags or temporary barriers to prevent water from entering lower levels of your home.", checked: false },
-    { title: "Consider shutting off gas and electrical power to lower levels of your home if flooding is expected.", checked: false }
-  ]);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   // Define content for each tab
   const content = {
     Before: [
-      { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-      { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
+      { title: "Check weather forecasts and tidal predictions to stay informed about potential high tides and related hazards in your area." },
+      { title: "Elevate or move outdoor items such as furniture, plants, and vehicles that could be damaged by flooding to higher ground." },
+      { title: "Ensure your property is properly sealed to prevent water intrusion—check for cracks, gaps, and weak spots in doors, windows, and foundations." },
+      { title: "Stock up on emergency supplies, including bottled water, non-perishable food, flashlights, extra batteries, first aid kits, and important documents in a waterproof container." },
+      { title: "Clear drainage systems like gutters, downspouts, and storm drains to prevent water from pooling around your home." },
+      { title: "Create an evacuation plan that includes transportation routes to higher ground, and make sure all family members are aware of it." }
     ],
     During: [
-      { title: "If evacuation orders are issued, leave immediately and follow designated routes to avoid flooded areas.", checked: false },
-      { title: "Avoid the beach, shorelines, and flooded areas, as high tides and storm surges can produce strong currents and dangerous waves.", checked: false },
-      { title: "Even shallow water can sweep away vehicles; don't attempt to drive through water-covered roads.", checked: false },
-      { title: "High tides can damage or expose electrical lines, so maintain a safe distance from potential hazards.", checked: false },
-      { title: "Floodwaters may contain debris, contaminants, or hidden hazards, so keep everyone away from these areas.", checked: false },
-      { title: "Continue to monitor emergency broadcasts and alerts for any changes in the tide levels or additional warnings.", checked: false }
+      { title: "If evacuation orders are issued, leave immediately and follow designated routes to avoid flooded areas." },
+      { title: "Avoid the beach, shorelines, and flooded areas, as high tides and storm surges can produce strong currents and dangerous waves." },
+      { title: "Even shallow water can sweep away vehicles; don't attempt to drive through water-covered roads." },
+      { title: "High tides can damage or expose electrical lines, so maintain a safe distance from potential hazards." },
+      { title: "Floodwaters may contain debris, contaminants, or hidden hazards, so keep everyone away from these areas." },
+      { title: "Continue to monitor emergency broadcasts and alerts for any changes in the tide levels or additional warnings." }
     ],
     After: [
-      { title: "Ensure it's safe to return to affected areas, as receding tides can leave unstable ground and hidden hazards.", checked: false },
-      { title: "Check for structural damage, electrical issues, or water damage inside your home and around the property.", checked: false },
-      { title: "Floodwaters may still be contaminated or contain debris, making it unsafe to cross.", checked: false },
-      { title: "Any items that came into contact with floodwater, such as food or porous materials, should be discarded to avoid health risks.", checked: false },
-      { title: "Notify authorities if you encounter downed power lines, broken pipes, or damaged roads, as these may pose hazards to the community.", checked: false },
-      { title: "Remove standing water and disinfect surfaces to prevent mold and bacterial growth. Allow belongings to dry thoroughly before reuse.", checked: false }
+      { title: "Ensure it's safe to return to affected areas, as receding tides can leave unstable ground and hidden hazards." },
+      { title: "Check for structural damage, electrical issues, or water damage inside your home and around the property." },
+      { title: "Floodwaters may still be contaminated or contain debris, making it unsafe to cross." },
+      { title: "Any items that came into contact with floodwater, such as food or porous materials, should be discarded to avoid health risks." },
+      { title: "Notify authorities if you encounter downed power lines, broken pipes, or damaged roads, as these may pose hazards to the community." },
+      { title: "Remove standing water and disinfect surfaces to prevent mold and bacterial growth. Allow belongings to dry thoroughly before reuse." }
     ]
   };
 
   // Update checkboxes when tab changes
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
-    setCheckboxes(content[tab]);
   };
+
+  const handleCheckboxChange = async (tab, index) => {
+    const itemKey = `${tab}-${index}`;
+    const updatedCheckedItems = [...checkedItems];
+    const itemIndex = updatedCheckedItems.findIndex(item => item.key === itemKey);
+
+    if (itemIndex !== -1) {
+      updatedCheckedItems.splice(itemIndex, 1);
+    } else {
+      updatedCheckedItems.push({ key: itemKey, checked: true });
+    }
+
+    setCheckedItems(updatedCheckedItems);
+    await AsyncStorage.setItem('checkedItems', JSON.stringify(updatedCheckedItems));
+  };
+
+  const loadCheckedItems = async () => {
+    const storedCheckedItems = await AsyncStorage.getItem('checkedItems');
+    if (storedCheckedItems) {
+      setCheckedItems(JSON.parse(storedCheckedItems));
+    }
+  };
+
+  useEffect(() => {
+    loadCheckedItems();
+  }, []);
 
   const renderContent = () => {
     return (
       <View style={styles.checklistContainer}>
         <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
-          <CheckBox
-            key={index}
-            title={item.title}
-            checked={item.checked}
-            onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
-            }}
-          />
-        ))}
+        {content[selectedTab].map((item, index) => {
+          const itemKey = `${selectedTab}-${index}`;
+          const isChecked = checkedItems.some(checkedItem => checkedItem.key === itemKey);
+
+          return (
+            <CheckBox
+              key={index}
+              title={item.title}
+              checked={isChecked}
+              onPress={() => handleCheckboxChange(selectedTab, index)}
+            />
+          );
+        })}
       </View>
     );
   };

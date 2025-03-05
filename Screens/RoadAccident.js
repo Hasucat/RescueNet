@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RoadAccident = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Regularly check and service brakes, tires, lights, and other safety features to reduce the risk of malfunction-related accidents.", checked: false },
-    { title: "Ensure everyone in the vehicle is properly buckled up before driving, including in the back seats.", checked: false },
-    { title: "Adhering to road regulations and speed limits reduces the risk of accidents, especially in hazardous weather.", checked: false },
-    { title: "Refrain from using your phone, eating, or engaging in other distracting activities while driving.", checked: false },
-    { title: "Adjust your speed and driving behavior according to current road conditions, like rain or fog.", checked: false },
-    { title: "Never drive under the influence of alcohol, drugs, or medication that can impair your judgment or reaction time.", checked: false }
-  ]);
-
-  // Define content for each tab
+  const [checkboxes, setCheckboxes] = useState([]);
+  
   const content = {
     Before: [
       { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
@@ -41,38 +34,80 @@ const RoadAccident = () => {
     ]
   };
 
-  // Update checkboxes when tab changes
-  const handleTabPress = (tab) => {
-    setSelectedTab(tab);
-    setCheckboxes(content[tab]);
+  // Load previously saved checked items from AsyncStorage
+  const loadCheckedItems = async (tab) => {
+    try {
+      const savedChecks = await AsyncStorage.getItem(`checkedItems_${tab}`);
+      if (savedChecks) {
+        return JSON.parse(savedChecks);
+      }
+    } catch (error) {
+      console.error('Error loading checked items:', error);
+    }
+    return [];
   };
 
-  const renderContent = () => {
-    return (
-      <View style={styles.checklistContainer}>
-        <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
-          <CheckBox
-            key={index}
-            title={item.title}
-            checked={item.checked}
-            onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
-            }}
-          />
-        ))}
-      </View>
-    );
+  // Save checked items to AsyncStorage
+  const saveCheckedItems = async (tab, checkedItems) => {
+    try {
+      await AsyncStorage.setItem(`checkedItems_${tab}`, JSON.stringify(checkedItems));
+    } catch (error) {
+      console.error('Error saving checked items:', error);
+    }
   };
+
+  useEffect(() => {
+    const initializeTabData = async () => {
+      const checkedItems = await loadCheckedItems(selectedTab);
+      const updatedContent = content[selectedTab].map((item, index) => ({
+        ...item,
+        checked: checkedItems.some(checkedItem => checkedItem.index === index),
+      }));
+      setCheckboxes(updatedContent);
+    };
+    initializeTabData();
+  }, [selectedTab]);
+
+  const handleTabPress = async (tab) => {
+    setSelectedTab(tab);
+    const checkedItems = await loadCheckedItems(tab);
+    const updatedContent = content[tab].map((item, index) => ({
+      ...item,
+      checked: checkedItems.some(checkedItem => checkedItem.index === index),
+    }));
+    setCheckboxes(updatedContent);
+  };
+
+  const handleCheckboxChange = async (index, checked) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index].checked = checked;
+    setCheckboxes(newCheckboxes);
+
+    const checkedItems = newCheckboxes
+      .filter(item => item.checked)
+      .map((item, idx) => ({ tab: selectedTab, index: idx, checked: true }));
+
+    await saveCheckedItems(selectedTab, checkedItems);
+  };
+
+  const renderContent = () => (
+    <View style={styles.checklistContainer}>
+      <Text style={styles.sectionTitle}>For Community</Text>
+      {checkboxes.map((item, index) => (
+        <CheckBox
+          key={index}
+          title={item.title}
+          checked={item.checked}
+          onPress={() => handleCheckboxChange(index, !item.checked)}
+        />
+      ))}
+    </View>
+  );
 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/roadacc.jpeg')} style={styles.image}>
-        <TouchableOpacity style={styles.backButton}>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton}></TouchableOpacity>
       </ImageBackground>
 
       <View style={styles.tabsContainer}>
@@ -102,7 +137,7 @@ const RoadAccident = () => {
       </View>
     </View>
   );
-}
+};
 
 export default RoadAccident;
 
@@ -111,7 +146,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  
   image: {
     width: '100%',
     height: 280,
@@ -124,10 +158,6 @@ const styles = StyleSheet.create({
     left: 10,
     padding: 10,
   },
-  backText: {
-    color: '#fff',
-    fontSize: 24,
-  },
   title: {
     color: '#fff',
     fontSize: 24,
@@ -138,20 +168,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingVertical: 10,
     marginHorizontal: 20,
-    borderRadius: 20, // Rounds the entire tab bar
-    borderWidth: 5, // Border width for the tab bar
-    borderColor: '#2f515c', // Border color for the tab bar (red color)
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: '#2f515c',
     marginTop: 5,
   },
   tab: {
     paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 15, // Rounds each tab button
+    borderRadius: 15,
     backgroundColor: '#fff', 
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#691b38', // red color for active tab
+    borderBottomColor: '#691b38',
   },
   tabText: {
     fontSize: 16,
@@ -161,7 +191,7 @@ const styles = StyleSheet.create({
     color: '#691b38',
   },
   scrollContainer: {
-    flex: 1, // This will allow ScrollView to take up remaining space
+    flex: 1,
   },
   contentContainer: {
     padding: 20,

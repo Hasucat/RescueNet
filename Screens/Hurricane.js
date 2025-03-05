@@ -1,66 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const Hurricane = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Monitor weather reports, warnings, and updates from local authorities about the approaching hurricane.", checked: false },
-    { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, important documents, and first aid supplies.", checked: false },
-    { title: "Secure windows, doors, and roofs, and remove or secure outdoor items that can become projectiles in high winds.", checked: false },
-    { title: "Know evacuation routes, emergency shelters, and meeting points in case of mandatory evacuation.", checked: false },
-    { title: "Prepare your home by reinforcing structures and checking for vulnerabilities in windows, doors, and the roof.", checked: false },
-    { title: "Fill bathtubs and containers with water for emergency use, as water systems may be affected.", checked: false }
-  ]);
+  const [checkedItems, setCheckedItems] = useState({}); // Store only checked items {tab, index, checked}
 
   // Define content for each tab
   const content = {
     Before: [
-        { title: "Monitor weather reports, warnings, and updates from local authorities about the approaching hurricane.", checked: false },
-        { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, important documents, and first aid supplies.", checked: false },
-        { title: "Secure windows, doors, and roofs, and remove or secure outdoor items that can become projectiles in high winds.", checked: false },
-        { title: "Know evacuation routes, emergency shelters, and meeting points in case of mandatory evacuation.", checked: false },
-        { title: "Prepare your home by reinforcing structures and checking for vulnerabilities in windows, doors, and the roof.", checked: false },
-        { title: "Fill bathtubs and containers with water for emergency use, as water systems may be affected.", checked: false }
-      ],
-      During: [
-        { title: "Keep a battery-powered radio or phone handy for updates from authorities and emergency instructions.", checked: false },
-        { title: "Stay indoors, away from windows, and seek shelter in a safe room or interior space.", checked: false },
-        { title: "Evacuate if ordered to do so by authorities, and move to a designated shelter or higher ground if at risk of flooding.", checked: false },
-        { title: "Avoid using electrical appliances and stay clear of downed power lines.", checked: false },
-        { title: "Stay away from floodwaters, as they can carry debris and be hazardous.", checked: false },
-        { title: "Be vigilant for changing weather conditions and follow evacuation instructions if necessary.", checked: false }
-      ],
-      After: [
-        { title: "Continue to listen to official guidance for recovery, safety, and evacuation updates.", checked: false },
-        { title: "Ensure you have essential items for recovery, like first aid supplies, food, and water.", checked: false },
-        { title: "Inspect your home for damage, including structural issues, roof damage, and flooding, and make temporary repairs if necessary.", checked: false },
-        { title: "Follow evacuation orders if necessary, and avoid returning to affected areas until authorities declare them safe.", checked: false },
-        { title: "Avoid contact with floodwaters to prevent injury, contamination, or exposure to hazardous materials.", checked: false },
-        { title: "Monitor for ongoing risks such as aftershocks, flooding, or additional storms, and follow recovery and safety protocols.", checked: false }
-      ]
+      { title: "Track the hurricane's progress through reliable weather apps and news sources to stay informed about any changes." },
+      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, important documents, and first aid supplies." },
+      { title: "Secure windows, doors, and roofs, and remove or secure outdoor items that can become projectiles in high winds." },
+      { title: "Know evacuation routes, emergency shelters, and meeting points in case of mandatory evacuation." },
+      { title: "Reinforce your home by installing storm shutters or plywood on windows and securing the roof to prevent damage from strong winds." },
+      { title: "Fill bathtubs and containers with water for emergency use, as water systems may be affected." }
+    ],
+    During: [
+      { title: "Keep a battery-powered radio or phone handy for updates from authorities and emergency instructions." },
+      { title: "Stay indoors, away from windows, and seek shelter in a safe room or interior space." },
+      { title: "Evacuate if ordered to do so by authorities, and move to a designated shelter or higher ground if at risk of flooding." },
+      { title: "Avoid using electrical appliances and stay clear of downed power lines." },
+      { title: "Stay away from floodwaters, as they can carry debris and be hazardous." },
+      { title: "Be vigilant for changing weather conditions and follow evacuation instructions if necessary." }
+    ],
+    After: [
+      { title: "Continue to listen to official guidance for recovery, safety, and evacuation updates." },
+      { title: "Ensure you have essential items for recovery, like first aid supplies, food, and water." },
+      { title: "Inspect your home for damage, including structural issues, roof damage, and flooding, and make temporary repairs if necessary." },
+      { title: "Follow evacuation orders if necessary, and avoid returning to affected areas until authorities declare them safe." },
+      { title: "Avoid contact with floodwaters to prevent injury, contamination, or exposure to hazardous materials." },
+      { title: "Monitor for ongoing risks such as aftershocks, flooding, or additional storms, and follow recovery and safety protocols." }
+    ]
   };
+
+  // Load saved checkbox states from AsyncStorage
+  useEffect(() => {
+    const loadSavedStates = async () => {
+      try {
+        const savedStates = await AsyncStorage.getItem('checkedItems');
+        if (savedStates) {
+          setCheckedItems(JSON.parse(savedStates));
+        }
+      } catch (error) {
+        console.error('Failed to load checked items', error);
+      }
+    };
+    loadSavedStates();
+  }, []);
+
+  // Save checked items to AsyncStorage
+  useEffect(() => {
+    const saveCheckedItems = async () => {
+      try {
+        await AsyncStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+      } catch (error) {
+        console.error('Failed to save checked items', error);
+      }
+    };
+    saveCheckedItems();
+  }, [checkedItems]);
 
   // Update checkboxes when tab changes
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
-    setCheckboxes(content[tab]);
   };
 
   const renderContent = () => {
     return (
       <View style={styles.checklistContainer}>
         <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
+        {content[selectedTab].map((item, index) => (
           <CheckBox
             key={index}
             title={item.title}
-            checked={item.checked}
+            checked={checkedItems[selectedTab]?.[index] || false}
             onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
+              const updatedCheckedItems = { ...checkedItems };
+              updatedCheckedItems[selectedTab] = {
+                ...updatedCheckedItems[selectedTab],
+                [index]: !updatedCheckedItems[selectedTab]?.[index]
+              };
+              setCheckedItems(updatedCheckedItems);
             }}
           />
         ))}

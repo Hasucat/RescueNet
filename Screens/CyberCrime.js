@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CyberCrime = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
+  const [checkboxes, setCheckboxes] = useState([]);
+  
+  // Define content for each tab
+  const content = {
+    Before: [
     { title: "Create strong passwords for each account, avoid using personal information, and change them regularly. Consider using a password manager for secure storage.", checked: false },
     { title: "Protect accounts with an extra layer of security by enabling 2FA, especially for sensitive accounts like email, banking, and social media.", checked: false },
     { title: "Regularly update operating systems, antivirus software, and applications to protect against known vulnerabilities.", checked: false },
     { title: "Avoid clicking on suspicious links or downloading attachments from unknown sources to reduce the risk of malware or phishing attacks.", checked: false },
     { title: "Be mindful of the information you share on social media or public websites to reduce the risk of identity theft.", checked: false },
     { title: "Regularly back up important files and data to a secure, external location to avoid data loss in case of a cyber attack.", checked: false }
-  ]);
-
-  // Define content for each tab
-  const content = {
-    Before: [
-      { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-      { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Prepare for secondary hazards like landslides, storm surges, or power outages.", checked: false }
     ],
     During: [
       { title: "If you suspect a device is compromised, immediately disconnect it from Wi-Fi or any network to prevent further spread.", checked: false },
@@ -47,6 +41,48 @@ const CyberCrime = () => {
     setCheckboxes(content[tab]);
   };
 
+  const handleCheckboxChange = async (index) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxes(newCheckboxes);
+    await saveCheckboxesToStorage(newCheckboxes);
+  };
+
+  // Save the current state of checkboxes to AsyncStorage
+  const saveCheckboxesToStorage = async (checkboxesToSave) => {
+    try {
+      const tabState = checkboxesToSave.map(item => item.checked);
+      await AsyncStorage.setItem(selectedTab, JSON.stringify(tabState));
+    } catch (error) {
+      console.error('Error saving data to AsyncStorage:', error);
+    }
+  };
+
+  // Load the state of checkboxes from AsyncStorage
+  const loadCheckboxesFromStorage = async (tab) => {
+    try {
+      const savedState = await AsyncStorage.getItem(tab);
+      if (savedState) {
+        const checkedItems = JSON.parse(savedState);
+        const updatedCheckboxes = content[tab].map((item, index) => ({
+          ...item,
+          checked: checkedItems[index] || false
+        }));
+        setCheckboxes(updatedCheckboxes);
+      } else {
+        setCheckboxes(content[tab]);
+      }
+    } catch (error) {
+      console.error('Error loading data from AsyncStorage:', error);
+      setCheckboxes(content[tab]);
+    }
+  };
+
+  // Load checkboxes on initial render and when tab changes
+  useEffect(() => {
+    loadCheckboxesFromStorage(selectedTab);
+  }, [selectedTab]);
+
   const renderContent = () => {
     return (
       <View style={styles.checklistContainer}>
@@ -56,12 +92,7 @@ const CyberCrime = () => {
             key={index}
             title={item.title}
             checked={item.checked}
-            onPress={() => {
-              // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
-            }}
+            onPress={() => handleCheckboxChange(index)}
           />
         ))}
       </View>
@@ -71,8 +102,7 @@ const CyberCrime = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../assets/cybercrime.jpeg')} style={styles.image}>
-        <TouchableOpacity style={styles.backButton}>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton}></TouchableOpacity>
       </ImageBackground>
 
       <View style={styles.tabsContainer}>
@@ -102,7 +132,7 @@ const CyberCrime = () => {
       </View>
     </View>
   );
-}
+};
 
 export default CyberCrime;
 
@@ -111,7 +141,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  
   image: {
     width: '100%',
     height: 280,
@@ -138,20 +167,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingVertical: 10,
     marginHorizontal: 20,
-    borderRadius: 20, // Rounds the entire tab bar
-    borderWidth: 5, // Border width for the tab bar
-    borderColor: '#2f515c', // Border color for the tab bar (red color)
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: '#2f515c',
     marginTop: 5,
   },
   tab: {
     paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 15, // Rounds each tab button
-    backgroundColor: '#fff', 
+    borderRadius: 15,
+    backgroundColor: '#fff',
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#691b38', // red color for active tab
+    borderBottomColor: '#691b38',
   },
   tabText: {
     fontSize: 16,
@@ -161,7 +190,7 @@ const styles = StyleSheet.create({
     color: '#691b38',
   },
   scrollContainer: {
-    flex: 1, // This will allow ScrollView to take up remaining space
+    flex: 1,
   },
   contentContainer: {
     padding: 20,

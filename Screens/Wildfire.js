@@ -1,66 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Wildfire = () => {
   const [selectedTab, setSelectedTab] = useState('Before');
-  const [checkboxes, setCheckboxes] = useState([
-    { title: "Ensure everyone in your household knows the evacuation routes, communication plan, and meeting points.", checked: false },
-    { title: "Prepare a kit with essentials like water, non-perishable food, first aid supplies, flashlights, and important documents.", checked: false },
-    { title: "Clear gutters, roofs, and surroundings of dry leaves and debris. Maintain a defensible space by removing flammable plants and materials.", checked: false },
-    { title: "Sign up for emergency alerts from local agencies, and monitor weather conditions and fire risks in your area.", checked: false },
-    { title: "Use fire-resistant materials for roofs, windows, and vents. Install smoke detectors and fire extinguishers.", checked: false },
-    { title: "Safeguard important documents digitally, such as IDs, insurance, and medical records.", checked: false }
-  ]);
+  const [checkedItems, setCheckedItems] = useState({}); // To store only checked items
 
   // Define content for each tab
   const content = {
     Before: [
-      { title: "Monitor weather reports, warnings, and updates from local authorities.", checked: false },
-      { title: "Prepare an emergency kit with food, water, medications, flashlight, batteries, and important documents.", checked: false },
-      { title: "Strengthen windows, doors, and roof, and remove or secure outdoor items that can become hazards.", checked: false },
-      { title: "Know evacuation routes, emergency shelters, and meeting points.", checked: false },
-      { title: "Be aware of areas prone to flooding and secure your home against potential water intrusion.", checked: false },
-      { title: "Safeguard important documents digitally, such as IDs, insurance, and medical records.", checked: false }
+      { title: "Stay informed about fire danger levels by monitoring alerts and warnings from local fire departments and emergency services.", id: 'before_1' },
+      { title: "Create a defensible space around your home by clearing dry vegetation, dead leaves, and flammable materials from the yard.", id: 'before_2' },
+      { title: "Install fire-resistant roofing, siding, and windows to reduce the risk of fire spread to your home.", id: 'before_3' },
+      { title: "Ensure access to water sources like hoses, pools, or water tanks, and ensure fire extinguishers are accessible.", id: 'before_4' },
+      { title: "Establish an evacuation plan, including multiple routes to safer areas and designate an emergency meeting point.", id: 'before_5' },
+      { title: "Safeguard important documents, such as IDs, insurance policies, and medical records, in a fireproof and waterproof container.", id: 'before_6' }
     ],
     During: [
-      { title: "Follow local authorities' instructions and leave as soon as advised.", checked: false },
-      { title: "Use N95 masks if available, and stay indoors with windows and doors shut if not in immediate danger.", checked: false },
-      { title: "Keep the fuel tank full and park in an open space facing out, ready to leave quickly.", checked: false },
-      { title: "Don't Use Indoor Fans or AC. Air systems can pull in smoke from the outside.", checked: false },
-      { title: "Visibility is drastically reduced, so avoid traveling through heavy smoke when possible.", checked: false },
-      { title: "Keep away from fire zones and do not block access for emergency responders.", checked: false }
+      { title: "Follow local authorities' instructions and leave as soon as advised.", id: 'during_1' },
+      { title: "Use N95 masks if available, and stay indoors with windows and doors shut if not in immediate danger.", id: 'during_2' },
+      { title: "Keep the fuel tank full and park in an open space facing out, ready to leave quickly.", id: 'during_3' },
+      { title: "Don't Use Indoor Fans or AC. Air systems can pull in smoke from the outside.", id: 'during_4' },
+      { title: "Visibility is drastically reduced, so avoid traveling through heavy smoke when possible.", id: 'during_5' },
+      { title: "Keep away from fire zones and do not block access for emergency responders.", id: 'during_6' }
     ],
     After: [
-      { title: "Look for hazards like fallen power lines, hot spots, or structural damage.", checked: false },
-      { title: "Use masks, gloves, and sturdy shoes while inspecting or cleaning up.", checked: false },
-      { title: "Replenish your emergency kit, and consider upgrades for future preparedness.", checked: false },
-      { title: "Avoid Charred or Fallen Trees. These could be unstable and pose a risk of falling.", checked: false },
-      { title: "Inspect any home equipment or electronics for damage before use and Don't Drink Tap Water; It may be contaminated.", checked: false },
-      { title: "Don't Discard Damaged Belongings Hastily. Some items may be salvageable or required for insurance claims.", checked: false }
+      { title: "Look for hazards like fallen power lines, hot spots, or structural damage.", id: 'after_1' },
+      { title: "Use masks, gloves, and sturdy shoes while inspecting or cleaning up.", id: 'after_2' },
+      { title: "Replenish your emergency kit, and consider upgrades for future preparedness.", id: 'after_3' },
+      { title: "Avoid Charred or Fallen Trees. These could be unstable and pose a risk of falling.", id: 'after_4' },
+      { title: "Inspect any home equipment or electronics for damage before use and Don't Drink Tap Water; It may be contaminated.", id: 'after_5' },
+      { title: "Don't Discard Damaged Belongings Hastily. Some items may be salvageable or required for insurance claims.", id: 'after_6' }
     ]
   };
+
+  useEffect(() => {
+    // Load saved checkbox states from AsyncStorage
+    const loadCheckedItems = async () => {
+      try {
+        const savedItems = await AsyncStorage.getItem('checkedItems');
+        if (savedItems) {
+          setCheckedItems(JSON.parse(savedItems));
+        }
+      } catch (error) {
+        console.error('Error loading checked items:', error);
+      }
+    };
+    loadCheckedItems();
+  }, []);
+
+  useEffect(() => {
+    // Save checked items to AsyncStorage whenever it changes
+    const saveCheckedItems = async () => {
+      try {
+        await AsyncStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+      } catch (error) {
+        console.error('Error saving checked items:', error);
+      }
+    };
+    saveCheckedItems();
+  }, [checkedItems]);
 
   // Update checkboxes when tab changes
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
-    setCheckboxes(content[tab]);
   };
 
   const renderContent = () => {
     return (
       <View style={styles.checklistContainer}>
         <Text style={styles.sectionTitle}>For Community</Text>
-        {checkboxes.map((item, index) => (
+        {content[selectedTab].map((item, index) => (
           <CheckBox
-            key={index}
+            key={item.id}
             title={item.title}
-            checked={item.checked}
+            checked={checkedItems[item.id] || false} // Check the item if it's in checkedItems
             onPress={() => {
               // Toggle checkbox state
-              const newCheckboxes = [...checkboxes];
-              newCheckboxes[index].checked = !newCheckboxes[index].checked;
-              setCheckboxes(newCheckboxes);
+              setCheckedItems(prevCheckedItems => {
+                const newCheckedItems = { ...prevCheckedItems };
+                if (newCheckedItems[item.id]) {
+                  delete newCheckedItems[item.id]; // Uncheck item
+                } else {
+                  newCheckedItems[item.id] = true; // Check item
+                }
+                return newCheckedItems;
+              });
             }}
           />
         ))}
