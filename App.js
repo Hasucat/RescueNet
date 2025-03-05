@@ -60,6 +60,7 @@ import VolunteerSection from './Screens/VolunteerSection';
 import VolunteerStatus from './Screens/VolunteerStatus';
 import Wildfire from './Screens/Wildfire';
 import XYZ_Hospitals from './Screens/XYZ_Hospitals';
+import OtherDonations from './Screens/OtherDonations';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -157,6 +158,7 @@ export default function App() {
         
         <Stack.Screen name="RescueRequests" component={RescueRequests} options={{ title: "Rescue Requests" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         
+        <Stack.Screen name="OtherDonations" component={OtherDonations} options={{ title: "Other Donations" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
 
       </Stack.Navigator>
 

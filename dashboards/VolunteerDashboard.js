@@ -84,6 +84,14 @@ const VolunteerDashboard = () => {
     }
   };
 
+  const handleOtherDonations = () => {
+    if (!isRegistered) {
+      setModalVisible(true);
+    } else {
+      navigation.navigate('OtherDonations');
+    }
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -116,6 +124,10 @@ const VolunteerDashboard = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.gridItem} onPress={handleRescueStatus}>
+        <Image source={require('../assets/statusicon.png')} style={styles.cardImage} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.gridItem} onPress={handleOtherDonations}>
         <Image source={require('../assets/statusicon.png')} style={styles.cardImage} />
         </TouchableOpacity>
       </View>
