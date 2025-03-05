@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
 
   },
   acceptButton: {
-    backgroundColor: '#bf0a3d',
+    backgroundColor: '#303a75',
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 6,

@@ -189,7 +189,7 @@ const UserStatus = () => {
             )}
             {(rescue.status.toLowerCase() === 'pending' || rescue.status.toLowerCase() === 'accepted') && (
               <TouchableOpacity 
-                style={[styles.actionButton, { backgroundColor: '#ff3b30' }]}
+                style={[styles.actionButton, { backgroundColor: '#c9371a' }]}
                 onPress={() => openCancelModal(rescue)}
               >
                 <Text style={styles.buttonText}>Cancel Request</Text>
@@ -224,11 +224,26 @@ const UserStatus = () => {
         >
           <View style={styles.modalOverlay}>
             <View style={[styles.modalContent, { backgroundColor: '#fff' }]}>
-              <Text style={styles.modalTitle}>Volunteer Info</Text>
-              <Text style={styles.modalText}>Name: {volunteerInfo.name}</Text>
-              <Text style={styles.modalText}>Age: {volunteerInfo.age}</Text>
-              <Text style={styles.modalText}>Gender: {volunteerInfo.gender}</Text>
-              <Text style={styles.modalText}>Phone: {volunteerInfo.phoneNumber}</Text>
+            <View style={styles.volInfoBar}>
+              <Text style={styles.volInfoText}>Volunteer Info</Text>
+            </View>
+            <Text style={styles.info}>
+            <Text style={styles.label}>Name: </Text>
+            <Text style={styles.infoContent}>{volunteerInfo.name}</Text>
+            </Text>
+            <Text style={styles.info}>
+            <Text style={styles.label}>Age: </Text>
+            <Text style={styles.infoContent}>{volunteerInfo.age}</Text>
+            </Text>
+            <Text style={styles.info}>
+            <Text style={styles.label}>Gender: </Text>
+            <Text style={styles.infoContent}>{volunteerInfo.gender}</Text>
+            </Text>
+            
+            <Text style={styles.info}>
+            <Text style={styles.label}>Phone: </Text>
+            <Text style={styles.infoContent}>{volunteerInfo.phoneNumber}</Text>
+            </Text>
               <TouchableOpacity 
                 style={styles.modalCloseButton} 
                 onPress={() => setVolModalVisible(false)}
@@ -289,9 +304,17 @@ const UserStatus = () => {
             onChangeText={setCancelReason}
           />
           {selectedCancelRescue && (
-            <Button title="Submit Cancellation" onPress={() => handleUserCancel(selectedCancelRescue.id, cancelReason)} />
-          )}
-          <Button title="Close" onPress={() => setCancelModalVisible(false)} />
+            <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => handleUserCancel(selectedCancelRescue.id, cancelReason)}
+          >
+            <Text style={styles.buttonText}>Submit Cancellation</Text>
+          </TouchableOpacity>
+        )}
+        
+        <TouchableOpacity style={styles.closeButton} onPress={() => setCancelModalVisible(false)}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
         </View>
       </Modal>
     </ScrollView>
@@ -366,10 +389,29 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   volunteerButton: {
-    backgroundColor: '#0a84ff',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    backgroundColor: '#4da361',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 6,
+    marginVertical: 1,
+    width: '70%',
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  info: {
+    fontSize: 16, 
+    marginVertical: 2, 
+    marginLeft: 12,
+    
+  },
+  label: {
+    color: "#633b4b", // Change this to your preferred label color
+    fontWeight: "bold",
+   
+    
+  },
+  infoContent: {
+    color: "#000", // Black color for the actual content
   },
   deleteButton: {
     backgroundColor: '#ff3b30',
@@ -378,24 +420,48 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   actionButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#4da361',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 6,
-    marginVertical: 5,
-    width: '80%',
+    marginVertical: 1,
+    width: '70%',
     alignItems: 'center',
+    marginLeft: 48,
+    marginBottom:-3,
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
   mapButton: {
-    marginVertical: 5,
+    marginVertical:1,
     padding: 10,
     backgroundColor: '#4178bf',
-    borderRadius: 8,
+    borderRadius: 6,
     alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: '70%',
+    marginLeft: 47,
+    marginTop:5,
+  },
+  modalOverlay:{
+    borderRadius: 1,
+    borderColor:'#000',
+    borderWidth:1,
+    marginTop:250,
+    width:'95%',
+    marginLeft: 8,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  modalTitle:{
+    color: '#c9371a',
+    fontWeight: 'bold',
+    fontSize:25,
   },
   mapButtonText: {
     color: '#fff',
@@ -405,12 +471,27 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
+    justifyContent: 'center', // Centers vertically
+    alignItems: 'center', // Centers horizontally
+    backgroundColor: 'rgba(156, 203, 218, 0.5)',
+    
   },
-  modalTitle: {
-    fontSize: 22,
+  volInfoBar: {
+    width: '95%',
+    backgroundColor: '#62bd65', // Blue bar
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    borderColor:'#fff',
+    borderWidth:2,
+    marginTop: 10,
+    marginLeft:10,
+  },
+  volInfoText: {
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
+    color: '#fff', // White text
   },
   modalMap: {
     flex: 1,
@@ -418,7 +499,9 @@ const styles = StyleSheet.create({
   },
   modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    marginHorizontal:30,
+    
   },
   modalText: {
     fontSize: 18,
@@ -426,11 +509,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalCloseButton: {
-    backgroundColor: '#0a84ff',
+    backgroundColor: '#c9371a',
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 6,
-    marginTop: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    borderColor:'#fff',
+    borderWidth:2,
+    marginTop: 2,
+    width:'80',
+    marginLeft:130,
+    alignItems: 'center',
+    marginBottom: 10,
   },
   modalCloseButtonText: {
     color: '#fff',
@@ -444,9 +533,27 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     padding: 8,
     borderRadius: 4,
     marginBottom: 10,
+  },
+  cancelButton: {
+    backgroundColor: '#18ad6d',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  closeButton: {
+    backgroundColor: '#d6362b',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonTexts: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
