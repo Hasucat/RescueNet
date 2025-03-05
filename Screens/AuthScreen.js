@@ -132,6 +132,15 @@ const AuthScreen = () => {
                   : 'Need an account? Sign Up'}
               </Text>
             </TouchableOpacity>
+            {!isSignUp && (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ForgotPasswordScreen')}
+      style={styles.forgotPasswordButton}
+    >
+      <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+    </TouchableOpacity>
+  )}
+
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -209,6 +218,15 @@ const styles = StyleSheet.create({
   },
   switchText: {
     color: '#0c3038',
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '700'
+  },
+  forgotPasswordButton:{
+
+  },
+  forgotPasswordText:{
+    color: '#662f36',
     fontSize: 16,
     textAlign: 'center',
     fontWeight: '700'

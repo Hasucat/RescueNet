@@ -7,6 +7,7 @@ import Toast from 'react-native-toast-message';
 import UserDashboard from './dashboards/UserDashboard';
 import About from './Screens/About';
 import AuthScreen from './Screens/AuthScreen';
+import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import BangladeshDailies from './Screens/BangladeshDailies';
 import BangladeshEmergencies from './Screens/BangladeshEmergencies';
 import BloodBanks from './Screens/BloodBanks';
@@ -70,6 +71,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Auth" component={AuthScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ title: "Forgot Password" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         {/* Inside UserDashboard */}
         <Stack.Screen name="UserDashboard" component={UserDashboard} options={{ headerShown: false  }} />
         <Stack.Screen name="Rescue" component={Rescue} options={{ headerShown: false   }} />
