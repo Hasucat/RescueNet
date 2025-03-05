@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Ionicons } from '@expo/vector-icons';
 
 const divisionsAndDistricts = {
@@ -32,12 +32,6 @@ const foodCategories = [
 ];
 
 const FoodBankDonation = () => {
-  const [region, setRegion] = useState({
-    latitude: 23.8103,
-    longitude: 90.4125,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
   const [selectedDivision, setSelectedDivision] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [name, setName] = useState('');
@@ -99,6 +93,18 @@ const FoodBankDonation = () => {
     const querySnapshot = await getDocs(q);
     const history = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setDonationHistory(history);
+  };
+
+  const handleMarkCollected = async (id) => {
+    try {
+      // Update the donation status to 'Collected'
+      await updateDoc(doc(db, 'foodBankDonations', id), { status: 'Collected' });
+      Alert.alert('Success', 'Donation marked as collected.');
+      fetchDonationHistory(); // Refresh the list
+    } catch (error) {
+      Alert.alert('Error', 'Failed to mark donation as collected.');
+      console.error(error);
+    }
   };
 
   const renderContent = () => {
@@ -203,6 +209,14 @@ const FoodBankDonation = () => {
                 ) : (
                   <Text>No food items listed</Text>
                 )}
+                {item.status === 'Pending' && (
+                  <TouchableOpacity
+                    style={styles.collectButton}
+                    onPress={() => handleMarkCollected(item.id)}
+                  >
+                    <Text style={styles.collectButtonText}>Mark Collected</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             ))
           ) : (
@@ -257,6 +271,8 @@ const styles = StyleSheet.create({
   historyContainer: { padding: 20 },
   historyTitle: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, color: 'green' },
   historyItem: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
+  collectButton: { backgroundColor: '#4da361', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
+  collectButtonText: { color: 'white', fontWeight: 'bold' },
   modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalContent: { width: '80%', backgroundColor: '#fff', padding: 20, borderRadius: 10 },
   modalTitle: { fontSize: 20, fontWeight: 'bold', textAlign: 'center' },

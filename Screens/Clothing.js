@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView } from 'react-native';
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 
 const divisionsAndDistricts = {
@@ -79,6 +79,18 @@ const ApparelDonation = () => {
     const querySnapshot = await getDocs(q);
     const history = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setDonationHistory(history);
+  };
+
+  const handleMarkCollected = async (id) => {
+    try {
+      // Update the donation status to 'Collected'
+      await updateDoc(doc(db, "apparelDonations", id), { status: 'Collected' });
+      Alert.alert("Success", "Donation marked as collected.");
+      fetchDonationHistory(); // Refresh the list
+    } catch (error) {
+      Alert.alert("Error", "Failed to mark donation as collected.");
+      console.error(error);
+    }
   };
 
   const renderContent = () => {
@@ -191,6 +203,14 @@ const ApparelDonation = () => {
                 ) : (
                   <Text>No clothing items listed</Text>
                 )}
+                {item.status === 'Pending' && (
+                  <TouchableOpacity
+                    style={styles.collectButton}
+                    onPress={() => handleMarkCollected(item.id)}
+                  >
+                    <Text style={styles.collectButtonText}>Mark Collected</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             ))
           ) : (
@@ -245,6 +265,8 @@ const styles = StyleSheet.create({
   historyContainer: { padding: 20 },
   historyTitle: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, color: 'green' },
   historyItem: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
+  collectButton: { backgroundColor: '#4da361', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
+  collectButtonText: { color: 'white', fontWeight: 'bold' },
   modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
   modalContent: { width: '80%', backgroundColor: '#fff', padding: 20, borderRadius: 10 },
   modalTitle: { fontSize: 20, fontWeight: 'bold', textAlign: 'center' },

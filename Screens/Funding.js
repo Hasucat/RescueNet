@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db } from './../firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Funding = () => {
   const [selectedTab, setSelectedTab] = useState('Donate');
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState(''); // New state for phone number
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [transactionHistory, setTransactionHistory] = useState([]);
 
@@ -36,10 +39,10 @@ const Funding = () => {
   };
 
   // Handle donation submission
-  const handleDonationSubmit = () => {
+  const handleDonationSubmit = async () => {
     const donationAmount = parseFloat(amount);
-    if (!donationAmount || donationAmount <= 0 || !name) {
-      Alert.alert('Please enter a valid amount');
+    if (!donationAmount || donationAmount <= 0 || !name || !phone) {
+      Alert.alert('Please fill all fields (Name, Phone, and Amount)');
       return;
     }
     if (donationAmount > balance) {
@@ -50,7 +53,7 @@ const Funding = () => {
     const newBalance = balance - donationAmount;
     setBalance(newBalance);
 
-    const transaction = { type: 'Donation', amount: donationAmount, name, date: new Date().toLocaleString() };
+    const transaction = { type: 'Donation', amount: donationAmount, name, phone, date: new Date().toLocaleString() };
     const newHistory = [transaction, ...transactionHistory];
     setTransactionHistory(newHistory);
 
@@ -58,6 +61,19 @@ const Funding = () => {
     setTransactionStatus('Thank you for your donation!');
     setAmount('');
     setName('');
+    setPhone(''); // Clear phone number field
+
+    // Add donation to Firestore
+    try {
+      await addDoc(collection(db, 'fundingDonations'), {
+        amount: donationAmount,
+        name: name,
+        phone: phone, // Include phone number
+        timestamp: new Date(),
+      });
+    } catch (error) {
+      console.error("Error adding donation to Firestore: ", error);
+    }
 
     // Hide status message after 3 seconds
     setTimeout(() => setTransactionStatus(null), 3000);
@@ -100,6 +116,14 @@ const Funding = () => {
             placeholderTextColor="black"
             value={name}
             onChangeText={setName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone Number"
+            placeholderTextColor="black"
+            keyboardType="phone-pad"
+            value={phone}
+            onChangeText={setPhone}
           />
           <TextInput
             style={styles.input}
@@ -146,6 +170,7 @@ const Funding = () => {
               <Text>{item.date}</Text>
               <Text>{item.type}: BDT {item.amount.toFixed(2)}</Text>
               {item.name && <Text>Donor: {item.name}</Text>}
+              {item.phone && <Text>Phone: {item.phone}</Text>} {/* Display phone number in history */}
             </View>
           ))}
         </ScrollView>

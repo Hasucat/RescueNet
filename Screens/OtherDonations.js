@@ -78,12 +78,25 @@ const OtherDonations = () => {
     }
   };
 
+  // Calculate the total amount of funding donations
+  const calculateTotalFunding = () => {
+    return fundingDonations.reduce((total, donation) => total + (donation.amount || 0), 0);
+  };
+
   const renderContent = () => {
     if (selectedTab === 'Funding') {
       const filteredFunding = filterDonations(fundingDonations);
+      const totalFunding = calculateTotalFunding(); // Get the total funding amount
+
       return (
         <ScrollView style={styles.historyContainer}>
           <Text style={styles.historyTitle}>Funding Donations</Text>
+          {/* Display the total amount collected */}
+          <View style={styles.totalFundingContainer}>
+            <Text style={styles.totalFundingText}>
+              Total Amount: BDT {totalFunding.toFixed(2)}
+            </Text>
+          </View>
           {filteredFunding.length > 0 ? (
             filteredFunding.map((item, index) => (
               <View key={index} style={styles.historyItem}>
@@ -91,6 +104,12 @@ const OtherDonations = () => {
                 <Text>Amount: BDT {item.amount}</Text>
                 <Text>Donor: {item.name}</Text>
                 <Text>Phone: {item.phone}</Text>
+                <TouchableOpacity
+                  style={styles.collectButton}
+                  onPress={() => handleMarkCollected(item.id, 'fundingDonations')}
+                >
+                  <Text style={styles.collectButtonText}>Mark Collected</Text>
+                </TouchableOpacity>
               </View>
             ))
           ) : (
@@ -187,8 +206,8 @@ const OtherDonations = () => {
         style={styles.searchBar}
         placeholder={
           selectedTab === 'Funding' 
-            ? "Search by donor's name" 
-            : "Search by district (e.g., Dhaka)"
+            ? "Search by Donor's Name" 
+            : "Search by District (e.g., Dhaka City)"
         }
         value={searchQuery}
         onChangeText={setSearchQuery}
@@ -224,6 +243,18 @@ const styles = StyleSheet.create({
   collectButton: { backgroundColor: '#4da361', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
   collectButtonText: { color: 'white', fontWeight: 'bold' },
   noDataText: { textAlign: 'center', marginTop: 20 },
+  totalFundingContainer: {
+    backgroundColor: '#e0f7fa',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  totalFundingText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#00796b',
+  },
 });
 
 export default OtherDonations;
