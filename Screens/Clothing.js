@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView } from 'react-native';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { Ionicons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 
 const divisionsAndDistricts = {
@@ -17,23 +16,15 @@ const divisionsAndDistricts = {
 };
 
 const ApparelDonation = () => {
-  const [region, setRegion] = useState({
-    latitude: 23.8103,
-    longitude: 90.4125,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [clothingType, setClothingType] = useState('');
-  const [quantity, setQuantity] = useState('');
   const [size, setSize] = useState('');
   const [category, setCategory] = useState('');
   const [selectedDivision, setSelectedDivision] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [donationHistory, setDonationHistory] = useState([]);
   const [selectedTab, setSelectedTab] = useState('Donate');
-  const [transactionStatus, setTransactionStatus] = useState(null);
   const [clothingItems, setClothingItems] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -54,7 +45,7 @@ const ApparelDonation = () => {
 
   const handleSubmit = async () => {
     if (!name || !phone || !selectedDivision || !selectedDistrict || clothingItems.length === 0) {
-      Alert.alert("Error", "Please fill in all fields and select a location.");
+      Alert.alert("Error", "Please fill in all fields and add at least one clothing item.");
       return;
     }
     try {
@@ -75,6 +66,7 @@ const ApparelDonation = () => {
       setSelectedDivision('');
       setSelectedDistrict('');
       fetchDonationHistory();
+      setIsModalVisible(false);
     } catch (error) {
       Alert.alert("Error", error.message);
     }
@@ -114,7 +106,7 @@ const ApparelDonation = () => {
           <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
           <TextInput style={styles.input} placeholder="Phone Number" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
 
-          {/* Add More Clothing Items */}
+          {/* Display Added Clothing Items */}
           {clothingItems.length > 0 && (
             <View>
               {clothingItems.map((item, index) => (
@@ -125,6 +117,7 @@ const ApparelDonation = () => {
             </View>
           )}
 
+          {/* Clothing Details Input */}
           <TextInput style={styles.input} placeholder="Type of Clothing" value={clothingType} onChangeText={setClothingType} />
           <Picker selectedValue={size} onValueChange={setSize} style={styles.picker}>
             <Picker.Item label="Select Size" value="" />
@@ -141,15 +134,17 @@ const ApparelDonation = () => {
             <Picker.Item label="Unisex" value="Unisex" />
           </Picker>
 
+          {/* Optional "Add More Clothing" Button */}
           <TouchableOpacity style={styles.addMoreButton} onPress={handleAddClothing}>
             <Text style={styles.addMoreButtonText}>Add More Clothing</Text>
           </TouchableOpacity>
 
+          {/* Submit Button */}
           <TouchableOpacity style={styles.submitButton} onPress={() => setIsModalVisible(true)}>
             <Text style={styles.submitButtonText}>Review Donation</Text>
           </TouchableOpacity>
 
-          {/* Modal for overview */}
+          {/* Modal for Overview */}
           <Modal visible={isModalVisible} transparent={true} animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
@@ -204,7 +199,7 @@ const ApparelDonation = () => {
         </ScrollView>
       );
     }
-  }    
+  };
 
   return (
     <View style={styles.container}>
