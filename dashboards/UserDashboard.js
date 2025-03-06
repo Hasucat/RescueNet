@@ -475,6 +475,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     paddingHorizontal: 1,
+    paddingRight: 72,
   },
   card: {
     width: width / 5, // 3 cards per screen

@@ -27,10 +27,22 @@ const ApparelDonation = () => {
   const [selectedTab, setSelectedTab] = useState('Donate');
   const [clothingItems, setClothingItems] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
     fetchDonationHistory();
   }, []);
+
+  // Function to validate phone number
+  const validatePhoneNumber = (number) => {
+    const regex = /^(015|016|107|018|019)\d{7}$/;
+    return regex.test(number);
+  };
+
+  // Handle phone number change
+  const handlePhoneNumberChange = (text) => {
+    setPhoneNumber(text);
+  };
 
   const handleAddClothing = () => {
     if (!clothingType || !size || !category) {
@@ -48,6 +60,13 @@ const ApparelDonation = () => {
       Alert.alert("Error", "Please fill in all fields and add at least one clothing item.");
       return;
     }
+
+    // Validate the phone number
+    if (!validatePhoneNumber(phoneNumber)) {
+      Alert.alert('Error', 'Invalid phone number: Must be exactly 11 digits.\nMust be a valid Bangladeshi SIM number.');
+      return;
+    }
+
     try {
       await addDoc(collection(db, "apparelDonations"), {
         userID: auth.currentUser?.uid,
@@ -83,10 +102,9 @@ const ApparelDonation = () => {
 
   const handleMarkCollected = async (id) => {
     try {
-      // Update the donation status to 'Collected'
       await updateDoc(doc(db, "apparelDonations", id), { status: 'Collected' });
       Alert.alert("Success", "Donation marked as collected.");
-      fetchDonationHistory(); // Refresh the list
+      fetchDonationHistory();
     } catch (error) {
       Alert.alert("Error", "Failed to mark donation as collected.");
       console.error(error);
@@ -116,7 +134,7 @@ const ApparelDonation = () => {
           )}
 
           <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
-          <TextInput style={styles.input} placeholder="Phone Number" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
+          <TextInput style={styles.input} placeholder="e.g. 017********" value={phoneNumber} onChangeText={handlePhoneNumberChange} keyboardType="phone-pad" />
 
           {/* Display Added Clothing Items */}
           {clothingItems.length > 0 && (
@@ -163,7 +181,7 @@ const ApparelDonation = () => {
                 <Text style={styles.modalTitle}>Donation Overview</Text>
                 <ScrollView>
                   <Text>Name: {name}</Text>
-                  <Text>Phone: {phone}</Text>
+                  <Text>Phone: {phoneNumber}</Text>
                   <Text>Location: {selectedDistrict}, {selectedDivision}</Text>
                   <Text>Clothing Items:</Text>
                   {clothingItems.map((item, index) => (
@@ -187,35 +205,15 @@ const ApparelDonation = () => {
       return (
         <ScrollView style={styles.historyContainer}>
           <Text style={styles.historyTitle}>Apparel Donation History</Text>
-          {donationHistory.length > 0 ? (
-            donationHistory.map((item, index) => (
-              <View key={index} style={styles.historyItem}>
-                <Text>Date: {item.timestamp?.toDate ? new Date(item.timestamp.toDate()).toLocaleString() : 'N/A'}</Text>
-                <Text>Status: {item.status || 'Pending'}</Text>
-                <Text>Location: {item.district || 'Unknown'}, {item.division || 'Unknown'}</Text>
-                <Text>Clothing Items:</Text>
-                {Array.isArray(item.clothingItems) && item.clothingItems.length > 0 ? (
-                  item.clothingItems.map((clothing, i) => (
-                    <Text key={i}>
-                      {clothing.clothingType || 'Unknown'} ({clothing.size || 'N/A'}) - {clothing.category || 'Uncategorized'}
-                    </Text>
-                  ))
-                ) : (
-                  <Text>No clothing items listed</Text>
-                )}
-                {item.status === 'Pending' && (
-                  <TouchableOpacity
-                    style={styles.collectButton}
-                    onPress={() => handleMarkCollected(item.id)}
-                  >
-                    <Text style={styles.collectButtonText}>Mark Collected</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            ))
-          ) : (
-            <Text style={{ textAlign: 'center', marginTop: 10 }}>No donation history available.</Text>
-          )}
+          {donationHistory.length > 0 ? donationHistory.map((donation) => (
+            <View key={donation.id} style={styles.donationCard}>
+              <Text>Name: {donation.name}</Text>
+              <Text>Status: {donation.status}</Text>
+              <TouchableOpacity style={styles.markCollectedButton} onPress={() => handleMarkCollected(donation.id)}>
+                <Text style={styles.submitButtonText}>Mark as Collected</Text>
+              </TouchableOpacity>
+            </View>
+          )) : <Text>No donations found</Text>}
         </ScrollView>
       );
     }
@@ -223,54 +221,123 @@ const ApparelDonation = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.tabsContainer}>
-        {['Donate', 'History'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            onPress={() => setSelectedTab(tab)}
-            style={[
-              styles.tab,
-              selectedTab === tab && styles.activeTab,
-            ]}
-          >
-            <Text style={[styles.tabText, selectedTab === tab && styles.activeTabText]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
+      <View style={styles.tabs}>
+        <TouchableOpacity onPress={() => setSelectedTab('Donate')} style={[styles.tabButton, selectedTab === 'Donate' && styles.activeTab]}>
+          <Text style={styles.tabButtonText}>Donate</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setSelectedTab('History')} style={[styles.tabButton, selectedTab === 'History' && styles.activeTab]}>
+          <Text style={styles.tabButtonText}>History</Text>
+        </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {renderContent()}
-      </ScrollView>
+      {renderContent()}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  tabsContainer: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
-  tab: { paddingVertical: 8, paddingHorizontal: 20 },
-  activeTab: { borderBottomWidth: 2, borderBottomColor: '#691b38' },
-  tabText: { fontSize: 16, color: '#888' },
-  activeTabText: { color: '#691b38' },
-  form: { padding: 20 },
-  input: { height: 40, borderColor: '#ccc', borderWidth: 1, borderRadius: 5, marginBottom: 10, paddingHorizontal: 10 },
-  picker: { height: 55, marginBottom: 10 },
-  addMoreButton: { backgroundColor: '#0c3038', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
-  addMoreButtonText: { color: 'white', fontSize: 16 },
-  submitButton: { backgroundColor: '#0c3038', padding: 15, borderRadius: 5, alignItems: 'center', marginTop: 20 },
-  submitButtonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-  clothingItem: { fontSize: 14, marginTop: 5 },
-  historyContainer: { padding: 20 },
-  historyTitle: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, color: 'green' },
-  historyItem: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
-  collectButton: { backgroundColor: '#4da361', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
-  collectButtonText: { color: 'white', fontWeight: 'bold' },
-  modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-  modalContent: { width: '80%', backgroundColor: '#fff', padding: 20, borderRadius: 10 },
-  modalTitle: { fontSize: 20, fontWeight: 'bold', textAlign: 'center' },
-  closeModalButton: { backgroundColor: '#0c3038', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 20 },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  tabs: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  tabButton: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  activeTab: {
+    backgroundColor: '#007bff',
+  },
+  tabButtonText: {
+    color: '#000',
+  },
+  form: {
+    flex: 1,
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  picker: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+  addMoreButton: {
+    backgroundColor: '#28a745',
+    padding: 10,
+    alignItems: 'center',
+  },
+  addMoreButtonText: {
+    color: '#fff',
+  },
+  submitButton: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  submitButtonText: {
+    color: '#fff',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  closeModalButton: {
+    backgroundColor: '#dc3545',
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  historyContainer: {
+    flex: 1,
+    paddingTop: 10,
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  donationCard: {
+    backgroundColor: '#f8f9fa',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+  },
+  markCollectedButton: {
+    backgroundColor: '#28a745',
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  clothingItem: {
+    fontSize: 14,
+  },
 });
 
 export default ApparelDonation;

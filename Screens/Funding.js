@@ -38,46 +38,64 @@ const Funding = () => {
     }
   };
 
-  // Handle donation submission
-  const handleDonationSubmit = async () => {
-    const donationAmount = parseFloat(amount);
-    if (!donationAmount || donationAmount <= 0 || !name || !phone) {
-      Alert.alert('Please fill all fields (Name, Phone, and Amount)');
-      return;
-    }
-    if (donationAmount > balance) {
-      Alert.alert('Insufficient balance');
-      return;
-    }
-
-    const newBalance = balance - donationAmount;
-    setBalance(newBalance);
-
-    const transaction = { type: 'Donation', amount: donationAmount, name, phone, date: new Date().toLocaleString() };
-    const newHistory = [transaction, ...transactionHistory];
-    setTransactionHistory(newHistory);
-
-    saveData(newBalance, newHistory);
-    setTransactionStatus('Thank you for your donation!');
-    setAmount('');
-    setName('');
-    setPhone(''); // Clear phone number field
-
-    // Add donation to Firestore
-    try {
-      await addDoc(collection(db, 'fundingDonations'), {
-        amount: donationAmount,
-        name: name,
-        phone: phone, // Include phone number
-        timestamp: new Date(),
-      });
-    } catch (error) {
-      console.error("Error adding donation to Firestore: ", error);
-    }
-
-    // Hide status message after 3 seconds
-    setTimeout(() => setTransactionStatus(null), 3000);
+  // Validate phone number (simple validation for Bangladesh phone numbers, adjust as needed)
+  const isValidPhone = (phone) => {
+    const phoneRegex = /^[0-9]{11}$/;  // Example: Only 11-digit phone numbers allowed
+    return phoneRegex.test(phone);
   };
+
+  // Handle donation submission
+  // Handle donation submission
+const handleDonationSubmit = async () => {
+  const donationAmount = parseFloat(amount);
+
+  // Phone number validation: Check if it has exactly 11 digits and starts with the correct prefix
+  const phoneRegex = /^(015|016|017|018|019)\d{7}$/;
+
+  if (!donationAmount || donationAmount <= 0 || !name || !phone) {
+    Alert.alert('Please fill all fields (Name, Phone, and Amount)');
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    Alert.alert('Please enter a valid phone number');
+    return;
+  }
+
+  if (donationAmount > balance) {
+    Alert.alert('Insufficient balance');
+    return;
+  }
+
+  const newBalance = balance - donationAmount;
+  setBalance(newBalance);
+
+  const transaction = { type: 'Donation', amount: donationAmount, name, phone, date: new Date().toLocaleString() };
+  const newHistory = [transaction, ...transactionHistory];
+  setTransactionHistory(newHistory);
+
+  saveData(newBalance, newHistory);
+  setTransactionStatus('Thank you for your donation!');
+  setAmount('');
+  setName('');
+  setPhone(''); // Clear phone number field
+
+  // Add donation to Firestore
+  try {
+    await addDoc(collection(db, 'fundingDonations'), {
+      amount: donationAmount,
+      name: name,
+      phone: phone, // Include phone number
+      timestamp: new Date(),
+    });
+  } catch (error) {
+    console.error("Error adding donation to Firestore: ", error);
+  }
+
+  // Hide status message after 3 seconds
+  setTimeout(() => setTransactionStatus(null), 3000);
+};
+
 
   // Handle adding funds
   const handleAddFunds = () => {
@@ -119,7 +137,7 @@ const Funding = () => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Phone Number"
+            placeholder="e.g. 017********"
             placeholderTextColor="black"
             keyboardType="phone-pad"
             value={phone}

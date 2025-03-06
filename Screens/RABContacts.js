@@ -118,6 +118,14 @@ const RABContacts = () => {
             source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
+            <ImageBackground
+            source={require('../assets/blue.jpeg')} 
+            style={styles.headerBackground} 
+            >
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>RAB Helplines</Text>
+            </View>
+        </ImageBackground>
             <TextInput
                 style={styles.searchInput}
                 placeholder="Search by area like 'Ramna'"
@@ -207,6 +215,32 @@ export default RABContacts;
 
 
 const styles = StyleSheet.create({
+    headerBackground: {
+        width: '95%', 
+        height: 81,   
+        justifyContent: 'center', 
+        alignItems: 'center',
+        marginLeft: 17.4,   
+        marginBottom: 6,
+        marginTop: 10,
+        marginHorizontal:20,
+      },
+      header: {
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        padding: 10,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginLeft: -12, 
+        marginBottom: 15,
+      },
+      headerTitle: {
+        color: '#ffffff',
+        fontSize: 26,
+        marginTop: -5,
+        fontWeight: 'bold',
+        marginBottom: -11.7
+      },
     backgroundImage: {
         flex: 1,
         width: '100%',
@@ -228,6 +262,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontSize: 16,
         position: 'relative',
+        marginBottom: 25
     },
     cardContainer: {
         width: '90%',

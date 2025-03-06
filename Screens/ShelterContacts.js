@@ -268,6 +268,14 @@ const ShelterContacts = () => {
             source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
+            <ImageBackground
+                source={require('../assets/blue.jpeg')} 
+                style={styles.headerBackground} 
+            >
+                <View style={styles.header}>
+                <Text style={styles.headerTitle}>Shelter Sites</Text>
+                </View>
+            </ImageBackground>
             <TextInput
                 style={styles.searchInput}
                 placeholder="Search by shelter site name or district..."
@@ -337,6 +345,29 @@ const ShelterContacts = () => {
 export default ShelterContacts;
 
 const styles = StyleSheet.create({
+    headerBackground: {
+        width: '95%', 
+        height: 81,   
+        justifyContent: 'center', 
+        alignItems: 'center',
+        marginLeft: 17.4,  
+        marginBottom: 42,
+        marginTop: 10,
+        marginHorizontal: 20,
+      },
+      header: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginLeft: -12,
+        marginBottom: 15,
+      },
+      headerTitle: {
+        color: '#ffffff',
+        fontSize: 26,
+        fontWeight: 'bold',
+        marginTop: 7.5,
+      },
     backgroundImage: {
         flex: 1,
         width: '100%',
@@ -356,6 +387,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         color: '#333333',
         fontSize: 16,
+        position: 'relative',
+        marginTop: -12,
+        marginBottom: 21,
     },
     cardContainer: {
         width: '90%',

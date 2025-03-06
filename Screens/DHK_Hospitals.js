@@ -375,7 +375,8 @@ const styles = StyleSheet.create({
     width: '95%', 
     height: 81,   
     justifyContent: 'center', 
-    alignItems: 'center',  
+    alignItems: 'center',
+    marginLeft: 17.4,   
     marginBottom: 42,
     marginTop: 10,
     marginHorizontal:20,
@@ -386,6 +387,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginLeft: -12, 
     marginBottom: 15,
   },
   headerTitle: {
@@ -393,7 +395,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     marginTop: -5,
     fontWeight: 'bold',
-    marginBottom: -20,
+    marginBottom: -11.7
   },
   backgroundImage: {
     flex: 1,
@@ -415,7 +417,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#ffffff',
     color: '#333333',
-    fontSize: 16,
+    fontSize: 15,
     position: 'relative',
     marginTop: -16,
     marginBottom: 30,

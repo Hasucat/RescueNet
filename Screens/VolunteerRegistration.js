@@ -27,9 +27,29 @@ const VolunteerRegistration = () => {
     navigation.navigate("MapScreen");
   };
 
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^(015|016|017|018|019)\d{8}$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleRegister = async () => {
     if (!name || !age || !phoneNumber || !gender || !location) {
       Alert.alert("Error", "Please fill all the fields and select a location.");
+      return;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      Alert.alert("Error", "Invalid phone number. \n\nPhone number must be exactly 11 digits and of a valid Bangladeshi SIM.");
+      return;
+    }
+
+    if (isNaN(age)) {
+      Alert.alert("Error", "Age must be a number.");
+      return;
+    }
+
+    if (age < 13) {
+      Alert.alert("Error", "Age must be at least 13 years old.");
       return;
     }
 
@@ -51,80 +71,76 @@ const VolunteerRegistration = () => {
     }
   };
 
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView>
-        
-          <View style={styles.container}>
-            <View style={styles.cardContainer}>
-              <ImageBackground
-                source={require('../assets/header2.jpg')}
-                style={styles.headerBackground}
+        <View style={styles.container}>
+          <View style={styles.cardContainer}>
+            <ImageBackground
+              source={require('../assets/header2.jpg')}
+              style={styles.headerBackground}
+            >
+              <View style={styles.header}>
+                <Text style={styles.headerTitle}>Profile Enhancement</Text>
+              </View>
+            </ImageBackground>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Name"
+              value={name}
+              onChangeText={setName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Age"
+              value={age}
+              onChangeText={setAge}
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              keyboardType="phone-pad"
+            />
+
+            {/* Gender Picker */}
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={gender}
+                onValueChange={(itemValue) => setGender(itemValue)}
+                style={styles.picker}
               >
-                <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Profile Enhancement</Text>
-                </View>
-              </ImageBackground>
-
-              <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Age"
-        value={age}
-        onChangeText={setAge}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-        keyboardType="phone-pad"
-      />
-
-      {/* Gender Picker */}
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={gender}
-          onValueChange={(itemValue) => setGender(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select Gender" value="" />
-          <Picker.Item label="Male" value="male" />
-          <Picker.Item label="Female" value="female" />
-        </Picker>
-      </View>
-      {/* Location Picker Button */}
-      <TouchableOpacity
-        style={styles.locationButton}
-        onPress={handleLocationPick}
-      >
-        <Ionicons name="location-outline" size={24} color="#007bff" />
-        <Text style={styles.locationText}>
-          {location
-            ? `Selected: ${location.latitude}, ${location.longitude}`
-            : "Select Working Location on Map"}
-        </Text>
-      </TouchableOpacity>
-
-              
-                <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
-              
+                <Picker.Item label="Select Gender" value="" />
+                <Picker.Item label="Male" value="male" />
+                <Picker.Item label="Female" value="female" />
+              </Picker>
             </View>
+
+            {/* Location Picker Button */}
+            <TouchableOpacity
+              style={styles.locationButton}
+              onPress={handleLocationPick}
+            >
+              <Ionicons name="location-outline" size={24} color="#007bff" />
+              <Text style={styles.locationText}>
+                {location
+                  ? `Selected: ${location.latitude}, ${location.longitude}`
+                  : "Select Working Location on Map"}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </View>
-        
+        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -141,24 +157,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   cardContainer: {
-    width: '100%', 
+    width: '100%',
     backgroundColor: 'rgba(255, 255, 255, 1)',
-    padding: 20, 
+    padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 5, 
+    elevation: 5,
     marginBottom: 60,
     borderColor: '#000',
     borderWidth: 2,
     borderRadius: 1,
   },
   headerBackground: {
-    width: '100%', 
-    height: 90,   
-    justifyContent: 'center', 
-    alignItems: 'center',  
+    width: '100%',
+    height: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 15,
   },
   header: {
@@ -174,22 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginTop: 10,
     fontWeight: '900',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 3, 
-    width: '100%',
-  },
-  smallContainer: {
-    flex: 1,
-    height: 50,
-    marginHorizontal: 1,
-    marginTop: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
   },
   input: {
     width: '100%',
@@ -209,13 +209,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginTop: -8,
   },
-  picker: { 
-    height: 55, 
-    fontSize: 16 ,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 8,
-  },
   locationButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -225,20 +218,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 20,
   },
-  
   locationText: { marginLeft: 10, fontSize: 16, color: "#007bff" },
-  
-  registerBackground: {
-    width: '100%', 
-    height: 100,   
-    justifyContent: 'center', 
-    alignItems: 'center',  
-    marginBottom: 10,
-  },
   registerButton: {
     backgroundColor: '#56ba65',
     paddingVertical: 8,
-    paddingHorizontal: 6,
     alignItems: 'center',
     marginBottom: 40,
     width: '45%',
@@ -252,6 +235,6 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontWeight: '900',
     marginBottom: 3,
-    
   },
-});export default VolunteerRegistration;
+});
+export default VolunteerRegistration;

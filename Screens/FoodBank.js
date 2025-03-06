@@ -59,11 +59,23 @@ const FoodBankDonation = () => {
     setQuantity('');
   };
 
+  const validatePhoneNumber = (phoneNumber) => {
+    const phonePattern = /^(\+8801[5-9])(\d{8})$/; // Basic validation for Bangladeshi phone numbers
+    return phonePattern.test(phoneNumber);
+  };
+
   const handleSubmit = async () => {
     if (!name || !phone || foodItems.length === 0) {
       Alert.alert('Error', 'Please fill in all fields and add at least one food item.');
       return;
     }
+
+    // Phone number validation
+    if (!validatePhoneNumber(phone)) {
+      Alert.alert('Invalid Phone Number', 'Please enter a valid phone number in the format: +8801XXXXXXXX');
+      return;
+    }
+
     try {
       await addDoc(collection(db, 'foodBankDonations'), {
         userID: auth.currentUser?.uid,
@@ -97,10 +109,9 @@ const FoodBankDonation = () => {
 
   const handleMarkCollected = async (id) => {
     try {
-      // Update the donation status to 'Collected'
       await updateDoc(doc(db, 'foodBankDonations', id), { status: 'Collected' });
       Alert.alert('Success', 'Donation marked as collected.');
-      fetchDonationHistory(); // Refresh the list
+      fetchDonationHistory();
     } catch (error) {
       Alert.alert('Error', 'Failed to mark donation as collected.');
       console.error(error);
@@ -130,7 +141,13 @@ const FoodBankDonation = () => {
           )}
 
           <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
-          <TextInput style={styles.input} placeholder="Phone Number" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
+          <TextInput
+            style={styles.input}
+            placeholder="e.g. +880 17********"
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="phone-pad"
+          />
 
           {/* Add More Food Items */}
           {foodItems.length > 0 && (
@@ -200,27 +217,20 @@ const FoodBankDonation = () => {
                 <Text>Status: {item.status || 'Pending'}</Text>
                 <Text>Location: {item.district || 'Unknown'}, {item.division || 'Unknown'}</Text>
                 <Text>Food Items:</Text>
-                {Array.isArray(item.foodItems) && item.foodItems.length > 0 ? (
-                  item.foodItems.map((food, i) => (
-                    <Text key={i}>
-                      {food.foodType || 'Unknown'} ({food.foodName || 'Unknown'}) - {food.quantity || 'N/A'}
-                    </Text>
-                  ))
-                ) : (
-                  <Text>No food items listed</Text>
-                )}
-                {item.status === 'Pending' && (
-                  <TouchableOpacity
-                    style={styles.collectButton}
-                    onPress={() => handleMarkCollected(item.id)}
-                  >
-                    <Text style={styles.collectButtonText}>Mark Collected</Text>
+                {item.foodItems?.map((food, index) => (
+                  <Text key={index} style={styles.foodItem}>
+                    {food.foodType} ({food.foodName}) - {food.quantity}
+                  </Text>
+                ))}
+                {item.status !== 'Collected' && (
+                  <TouchableOpacity onPress={() => handleMarkCollected(item.id)} style={styles.markCollectedButton}>
+                    <Text style={styles.markCollectedButtonText}>Mark as Collected</Text>
                   </TouchableOpacity>
                 )}
               </View>
             ))
           ) : (
-            <Text style={{ textAlign: 'center', marginTop: 10 }}>No donation history available.</Text>
+            <Text>No donation history found.</Text>
           )}
         </ScrollView>
       );
@@ -229,54 +239,125 @@ const FoodBankDonation = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.tabsContainer}>
-        {['Donate', 'History'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            onPress={() => setSelectedTab(tab)}
-            style={[
-              styles.tab,
-              selectedTab === tab && styles.activeTab,
-            ]}
-          >
-            <Text style={[styles.tabText, selectedTab === tab && styles.activeTabText]}>
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
+      <View style={styles.tabContainer}>
+        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('Donate')}>
+          <Text style={styles.tabText}>Donate</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('History')}>
+          <Text style={styles.tabText}>Donation History</Text>
+        </TouchableOpacity>
       </View>
-
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {renderContent()}
-      </ScrollView>
+      {renderContent()}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  tabsContainer: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
-  tab: { paddingVertical: 8, paddingHorizontal: 20 },
-  activeTab: { borderBottomWidth: 2, borderBottomColor: '#691b38' },
-  tabText: { fontSize: 16, color: '#888' },
-  activeTabText: { color: '#691b38' },
-  form: { padding: 20 },
-  input: { height: 40, borderColor: '#ccc', borderWidth: 1, borderRadius: 5, marginBottom: 10, paddingHorizontal: 10 },
-  picker: { height: 55, marginBottom: 10 },
-  addMoreButton: { backgroundColor: '#0c3038', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
-  addMoreButtonText: { color: 'white', fontSize: 16 },
-  submitButton: { backgroundColor: '#0c3038', padding: 15, borderRadius: 5, alignItems: 'center', marginTop: 20 },
-  submitButtonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-  foodItem: { fontSize: 14, marginTop: 5 },
-  historyContainer: { padding: 20 },
-  historyTitle: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, color: 'green' },
-  historyItem: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' },
-  collectButton: { backgroundColor: '#4da361', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 10 },
-  collectButtonText: { color: 'white', fontWeight: 'bold' },
-  modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-  modalContent: { width: '80%', backgroundColor: '#fff', padding: 20, borderRadius: 10 },
-  modalTitle: { fontSize: 20, fontWeight: 'bold', textAlign: 'center' },
-  closeModalButton: { backgroundColor: '#0c3038', padding: 10, borderRadius: 5, alignItems: 'center', marginTop: 20 },
+  container: {
+    flex: 1,
+    padding: 10,
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  tabButton: {
+    padding: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#007bff',
+  },
+  tabText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  form: {
+    flex: 1,
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  picker: {
+    height: 40,
+    marginBottom: 10,
+  },
+  addMoreButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  addMoreButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  submitButton: {
+    backgroundColor: '#28a745',
+    padding: 15,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    width: '80%',
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  closeModalButton: {
+    backgroundColor: '#dc3545',
+    padding: 10,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  foodItem: {
+    marginVertical: 5,
+  },
+  historyContainer: {
+    flex: 1,
+    padding: 10,
+  },
+  historyTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  historyItem: {
+    padding: 10,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+  },
+  markCollectedButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  markCollectedButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
 
 export default FoodBankDonation;
