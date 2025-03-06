@@ -382,14 +382,6 @@ const MediaContacts = () => {
             source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
-            <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>NGO Helplines</Text>
-            </View>
-        </ImageBackground>
             <TextInput
                 style={styles.searchInput}
                 placeholder="Search by media name..."
@@ -465,7 +457,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     scrollContainer: {
-        paddingVertical: 20,
+        paddingVertical: 1,
         alignItems: 'center',
     },
     searchInput: {
@@ -478,7 +470,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         color: '#333333',
         fontSize: 16,
-        marginBottom: 25
+        marginBottom: 25,
+        marginLeft: 20,
     },
     cardContainer: {
         width: '90%',

@@ -268,14 +268,6 @@ const ShelterContacts = () => {
             source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
-            <ImageBackground
-                source={require('../assets/blue.jpeg')} 
-                style={styles.headerBackground} 
-            >
-                <View style={styles.header}>
-                <Text style={styles.headerTitle}>Shelter Sites</Text>
-                </View>
-            </ImageBackground>
             <TextInput
                 style={styles.searchInput}
                 placeholder="Search by shelter site name or district..."
@@ -388,8 +380,9 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontSize: 16,
         position: 'relative',
-        marginTop: -12,
+        marginTop: 12,
         marginBottom: 21,
+        marginLeft:20
     },
     cardContainer: {
         width: '90%',

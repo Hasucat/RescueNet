@@ -269,6 +269,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 10,
     marginRight: 10,
+    height: 60,
   },
   searchInput: {
     flex: 1,
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginRight: 10,
+    height: 50,
   },
   map: {
     height:445,
@@ -288,7 +290,7 @@ const styles = StyleSheet.create({
     marginTop: 1
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
@@ -296,7 +298,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   picker: {
-    height: 40,
+    height: 80,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,

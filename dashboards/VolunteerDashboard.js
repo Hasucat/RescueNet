@@ -111,9 +111,6 @@ const VolunteerDashboard = () => {
 
       {/* Grid Layout */}
       <View style={styles.gridContainer}>
-        <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerRegistration")}>
-        <Image source={require('../assets/regicon.png')} style={styles.cardImage} />
-        </TouchableOpacity>
 
         <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerProfileUpdate")}>
         <Image source={require('../assets/update.png')} style={styles.cardImage} />
@@ -128,7 +125,7 @@ const VolunteerDashboard = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.gridItem} onPress={handleOtherDonations}>
-        <Image source={require('../assets/statusicon.png')} style={styles.cardImage} />
+        <Image source={require('../assets/donationlist.png')} style={styles.cardImage} />
         </TouchableOpacity>
       </View>
 
@@ -217,6 +214,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
+    width:'40%',
+    marginLeft: 110,
   },
   signOutText: {
     color: "#fff",
@@ -255,5 +254,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
-
+ 
 });
+
+

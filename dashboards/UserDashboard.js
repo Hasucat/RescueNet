@@ -146,12 +146,12 @@ const UserDashboard = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.iconRow}>
-              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmergencyList')}>
+              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('EmergencyContacts')}>
                 <Image source={require('../assets/emergency.png')} style={styles.cardImage} />
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('VolunteerSection')}>
-                <Image source={require('../assets/volunteers.png')} style={styles.cardImage} />
+              <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('ShelterContacts')}>
+                <Image source={require('../assets/sheltericon.png')} style={styles.cardImage} />
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('Guides')}>

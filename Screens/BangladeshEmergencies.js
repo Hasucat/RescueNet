@@ -100,14 +100,7 @@ const BangladeshEmergencies = () => {
       source={require('../assets/dashboard.png')}
       style={styles.backgroundImage}
     >
-      <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>National Helplines</Text>
-            </View>
-        </ImageBackground>
+      
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {emergencyContacts.map((contact, index) => (
           <View 
@@ -176,7 +169,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   scrollContainer: {
-    paddingVertical: 30,
+    paddingVertical: 20,
     alignItems: 'center',
     backgroundColor: '#fff',
   },

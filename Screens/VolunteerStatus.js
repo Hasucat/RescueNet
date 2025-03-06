@@ -261,8 +261,17 @@ const VolunteerStatus = () => {
             value={cancelReason}
             onChangeText={setCancelReason}
           />
-          <Button title="Submit Cancellation" onPress={() => handleCancelRequest(cancelReason)} />
-          <Button title="Close" onPress={() => setCancelModalVisible(false)} />
+           <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => handleCancelRequest(cancelReason)}
+          >
+            <Text style={styles.buttonText}>Submit Cancellation</Text>
+          </TouchableOpacity>
+      
+        
+        <TouchableOpacity style={styles.closeButton} onPress={() => setCancelModalVisible(false)}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
         </View>
       </Modal>
     </View>
@@ -358,16 +367,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  modalTitle:{
+    color: '#c9371a',
+    fontWeight: 'bold',
+    fontSize:25,
+  },
+  mapButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
   modalContainer: {
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
+    justifyContent: 'center', // Centers vertically
+    alignItems: 'center', // Centers horizontally
+    backgroundColor: 'rgba(156, 203, 218, 0.5)',
+    
   },
   modalMap: {
     flex: 1,
@@ -384,9 +400,27 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     padding: 8,
     borderRadius: 4,
     marginBottom: 10,
+  },
+  cancelButton: {
+    backgroundColor: '#18ad6d',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  closeButton: {
+    backgroundColor: '#d6362b',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonTexts: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

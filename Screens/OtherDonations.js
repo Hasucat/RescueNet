@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   tabText: { fontSize: 16, color: '#888' },
   activeTabText: { color: '#691b38' },
   searchBar: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
