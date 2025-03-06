@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { db } from './../firebase.js';
 import { collection, addDoc } from 'firebase/firestore';
@@ -137,7 +137,7 @@ const handleDonationSubmit = async () => {
           />
           <TextInput
             style={styles.input}
-            placeholder="e.g. 017********"
+            placeholder="e.g. 01*********"
             placeholderTextColor="black"
             keyboardType="phone-pad"
             value={phone}
@@ -203,14 +203,7 @@ const handleDonationSubmit = async () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Funding</Text>
-            </View>
-        </ImageBackground>
+      
       <View style={styles.tabsContainer}>
         {['Donate', 'AddFunds', 'History'].map((tab) => (
           <TouchableOpacity
@@ -238,30 +231,6 @@ const handleDonationSubmit = async () => {
 export default Funding;
 
 const styles = StyleSheet.create({
-  headerBackground: {
-    width: '100%', 
-    height: 60,   
-    justifyContent: 'center', 
-    alignItems: 'center',
-    marginLeft: 0,   
-    marginBottom: 24,
-    marginTop: -6,
-    marginHorizontal:20,
-  },
-  header: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    padding: 10,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 12,
-  },
-  headerTitle: {
-    color: '#ffffff',
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: -11.7
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

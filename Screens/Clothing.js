@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView } from 'react-native';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
@@ -17,7 +17,8 @@ const divisionsAndDistricts = {
 
 const ApparelDonation = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  // Using phoneNumber only.
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [clothingType, setClothingType] = useState('');
   const [size, setSize] = useState('');
   const [category, setCategory] = useState('');
@@ -27,21 +28,26 @@ const ApparelDonation = () => {
   const [selectedTab, setSelectedTab] = useState('Donate');
   const [clothingItems, setClothingItems] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
     fetchDonationHistory();
   }, []);
 
-  // Function to validate phone number
+  // Function to validate phone number (Bangladeshi numbers: 11 digits starting with 015, 016, 017, 018, or 019)
   const validatePhoneNumber = (number) => {
-    const regex = /^(015|016|107|018|019)\d{7}$/;
+    const regex = /^(015|016|017|018|019)\d{8}$/;
     return regex.test(number);
   };
 
   // Handle phone number change
   const handlePhoneNumberChange = (text) => {
     setPhoneNumber(text);
+  };
+
+  // When the division changes, reset the district
+  const handleDivisionChange = (division) => {
+    setSelectedDivision(division);
+    setSelectedDistrict('');
   };
 
   const handleAddClothing = () => {
@@ -56,14 +62,14 @@ const ApparelDonation = () => {
   };
 
   const handleSubmit = async () => {
-    if (!name || !phone || !selectedDivision || !selectedDistrict || clothingItems.length === 0) {
+    if (!name || !phoneNumber || !selectedDivision || !selectedDistrict || clothingItems.length === 0) {
       Alert.alert("Error", "Please fill in all fields and add at least one clothing item.");
       return;
     }
 
     // Validate the phone number
     if (!validatePhoneNumber(phoneNumber)) {
-      Alert.alert('Error', 'Invalid phone number: Must be exactly 11 digits.\nMust be a valid Bangladeshi SIM number.');
+      Alert.alert('Error', 'Invalid phone number:\nMust be exactly 11 digits.\nMust be a valid Bangladeshi SIM number.');
       return;
     }
 
@@ -71,7 +77,7 @@ const ApparelDonation = () => {
       await addDoc(collection(db, "apparelDonations"), {
         userID: auth.currentUser?.uid,
         name,
-        phone,
+        phone: phoneNumber, // using phoneNumber
         clothingItems,
         division: selectedDivision,
         district: selectedDistrict,
@@ -79,8 +85,9 @@ const ApparelDonation = () => {
         timestamp: new Date(),
       });
       Alert.alert("Success", "Donation request submitted!");
+      // Clear fields after successful submission
       setName('');
-      setPhone('');
+      setPhoneNumber('');
       setClothingItems([]);
       setSelectedDivision('');
       setSelectedDistrict('');
@@ -112,12 +119,15 @@ const ApparelDonation = () => {
   };
 
   const renderContent = () => {
-
     if (selectedTab === 'Donate') {
       return (
         <View style={styles.form}>
           {/* Division Picker */}
-          <Picker selectedValue={selectedDivision} onValueChange={setSelectedDivision} style={styles.picker}>
+          <Picker
+            selectedValue={selectedDivision}
+            onValueChange={handleDivisionChange}
+            style={styles.picker}
+          >
             <Picker.Item label="Select Division" value="" />
             {Object.keys(divisionsAndDistricts).map((division, index) => (
               <Picker.Item key={index} label={division} value={division} />
@@ -126,7 +136,11 @@ const ApparelDonation = () => {
 
           {/* District Picker */}
           {selectedDivision && (
-            <Picker selectedValue={selectedDistrict} onValueChange={setSelectedDistrict} style={styles.picker}>
+            <Picker
+              selectedValue={selectedDistrict}
+              onValueChange={setSelectedDistrict}
+              style={styles.picker}
+            >
               <Picker.Item label="Select District" value="" />
               {divisionsAndDistricts[selectedDivision].map((district, index) => (
                 <Picker.Item key={index} label={district} value={district} />
@@ -134,8 +148,19 @@ const ApparelDonation = () => {
             </Picker>
           )}
 
-          <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
-          <TextInput style={styles.input} placeholder="e.g. 017********" value={phoneNumber} onChangeText={handlePhoneNumberChange} keyboardType="phone-pad" />
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="e.g. 01*********"
+            value={phoneNumber}
+            onChangeText={handlePhoneNumberChange}
+            keyboardType="phone-pad"
+          />
 
           {/* Display Added Clothing Items */}
           {clothingItems.length > 0 && (
@@ -149,7 +174,12 @@ const ApparelDonation = () => {
           )}
 
           {/* Clothing Details Input */}
-          <TextInput style={styles.input} placeholder="Type of Clothing" value={clothingType} onChangeText={setClothingType} />
+          <TextInput
+            style={styles.input}
+            placeholder="Type of Clothing"
+            value={clothingType}
+            onChangeText={setClothingType}
+          />
           <Picker selectedValue={size} onValueChange={setSize} style={styles.picker}>
             <Picker.Item label="Select Size" value="" />
             <Picker.Item label="Small" value="Small" />
@@ -206,94 +236,79 @@ const ApparelDonation = () => {
       return (
         <ScrollView style={styles.historyContainer}>
           <Text style={styles.historyTitle}>Apparel Donation History</Text>
-          {donationHistory.length > 0 ? donationHistory.map((donation) => (
-            <View key={donation.id} style={styles.donationCard}>
-              <Text>Name: {donation.name}</Text>
-              <Text>Status: {donation.status}</Text>
-              <TouchableOpacity style={styles.markCollectedButton} onPress={() => handleMarkCollected(donation.id)}>
-                <Text style={styles.submitButtonText}>Mark as Collected</Text>
-              </TouchableOpacity>
-            </View>
-          )) : <Text>No donations found</Text>}
+          {donationHistory.length > 0 ? (
+            donationHistory.map((donation) => (
+              <View key={donation.id} style={styles.donationCard}>
+                <Text>Name: {donation.name}</Text>
+                <Text>Status: {donation.status}</Text>
+                <Text>Location: {donation.district}, {donation.division}</Text>
+                <Text>Clothing Items:</Text>
+                {donation.clothingItems && donation.clothingItems.map((item, index) => (
+                  <Text key={index} style={styles.clothingItem}>
+                    {`${item.clothingType} (${item.size}) - ${item.category}`}
+                  </Text>
+                ))}
+              </View>
+            ))
+          ) : (
+            <Text>No donations found</Text>
+          )}
         </ScrollView>
       );
     }
+    
   };
 
   return (
-    
     <View style={styles.container}>
-      <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Apparel Donation</Text>
-            </View>
-    </ImageBackground>
-      
-      <View style={styles.tabs}>
-        <TouchableOpacity onPress={() => setSelectedTab('Donate')} style={[styles.tabButton, selectedTab === 'Donate' && styles.activeTab]}>
-          <Text style={styles.tabButtonText}>Donate</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setSelectedTab('History')} style={[styles.tabButton, selectedTab === 'History' && styles.activeTab]}>
-          <Text style={styles.tabButtonText}>History</Text>
-        </TouchableOpacity>
+      {/* Tabs styled like Funding.js */}
+      <View style={styles.tabsContainer}>
+        {['Donate', 'History'].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            onPress={() => setSelectedTab(tab)}
+            style={[styles.tab, selectedTab === tab && styles.activeTab]}
+          >
+            <Text style={[styles.tabText, selectedTab === tab && styles.activeTabText]}>
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
-
       {renderContent()}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerBackground: {
-    width: '100%', 
-    height: 60,   
-    justifyContent: 'center', 
-    alignItems: 'center',
-    marginLeft: 0,   
-    marginBottom: 24,
-    marginTop: -6,
-    marginHorizontal:20,
-  },
-  header: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    padding: 10,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 12,
-  },
-  headerTitle: {
-    color: '#ffffff',
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: -11.7
-  },
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
   },
-  tabs: {
+  // Tab styles (same as Funding.js)
+  tabsContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
     marginBottom: 20,
   },
-  tabButton: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
-    justifyContent: 'center',
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
   activeTab: {
-    backgroundColor: '#007bff',
+    borderBottomWidth: 2,
+    borderBottomColor: '#691b38',
   },
-  tabButtonText: {
-    color: '#000',
-    fontSize: 18,
-    fontWeight: 500,
+  tabText: {
+    fontSize: 16,
+    color: '#888',
+  },
+  activeTabText: {
+    color: '#691b38',
   },
   form: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ImageBackground } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
@@ -65,7 +65,6 @@ const FoodBankDonation = () => {
     return phonePattern.test(phoneNumber);
   };
 
-
   const handleSubmit = async () => {
     if (!name || !phone || foodItems.length === 0) {
       Alert.alert('Error', 'Please fill in all fields and add at least one food item.');
@@ -126,32 +125,45 @@ const FoodBankDonation = () => {
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.form}>
             {/* Division Picker */}
-            <Picker selectedValue={selectedDivision} onValueChange={setSelectedDivision} style={styles.picker}>
+            <Picker
+              selectedValue={selectedDivision}
+              onValueChange={setSelectedDivision}
+              style={styles.picker}
+            >
               <Picker.Item label="Select Division" value="" style={styles.label} />
               {Object.keys(divisionsAndDistricts).map((division, index) => (
                 <Picker.Item key={index} label={division} value={division} />
               ))}
             </Picker>
-  
+
             {/* District Picker */}
             {selectedDivision && (
-              <Picker selectedValue={selectedDistrict} onValueChange={setSelectedDistrict} style={styles.picker}>
+              <Picker
+                selectedValue={selectedDistrict}
+                onValueChange={setSelectedDistrict}
+                style={styles.picker}
+              >
                 <Picker.Item label="Select District" value="" style={styles.label} />
                 {divisionsAndDistricts[selectedDivision].map((district, index) => (
                   <Picker.Item key={index} label={district} value={district} />
                 ))}
               </Picker>
             )}
-  
-            <TextInput style={styles.input} placeholder="Name" value={name} onChangeText={setName} />
+
             <TextInput
               style={styles.input}
-              placeholder="e.g. +88017********"
+              placeholder="Name"
+              value={name}
+              onChangeText={setName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. +8801*********"
               value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"
             />
-  
+
             {/* Display Added Food Items */}
             {foodItems.length > 0 && (
               <View>
@@ -162,27 +174,41 @@ const FoodBankDonation = () => {
                 ))}
               </View>
             )}
-  
+
             {/* Food Type Dropdown */}
-            <Picker selectedValue={foodType} onValueChange={setFoodType} style={styles.picker}>
+            <Picker
+              selectedValue={foodType}
+              onValueChange={setFoodType}
+              style={styles.picker}
+            >
               <Picker.Item label="Select Food Type" value="" />
               {foodCategories.map((category, index) => (
                 <Picker.Item key={index} label={category} value={category} />
               ))}
             </Picker>
-  
-            <TextInput style={styles.input} placeholder="Food Name" value={foodName} onChangeText={setFoodName} />
-            <TextInput style={styles.input} placeholder="Quantity (e.g., 1 kg, 1 pkt, etc.)" value={quantity} onChangeText={setQuantity} />
-  
+
+            <TextInput
+              style={styles.input}
+              placeholder="Food Name"
+              value={foodName}
+              onChangeText={setFoodName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Quantity (e.g., 1 kg, 1 pkt, etc.)"
+              value={quantity}
+              onChangeText={setQuantity}
+            />
+
             <TouchableOpacity style={styles.addMoreButton} onPress={addFoodItem}>
               <Text style={styles.addMoreButtonText}>Add More Food Item</Text>
             </TouchableOpacity>
-  
+
             <TouchableOpacity style={styles.submitButton} onPress={() => setModalVisible(true)}>
               <Text style={styles.submitButtonText}>Review Donation</Text>
             </TouchableOpacity>
           </View>
-  
+
           {/* Review Donation Modal */}
           <Modal visible={modalVisible} transparent={true} animationType="slide">
             <View style={styles.modalContainer}>
@@ -191,7 +217,9 @@ const FoodBankDonation = () => {
                 <ScrollView>
                   <Text>Name: {name}</Text>
                   <Text>Phone: {phone}</Text>
-                  <Text>Location: {selectedDistrict}, {selectedDivision}</Text>
+                  <Text>
+                    Location: {selectedDistrict}, {selectedDivision}
+                  </Text>
                   <Text>Food Items:</Text>
                   {foodItems.map((item, index) => (
                     <Text key={index} style={styles.foodItem}>
@@ -199,19 +227,19 @@ const FoodBankDonation = () => {
                     </Text>
                   ))}
                 </ScrollView>
-  
+
                 {/* Submit Donation Modal within the Review Donation Modal */}
                 <TouchableOpacity style={styles.submitButton} onPress={() => setSubmitModalVisible(true)}>
                   <Text style={styles.submitButtonText}>Submit Donation</Text>
                 </TouchableOpacity>
-  
-                {/* Submit Donation Modal */}
+
+                {/* Submit Donation Confirmation Modal */}
                 <Modal visible={submitModalVisible} transparent={true} animationType="slide">
                   <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                       <Text style={styles.modalTitle}>Confirm Submission</Text>
                       <Text>Are you sure you want to submit this donation?</Text>
-  
+
                       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
                         <Text style={styles.submitButtonText}>Confirm</Text>
                       </TouchableOpacity>
@@ -221,7 +249,7 @@ const FoodBankDonation = () => {
                     </View>
                   </View>
                 </Modal>
-  
+
                 <TouchableOpacity style={styles.closeModalButton} onPress={() => setModalVisible(false)}>
                   <Text style={styles.submitButtonText}>Close</Text>
                 </TouchableOpacity>
@@ -230,27 +258,32 @@ const FoodBankDonation = () => {
           </Modal>
         </ScrollView>
       );
-    } else if (selectedTab === 'History') {
+    } else if (selectedTab === 'Donation History') {
       return (
         <ScrollView style={styles.historyContainer}>
           <Text style={styles.historyTitle}>Food Bank Donation History</Text>
           {donationHistory.length > 0 ? (
             donationHistory.map((item, index) => (
               <View key={index} style={styles.historyItem}>
-                <Text style={styles.itemTop}>Date: {item.timestamp?.toDate ? new Date(item.timestamp.toDate()).toLocaleString() : 'N/A'}</Text>
+                <Text style={styles.itemTop}>
+                  Date:{' '}
+                  {item.timestamp?.toDate
+                    ? new Date(item.timestamp.toDate()).toLocaleString()
+                    : 'N/A'}
+                </Text>
                 <Text>Status: {item.status || 'Pending'}</Text>
-                <Text>Location: {item.district || 'Unknown'}, {item.division || 'Unknown'}</Text>
+                <Text>
+                  Name: {item.name || 'Unknown'}
+                </Text>
+                <Text>
+                  Location: {item.district || 'Unknown'}, {item.division || 'Unknown'}
+                </Text>
                 <Text>Food Items:</Text>
                 {item.foodItems?.map((food, idx) => (
                   <Text key={idx} style={styles.foodItem}>
                     {food.foodType} ({food.foodName}) - {food.quantity}
                   </Text>
                 ))}
-                {item.status !== 'Collected' && (
-                  <TouchableOpacity onPress={() => handleMarkCollected(item.id)} style={styles.markCollectedButton}>
-                    <Text style={styles.markCollectedButtonText}>Mark as Collected</Text>
-                  </TouchableOpacity>
-                )}
               </View>
             ))
           ) : (
@@ -263,21 +296,19 @@ const FoodBankDonation = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/blue.jpeg')}
-        style={styles.headerBackground}
-      >
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Food Donation</Text>
-        </View>
-      </ImageBackground>
-      <View style={styles.tabContainer}>
-        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('Donate')}>
-          <Text style={styles.tabText}>Donate</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('History')}>
-          <Text style={styles.tabText}>Donation History</Text>
-        </TouchableOpacity>
+      {/* Updated Tabs styled like Funding.js */}
+      <View style={styles.tabsContainer}>
+        {['Donate', 'Donation History'].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            onPress={() => setSelectedTab(tab)}
+            style={[styles.tab, selectedTab === tab && styles.activeTab]}
+          >
+            <Text style={[styles.tabText, selectedTab === tab && styles.activeTabText]}>
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       {renderContent()}
     </View>
@@ -285,47 +316,38 @@ const FoodBankDonation = () => {
 };
 
 const styles = StyleSheet.create({
-  headerBackground: {
-    width: '100%',
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 0,
-    marginBottom: 24,
-    marginTop: -6,
-    marginHorizontal: 20,
-  },
-  header: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    padding: 10,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 12,
-  },
-  headerTitle: {
-    color: '#ffffff',
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: -11.7,
-  },
   container: {
     flex: 1,
+    backgroundColor: '#fff',
     padding: 20,
   },
-  tabContainer: {
+  // Tab styles (same as Funding.js)
+  tabsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
     marginBottom: 20,
   },
-  tabButton: {
-    padding: 10,
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+  },
+  activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: '#007bff',
+    borderBottomColor: '#691b38',
   },
   tabText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#888',
+  },
+  activeTabText: {
+    color: '#691b38',
+  },
+  // Other styles
+  scrollContainer: {
+    flex: 1,
   },
   form: {
     flex: 1,
@@ -384,7 +406,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     marginBottom: 20,
-    marginTop: 10
+    marginTop: 10,
   },
   foodItem: {
     marginVertical: 1,
@@ -404,6 +426,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 10,
+  },
+  itemTop: {
+    marginBottom: 5,
   },
   markCollectedButton: {
     backgroundColor: '#007bff',
