@@ -122,14 +122,6 @@ const KHL_hospitals = [
       source={require('../assets/dashboard.png')}
       style={styles.backgroundImage}
     >
-      <ImageBackground
-        source={require('../assets/blue.jpeg')} 
-        style={styles.headerBackground} 
-      >
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Khulna Hospitals</Text>
-        </View>
-      </ImageBackground>
       <TextInput
         style={styles.searchInput}
         placeholder="Search for Hospitals"
@@ -227,7 +219,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontSize: 15,
     position: 'relative',
-    marginTop: -16,
+    marginTop: 8,
     marginBottom: 30,
   },
   cardContainer: {

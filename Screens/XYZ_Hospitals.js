@@ -116,11 +116,7 @@ const XYZ_Hospitals = () => {
   
   return (
     <ImageBackground source={require('../assets/dashboard.png')} style={styles.backgroundImage}>
-      <ImageBackground source={require('../assets/blue.jpeg')} style={styles.headerBackground}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Other Hospitals</Text>
-        </View>
-      </ImageBackground>
+     
       <TextInput
         style={styles.searchInput}
         placeholder="Search by 'Hospital name' or 'District name'"
@@ -214,7 +210,7 @@ const styles = StyleSheet.create({
   searchInput: {
     width: '90%',
     padding: 10,
-    marginTop: -12,
+    marginTop: 8,
     marginBottom: 30,
     margin: 15,
     borderColor: '#000',

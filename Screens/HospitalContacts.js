@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   iconContainer: {
-    width: '230%',
+    width: '220%',
     height: 95,
     marginBottom: 15,
-    borderRadius: 12,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.96,

@@ -397,6 +397,7 @@ const styles = StyleSheet.create({
     width: '70%',
     alignItems: 'center',
     marginBottom: 3,
+    marginLeft:5
   },
   info: {
     fontSize: 16, 
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
     marginVertical: 1,
     width: '70%',
     alignItems: 'center',
-    marginLeft: 48,
+    marginLeft: 55,
     marginBottom:-3,
   },
   buttonText: {
@@ -443,7 +444,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     width: '70%',
-    marginLeft: 47,
+    marginLeft: 55,
     marginTop:5,
   },
   modalOverlay:{

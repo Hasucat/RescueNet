@@ -382,14 +382,7 @@ const MediaContacts = () => {
             source={require('../assets/dashboard.png')}
             style={styles.backgroundImage}
         >
-            <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Media Contacts</Text>
-            </View>
-        </ImageBackground>
+            
             <TextInput
                 style={styles.searchInput}
                 placeholder="Search by media name..."
@@ -478,7 +471,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         color: '#333333',
         fontSize: 16,
-        marginBottom: 21
+        marginBottom: 21,
+        marginLeft:20,
     },
     cardContainer: {
         width: '90%',
@@ -493,6 +487,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 6,
         elevation: 8,
+        marginTop:-5,
     },
     office: {
         fontSize: 20.4,

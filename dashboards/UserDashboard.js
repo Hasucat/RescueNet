@@ -71,14 +71,9 @@ const UserDashboard = () => {
                 <Ionicons name="arrow-back" size={30} color="#000" />
               </TouchableOpacity>
               <View style={styles.bar}></View> 
-              <TouchableOpacity onPress={() => navigation.navigate('VolunteerRegistration')} style={styles.menuItem}>
-                <View style={styles.iconTextContainer}>
-                  <Ionicons name="person" size={30} color="#5c6996" />
-                  <Text style={styles.menuText}>Update Profile</Text>
-                </View>
-              </TouchableOpacity>
+              
 
-              <TouchableOpacity onPress={() => navigation.navigate('EmergencyContacts')} style={styles.menuItem}>
+              <TouchableOpacity onPress={() => navigation.navigate('BangladeshEmergencies')} style={styles.menuItem}>
                 <View style={styles.iconTextContainer}>
                   <MaterialCommunityIcons name="contacts" size={30} color="#158a20" />
                   <Text style={styles.menuText}>Emergency Contact</Text>

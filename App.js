@@ -62,6 +62,7 @@ import VolunteerStatus from './Screens/VolunteerStatus';
 import Wildfire from './Screens/Wildfire';
 import XYZ_Hospitals from './Screens/XYZ_Hospitals';
 import OtherDonations from './Screens/OtherDonations';
+import VolunteerUpdateProfile from './Screens/VolunteerUpdateProfile';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -155,13 +156,14 @@ export default function App() {
         />
          {/* User Status Screen */}
         <Stack.Screen name="UserStatus" component={UserStatus} options={{ title: "Rescue Request Status" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
-        {/* Volunteer Status Screen */}
+        {/* Volunteer Dashboard Screen */}
         <Stack.Screen name="VolunteerStatus" component={VolunteerStatus} options={{ title: "Volunteer Response Status" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         
         <Stack.Screen name="RescueRequests" component={RescueRequests} options={{ title: "Rescue Requests" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
         
         <Stack.Screen name="OtherDonations" component={OtherDonations} options={{ title: "Other Donations" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
-
+        <Stack.Screen name="VolunteerUpdateProfile" component={VolunteerUpdateProfile} options={{ title: "Volunteer Update Profile" ,headerStyle: { backgroundColor: "#40646b" },  headerTintColor: "#fff"}} />
+        
       </Stack.Navigator>
 
       {/* Toast for Toast Msgs */}

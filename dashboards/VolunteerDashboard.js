@@ -112,7 +112,7 @@ const VolunteerDashboard = () => {
       {/* Grid Layout */}
       <View style={styles.gridContainer}>
 
-        <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerProfileUpdate")}>
+        <TouchableOpacity style={styles.gridItem} onPress={() => navigation.navigate("VolunteerUpdateProfile")}>
         <Image source={require('../assets/update.png')} style={styles.cardImage} />
         </TouchableOpacity>
 

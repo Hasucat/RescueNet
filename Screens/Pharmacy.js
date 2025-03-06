@@ -70,14 +70,7 @@ const Pharmacy = () => {
 
     return (
         <ImageBackground source={require('../assets/dashboard.png')} style={styles.backgroundImage}>
-            <ImageBackground
-            source={require('../assets/blue.jpeg')} 
-            style={styles.headerBackground} 
-            >
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>24/7 Pharmacies</Text>
-            </View>
-        </ImageBackground>
+            
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.container}>
                     <View style={styles.searchContainer}>
