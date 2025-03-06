@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Modal, ScrollView, ImageBackground } from 'react-native';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
@@ -112,6 +112,7 @@ const ApparelDonation = () => {
   };
 
   const renderContent = () => {
+
     if (selectedTab === 'Donate') {
       return (
         <View style={styles.form}>
@@ -220,7 +221,17 @@ const ApparelDonation = () => {
   };
 
   return (
+    
     <View style={styles.container}>
+      <ImageBackground
+            source={require('../assets/blue.jpeg')} 
+            style={styles.headerBackground} 
+            >
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Apparel Donation</Text>
+            </View>
+    </ImageBackground>
+      
       <View style={styles.tabs}>
         <TouchableOpacity onPress={() => setSelectedTab('Donate')} style={[styles.tabButton, selectedTab === 'Donate' && styles.activeTab]}>
           <Text style={styles.tabButtonText}>Donate</Text>
@@ -236,6 +247,30 @@ const ApparelDonation = () => {
 };
 
 const styles = StyleSheet.create({
+  headerBackground: {
+    width: '100%', 
+    height: 60,   
+    justifyContent: 'center', 
+    alignItems: 'center',
+    marginLeft: 0,   
+    marginBottom: 24,
+    marginTop: -6,
+    marginHorizontal:20,
+  },
+  header: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 10,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 12,
+  },
+  headerTitle: {
+    color: '#ffffff',
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: -11.7
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -257,6 +292,8 @@ const styles = StyleSheet.create({
   },
   tabButtonText: {
     color: '#000',
+    fontSize: 18,
+    fontWeight: 500,
   },
   form: {
     flex: 1,
@@ -269,27 +306,31 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   picker: {
-    height: 40,
+    height: 54,
     borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 9,
   },
   addMoreButton: {
-    backgroundColor: '#28a745',
-    padding: 10,
+    backgroundColor: '#007bff',
+    padding: 15,
+    marginTop: 10,
+    marginBottom: 20,
     alignItems: 'center',
   },
   addMoreButtonText: {
     color: '#fff',
+    fontSize: 18,
   },
   submitButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#28a745',
     padding: 15,
     alignItems: 'center',
-    marginTop: 20,
+    marginBottom: 20,
   },
   submitButtonText: {
     color: '#fff',
+    fontSize: 18,
   },
   modalContainer: {
     flex: 1,

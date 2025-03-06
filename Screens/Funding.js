@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { db } from './../firebase.js';
 import { collection, addDoc } from 'firebase/firestore';
@@ -50,7 +50,7 @@ const handleDonationSubmit = async () => {
   const donationAmount = parseFloat(amount);
 
   // Phone number validation: Check if it has exactly 11 digits and starts with the correct prefix
-  const phoneRegex = /^(015|016|017|018|019)\d{7}$/;
+  const phoneRegex = /^(015|016|017|018|019)\d{8}$/;
 
   if (!donationAmount || donationAmount <= 0 || !name || !phone) {
     Alert.alert('Please fill all fields (Name, Phone, and Amount)');
@@ -203,6 +203,14 @@ const handleDonationSubmit = async () => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground
+            source={require('../assets/blue.jpeg')} 
+            style={styles.headerBackground} 
+            >
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Funding</Text>
+            </View>
+        </ImageBackground>
       <View style={styles.tabsContainer}>
         {['Donate', 'AddFunds', 'History'].map((tab) => (
           <TouchableOpacity
@@ -230,9 +238,34 @@ const handleDonationSubmit = async () => {
 export default Funding;
 
 const styles = StyleSheet.create({
+  headerBackground: {
+    width: '100%', 
+    height: 60,   
+    justifyContent: 'center', 
+    alignItems: 'center',
+    marginLeft: 0,   
+    marginBottom: 24,
+    marginTop: -6,
+    marginHorizontal:20,
+  },
+  header: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    padding: 10,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 12,
+  },
+  headerTitle: {
+    color: '#ffffff',
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: -11.7
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    padding: 20
   },
   tabsContainer: {
     flexDirection: 'row',
@@ -264,6 +297,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    marginTop: 9,
     color: 'green',
   },
   balance: {
