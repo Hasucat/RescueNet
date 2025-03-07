@@ -15,9 +15,10 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, onSnapshot, getDoc } from 'firebase/firestore';
 import { db, auth } from './../firebase.js'; 
+import { useNavigation } from '@react-navigation/native';
 
 const UserStatus = () => {
-  const [rescues, setRescues] = useState([]);
+  const [rescue, setRescue] = useState([]);
   const [loading, setLoading] = useState(true);
   const [volunteerInfo, setVolunteerInfo] = useState(null);
   const [volModalVisible, setVolModalVisible] = useState(false);
@@ -26,6 +27,7 @@ const UserStatus = () => {
   const [cancelReason, setCancelReason] = useState('');
   const [selectedCancelRescue, setSelectedCancelRescue] = useState(null);
   const [selectedLocationRescue, setSelectedLocationRescue] = useState(null);
+  const navigation = useNavigation();
 
   // Real-time listener for rescue requests made by the current user
   useEffect(() => {
@@ -41,7 +43,7 @@ const UserStatus = () => {
       querySnapshot.forEach((docSnapshot) => {
         rescueList.push({ id: docSnapshot.id, ...docSnapshot.data() });
       });
-      setRescues(rescueList);
+      setRescue(rescueList);
       setLoading(false);
     }, (error) => {
       Alert.alert("Error", "Failed to fetch rescue requests.");
@@ -110,7 +112,22 @@ const UserStatus = () => {
     }
   };
 
-  // Open location modal to view rescue location on map
+   //Open private chat screen with the assigned volunteer
+  const handleprivatechat = (rescue) => {
+    if (!rescue) return;
+        if (rescue.status.toLowerCase() !== 'accepted') {
+          Alert.alert('Not Allowed', 'Chat is only available once the rescue is accepted.');
+          return;
+    }
+    
+    // Navigate to RescueChat with the necessary parameters
+    navigation.navigate('RescueChat', {
+      rescueId: rescue.id,
+      volunteerPhone: volunteerInfo.phoneNumber, 
+      userPhone: rescue.phone,
+    });
+  };
+   // Open location modal to view rescue location on map
   const openLocationModal = (rescue) => {
     if (rescue.location && rescue.location.latitude && rescue.location.longitude) {
       setSelectedLocationRescue(rescue);
@@ -161,10 +178,10 @@ const UserStatus = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Rescue Request Status</Text>
       </View>
-      {rescues.length === 0 ? (
+      {rescue.length === 0 ? (
         <Text style={styles.loadingText}>No rescue requests found.</Text>
       ) : (
-        rescues.map((rescue) => (
+        rescue.map((rescue) => (
           <View key={rescue.id} style={styles.rescueBox}>
             <Text style={styles.rescueName}>{rescue.name}</Text>
             <Text style={styles.rescueStatus}>
@@ -196,12 +213,15 @@ const UserStatus = () => {
               </TouchableOpacity>
             )}
             {rescue.status.toLowerCase() === 'accepted' && rescue.volunteerAssigned && (
-              <View style={styles.buttonContainer}>
+              <View style={styles.actionsContainer}>
                 <TouchableOpacity 
-                  style={styles.volunteerButton} 
+                  style={styles.actionButton} 
                   onPress={() => showVolunteerInfo(rescue.volunteerAssigned)}
                 >
                   <Text style={styles.buttonText}>Volunteer Info</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.actionButton, { backgroundColor: "#b3eedc" }]} onPress={handleprivatechat}>
+                            <Text style={styles.buttonText}>Open Chat</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -425,7 +445,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 6,
-    marginVertical: 1,
+    marginVertical: 4,
     width: '70%',
     alignItems: 'center',
     marginLeft: 55,
