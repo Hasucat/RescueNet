@@ -13,11 +13,13 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const VolunteerStatus = () => {
   const [rescue, setRescue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [locationModalVisible, setLocationModalVisible] = useState(false);
+  const [volunteer, setVolunteer] = useState(null);
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const currentUser = auth.currentUser;
@@ -71,7 +73,31 @@ const VolunteerStatus = () => {
       console.error(error);
     }
   };
-
+  const handleprivatechat = async (rescue) => {
+    if (!rescue) return;
+    if (rescue.status.toLowerCase() !== 'accepted') {
+      Alert.alert('Not Allowed', 'Chat is only available once the rescue is accepted.');
+      return;
+    }
+    try {
+          const volDoc = await getDoc(doc(db, "volunteers", volunteerUid));
+          if (volDoc.exists()) {
+            setVolunteer(volDoc.data());
+            setVolModalVisible(true);
+          } else {
+            Alert.alert("Info", "No volunteer info found.");
+          }
+        } catch (error) {
+          Alert.alert("Error", "Failed to fetch volunteer info.");
+        }
+    // Navigate to RescueChat screen with the necessary parameters (rescueId, volunteerId, userId)
+    useNavigation.navigate('RescueChat', {
+      rescueId: rescue.id,
+      volunteerPhnNum: volunteer.phone,
+      userPhnNum : rescue.phone,
+       
+    });
+  };
   // Action: Mark rescue as Completed
   const handleMarkCompleted = async () => {
     if (!rescue) return;
@@ -184,6 +210,9 @@ const VolunteerStatus = () => {
         <View style={styles.actionsContainer}>
           <TouchableOpacity style={styles.actionButton} onPress={handleConfirmArrival}>
             <Text style={styles.buttonText}>Confirm Arrival</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: "#b3eedc" }]} onPress={handleprivatechat}>
+            <Text style={styles.buttonText}>Open Chat</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#c9371a' }]} onPress={openCancelModal}>
             <Text style={styles.buttonText}>Cancel Request</Text>
