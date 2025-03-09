@@ -1,72 +1,69 @@
 # RescueNet
 
-RescueNet is a mobile application designed to assist in disaster response by deploying volunteers to areas in need and ensuring efficient aid delivery. It optimizes decision-making and resource allocation through incident analysis and provides real-time alerts and community feedback for effective crisis management.
+RescueNet is a mobile app created to improve disaster response by efficiently coordinating volunteers and resources. It helps manage emergencies by providing real-time alerts, streamlining volunteer deployment, and enabling effective decision-making through incident analysis and community feedback.
+
+RescueNet features both user and volunteer interfaces to address disaster and emergency response needs. The volunteer dashboard ensures real-time updates, while key sections such as Emergency Contacts, Shelter Site Information, and Disaster Information allow users to filter contact details, access offline data, and track disaster-related measures. The project utilizes Firebase for database management.
 
 ## Project Structure
+- **Frontend**: Built using React Native and Expo.<br>
+- **Backend**: Node.js and Firebase for real-time database and authentication.
 
-
+## Key Features:
+- Volunteer Deployment and Request Management.<br>
+- Effective Rescue Request Management.<br>
+- Real-time Emergency Alerts.<br>
+- Offline access to essential disaster information and measures history saved.<br>
+- Offline Shelter site and Emergency contact information filtering and direct call options.<br>
+- Food, Funding, and Apparel Donations Tracking.<br>
+- All Donation History and Transaction History Storage.<br>
 
 ## Getting Started
 
 ### Prerequisites
-
-- Node.js
-- npm or yarn
-- Firebase account
+Before running the application, ensure you have the following installed:
+- Node.js (Latest stable version recommended)<br>
+- npm or yarn (for package management)<br>
+- Expo Go App (A mobile app available in Play Store)<br>
 
 ### Installation
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/RescueNet.git
-    cd RescueNet
-    ```
+1. **Clone the Repository:**
+   Open a new project-folder (where the project will be cloned) and right-click to open that in the terminal. Then, run:<br>
 
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
+   ```bash
+   git clone https://github.com/Hasucat/RescueNet.git
+   ```
 
-3. Set up Firebase:
-    - Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
-    - Add an Android app to your Firebase project and follow the instructions to download the `google-services.json` file.
-    - Place the `google-services.json` file in the `android/app` directory.
+   To open the project in the VScode editor, run in that same terminal:
 
-4. Configure environment variables:
-    - Create a `.env` file in the root directory and add the necessary environment variables. Example:
-    ```
-    API_KEY=your_api_key
-    AUTH_DOMAIN=your_auth_domain
-    PROJECT_ID=your_project_id
-    STORAGE_BUCKET=your_storage_bucket
-    MESSAGING_SENDER_ID=your_messaging_sender_id
-    APP_ID=your_app_id
-    MEASUREMENT_ID=your_measurement_id
+   ```bash
+    code .
+   ```
+
+3. **Install dependencies:**
+    When the project-folder is open with code in preferred editor, right-click to got to editor's integrated terminal and run:<br>
+
+    ```bash
+    yarn add expo
     ```
 
 ### Running the Application
 
-1. Start the development server:
-    ```sh
-    npm start
-    ```
+1. Ensure that your computer and mobile device are connected to the same network (WiFi or internet). Then,
+   
+   **Start the Development Server:**
 
-2. Open the Expo app on your mobile device and scan the QR code to run the application.
+   Run the following command in the integrated terminal:
 
-## Project Structure Details
+   ```bash
+    npx expo start
+   ```
 
-### Screens
+3. A QR code will be generated. Press **'s'** to make it scannable via the Expo Go app.
+4. **Run the Application on Mobile:**
 
-- `About.js`: Displays information about the RescueNet application.
-- `RescueRequests.js`: Manages rescue requests and allows volunteers to accept them.
-- `Survey.js`: Collects user feedback on the application's usability and satisfaction.
-- `UserStatus.js`: Displays the status of rescue requests made by the user.
-- `VolunteerStatus.js`: Displays the status of rescue requests accepted by the volunteer.
-
-### Firebase
-
-- `firebase.js`: Initializes Firebase and exports the necessary Firebase services.
-
-## License
-
-This project is licensed under the MIT License.
+    1. Open the Expo Go app on your mobile device.<br>
+    2. Scan the QR code displayed in your terminal.<br>
+    3. Select "Expo Go" when prompted.<br>
+    
+   The project will start building and launch on your device.
